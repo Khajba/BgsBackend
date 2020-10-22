@@ -4,7 +4,15 @@ using System.Text;
 
 namespace Bgs.Core.Exceptions
 {
-    class BgsException
+
+   public class BgsException : Exception
     {
+        public BgsExceptionType Type { get; set; }
+
+        public BgsException(BgsExceptionType type)
+        {
+            Type = type;
+        }
+
     }
 }
