@@ -16,7 +16,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         }
 
         [HttpGet("login")]
-        public ResponseMessage Login(LoginUserModel model)
+        public ResponseMessage Login([FromQuery] LoginUserModel model)
         {
             _userService.AuthenticateUser(model.Email, model.Password);
 

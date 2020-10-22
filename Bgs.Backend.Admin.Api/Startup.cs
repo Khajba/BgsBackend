@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bgs.Bll;
 using Bgs.Bll.Abstract;
+using Bgs.Dal;
+using Bgs.Dal.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +30,7 @@ namespace Bgs.Backend.Admin.Api
         {
             services.AddCors();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddControllers();
         }
 
