@@ -17,5 +17,5 @@ bld/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
-/.vs/RemediumSystem
+/.vs/BoardGameStore
 /RS.UserService.Tests/RS.UserService.Tests.csproj.user
