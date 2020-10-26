@@ -25,7 +25,5 @@ namespace Bgs.Backend.Admin.Api.Controllers
                 IsSeccess = true
             };
         }
-
-
     }
 }
