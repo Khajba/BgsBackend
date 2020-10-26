@@ -22,7 +22,7 @@ namespace Bgs.Infrastructure.Api.Authorization
             _signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
         }
 
-        public string CreateToken(string userId, string role = null, IDictionary<string, string> claims = null)
+        public string CreateToken(int userId, string role = null, IDictionary<string, string> claims = null)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {

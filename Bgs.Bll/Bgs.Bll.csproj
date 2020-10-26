@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bgs.common\Bgs.Common.csproj" />
+    <ProjectReference Include="..\Bgs.Core\Bgs.Core.csproj" />
     <ProjectReference Include="..\Bgs.Dal\Bgs.Dal.csproj" />
   </ItemGroup>
 

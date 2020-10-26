@@ -24,7 +24,9 @@ namespace Bgs.Backend.Admin.Api
         {
             services.AddCors();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IInternalUserService, InternalUserService>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IInternalUserRepository, InternalUserRepository>();
             services.AddControllers();
             services.AddBgsAuthorization();
         }
