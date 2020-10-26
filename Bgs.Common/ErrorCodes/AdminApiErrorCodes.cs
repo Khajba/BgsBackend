@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bgs.Common.ErrorCodes
+﻿namespace Bgs.Common.ErrorCodes
 {
     public enum AdminApiErrorCodes
     {
-        EmailOrPasswordIncorrect = 1;
+        EmailOrPasswordIncorrect = 1
     }
 }

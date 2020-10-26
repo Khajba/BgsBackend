@@ -19,16 +19,14 @@ namespace Bgs.Bll
         {
             var user = _internalUserRepository.GetUserByCredentials(email, password);
 
-            if(user == null)
+            if (user == null)
             {
                 throw new BgsException((int)AdminApiErrorCodes.EmailOrPasswordIncorrect);
             }
-
             else
             {
                 return user;
             }
-            
         }
     }
 }

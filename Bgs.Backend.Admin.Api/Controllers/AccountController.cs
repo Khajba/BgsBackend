@@ -19,16 +19,17 @@ namespace Bgs.Backend.Admin.Api.Controllers
         }
 
         [HttpGet("login")]
-        public ResponseMessage Login([FromQuery] LoginUserModel model)
+        public IActionResult Login([FromQuery] LoginUserModel model)
         {
             var internalUser = _internaluserService.AuthenticateUser(model.Email, model.Password);
-            var token = _jwtHandler.CreateToken(internalUser.Id);
-            return new ResponseMessage<string>
-            {
-                IsSeccess = true,
-                Data = token
 
-            };
+            var jwt = _jwtHandler.CreateToken(internalUser.Id);
+
+            return Ok(new AuthenticationResponseModel
+            {
+                Email = internalUser.Email,
+                Jwt = jwt
+            });
         }
     }
 }

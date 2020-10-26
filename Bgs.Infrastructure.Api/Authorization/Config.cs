@@ -18,7 +18,7 @@ namespace Bgs.Infrastructure.Api.Authorization
                 configuration = serviceProvider.GetService<IConfiguration>();
             }
 
-            var jwtSection = configuration.GetSection(section ?? "jwt");
+            var jwtSection = configuration.GetSection(section ?? "Jwt");
             var options = jwtSection.Get<JwtOptions>();
 
             services.Configure<JwtOptions>(jwtSection);

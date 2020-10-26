@@ -3,6 +3,7 @@ using Bgs.Bll.Abstract;
 using Bgs.Dal;
 using Bgs.Dal.Abstract;
 using Bgs.Infrastructure.Api.Authorization;
+using Bgs.Infrastructure.Api.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +38,8 @@ namespace Bgs.Backend.Admin.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<GlobalExceptionHandler>();
 
             app.UseCors(options =>
             {
