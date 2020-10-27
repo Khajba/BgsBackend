@@ -1,6 +1,7 @@
 ﻿using Bgs.Backend.Admin.Api.Models;
 using Bgs.Bll.Abstract;
 using Bgs.Infrastructure.Api.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bgs.Backend.Admin.Api.Controllers
@@ -30,6 +31,15 @@ namespace Bgs.Backend.Admin.Api.Controllers
                 Email = internalUser.Email,
                 Jwt = jwt
             });
+        }
+
+        [HttpGet("refreshToken")]
+        [Authorize]
+        public IActionResult RefreshToken()
+        {
+            var jwt = _jwtHandler.RefreshToken(User.Claims);
+
+            return Ok(jwt);
         }
     }
 }

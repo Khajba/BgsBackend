@@ -44,10 +44,21 @@ namespace Bgs.Infrastructure.Api.Authorization
             var customClaims = claims?.Select(claim => new Claim(claim.Key, claim.Value)).ToArray()
                                ?? Array.Empty<Claim>();
             jwtClaims.AddRange(customClaims);
+
+            return GetTokenFromClaims(jwtClaims);
+        }
+
+        public JsonWebToken RefreshToken(IEnumerable<Claim> claims) =>
+            GetTokenFromClaims(claims);
+
+        private JsonWebToken GetTokenFromClaims(IEnumerable<Claim> claims)
+        {
+            var now = DateTime.UtcNow;
+
             var expires = now.AddMinutes(_options.ExpiryMinutes);
             var jwt = new JwtSecurityToken(
                 issuer: _options.Issuer,
-                claims: jwtClaims,
+                claims: claims,
                 notBefore: now,
                 expires: expires,
                 signingCredentials: _signingCredentials
@@ -58,7 +69,7 @@ namespace Bgs.Infrastructure.Api.Authorization
             return new JsonWebToken
             {
                 AccessToken = token,
-                Expires = expires.ToTimestamp()
+                ExpiresInMinutes = _options.ExpiryMinutes
             };
         }
     }
