@@ -24,10 +24,14 @@ namespace Bgs.Backend.Admin.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+            // services
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IInternalUserService, InternalUserService>();
             services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IInternalUserRepository, InternalUserRepository>();
+            services.AddSingleton<IProductService, ProductService>();
+            // repositories
+            services.AddSingleton<IInternalUserRepository, InternalUserRepository>();            
+            services.AddSingleton<IProductRepository, ProductRepository>();
             services.AddControllers();
             services.AddBgsAuthorization();
         }
