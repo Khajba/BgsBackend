@@ -22,18 +22,16 @@ namespace Bgs.Infrastructure.Api.Authorization
             _signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
         }
 
-        public string CreateToken(string userId, string role = null, IDictionary<string, string> claims = null)
+        public JsonWebToken CreateToken(int userId, string role = null, IDictionary<string, string> claims = null)
         {
-            if (string.IsNullOrWhiteSpace(userId))
-            {
+            if (userId == default)
                 throw new ArgumentException("User id claim can not be empty.", nameof(userId));
-            }
 
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userId),
-                new Claim(JwtRegisteredClaimNames.UniqueName, userId),
+                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
             };
@@ -55,7 +53,13 @@ namespace Bgs.Infrastructure.Api.Authorization
                 signingCredentials: _signingCredentials
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
+            var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            return new JsonWebToken
+            {
+                AccessToken = token,
+                Expires = expires.ToTimestamp()
+            };
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Bgs.Backend.Admin.Api.Models;
 using Bgs.Bll.Abstract;
+using Bgs.Infrastructure.Api.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bgs.Backend.Admin.Api.Controllers
@@ -8,22 +9,27 @@ namespace Bgs.Backend.Admin.Api.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IInternalUserService _internaluserService;
+        private readonly IJwtHandler _jwtHandler;
 
-        public AccountController(IUserService userService)
+        public AccountController(IInternalUserService internalUserService, IJwtHandler jwtHandler)
         {
-            _userService = userService;
+            _internaluserService = internalUserService;
+            _jwtHandler = jwtHandler;
         }
 
         [HttpGet("login")]
-        public ResponseMessage Login([FromQuery] LoginUserModel model)
+        public IActionResult Login([FromQuery] LoginUserModel model)
         {
-            _userService.AuthenticateUser(model.Email, model.Password);
+            var internalUser = _internaluserService.AuthenticateUser(model.Email, model.Password);
 
-            return new ResponseMessage
+            var jwt = _jwtHandler.CreateToken(internalUser.Id);
+
+            return Ok(new AuthenticationResponseModel
             {
-                IsSeccess = true
-            };
+                Email = internalUser.Email,
+                Jwt = jwt
+            });
         }
     }
 }

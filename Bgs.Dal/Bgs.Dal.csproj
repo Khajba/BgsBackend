@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bgs.common\Bgs.Common.csproj" />
+    <ProjectReference Include="..\Bgs.DataConnectionManager.SqlServer\Bgs.DataConnectionManager.SqlServer.csproj" />
   </ItemGroup>
 
 </Project>

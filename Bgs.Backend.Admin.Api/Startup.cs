@@ -3,6 +3,7 @@ using Bgs.Bll.Abstract;
 using Bgs.Dal;
 using Bgs.Dal.Abstract;
 using Bgs.Infrastructure.Api.Authorization;
+using Bgs.Infrastructure.Api.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +25,9 @@ namespace Bgs.Backend.Admin.Api
         {
             services.AddCors();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IInternalUserService, InternalUserService>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IInternalUserRepository, InternalUserRepository>();
             services.AddControllers();
             services.AddBgsAuthorization();
         }
@@ -35,6 +38,8 @@ namespace Bgs.Backend.Admin.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<GlobalExceptionHandler>();
 
             app.UseCors(options =>
             {
