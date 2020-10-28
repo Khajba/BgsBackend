@@ -10,47 +10,72 @@ namespace Bgs.Dal
 {
     public class ProductRepository : SqlServerRepository, IProductRepository
     {
-        private const string _schemaInternalUser = "Product";
+        private const string _SchemaProduct = "Product";
         public ProductRepository(IConfiguration configuration)
              : base(configuration, configuration.GetConnectionString("MainDatabase"))
         {
 
         }
-        public void AddProduct(Product product)
+        public void AddProduct(string name, float price, int categoryId, string description, int statusId)
         {
-            throw new NotImplementedException();
-        }
+            using(var cmd = GetSpCommand($"{_SchemaProduct}.AddProduct"))
+            {
+                cmd.AddParameter("Name", name);
+                cmd.AddParameter("Price", price);
+                cmd.AddParameter("CategoryId", categoryId);
+                cmd.AddParameter("Description", description);
+                cmd.AddParameter("StatudId", statusId);
 
-        public bool DeleteProduct(int id)
-        {
-            throw new NotImplementedException();
-        }
+                cmd.ExecuteNonQuery();
+            }
+        }        
 
-        public bool EditProduct(Product product)
+        public void UpdateProduct(int id, string name, float price, int categoryId, string description)
         {
-            throw new NotImplementedException();
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateProduct"))
+            {
+                cmd.AddParameter("Id", id);
+                cmd.AddParameter("Name", name);
+                cmd.AddParameter("Price", price);
+                cmd.AddParameter("CategoryId", categoryId);
+                cmd.AddParameter("Description", description);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public Product GetById(int id)
         {
             throw new NotImplementedException();
-        }
+        }        
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<ProductType> GetProductCategories()
         {
-            using (var cmd = GetSpCommand($"{_schemaInternalUser}.GetProducts"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductCategories"))
             {
-
-
-                return cmd.ExecuteReaderClosed<Product>();
+                return cmd.ExecuteReaderClosed<ProductType>();
             }
         }
 
-        public IEnumerable<ProductType> GetProductTypes()
+        public void UdateProductStatus(int id, int statusId)
         {
-            using (var cmd = GetSpCommand($"{_schemaInternalUser}.GetProductTypes"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateProductStatus"))
             {
-                return cmd.ExecuteReaderClosed<ProductType>();
+                cmd.AddParameter("Id", id);
+                cmd.AddParameter("StatusId", statusId);
+                
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public IEnumerable<Product> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
+            {
+
+                cmd.AddParameter("StatusIdActive", statusId);
+                return cmd.ExecuteReaderClosed<Product>();
             }
         }
     }

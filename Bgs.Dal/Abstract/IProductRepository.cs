@@ -1,20 +1,22 @@
 ﻿using Bgs.Common.Entities;
+using Bgs.Common.Enum;
 using System.Collections.Generic;
+using System.Threading.Tasks.Dataflow;
 
 namespace Bgs.Dal.Abstract
 {
     public interface IProductRepository
     {
-        public void AddProduct(Product product);
+        public void AddProduct(string name, float price, int categoryId, string description, int statusId);
 
-        public bool EditProduct(Product product);
+        public void UpdateProduct(int id, string name, float price, int categoryId, string description);
 
-        public bool DeleteProduct(int id);
+        public void UdateProductStatus(int id, int statusId);
 
-        public IEnumerable<Product> GetProducts();
+        public IEnumerable<Product> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? statusId);
 
         public Product GetById(int id);
 
-        public IEnumerable<ProductType> GetProductTypes();
+        public IEnumerable<ProductType> GetProductCategories();
     }
 }

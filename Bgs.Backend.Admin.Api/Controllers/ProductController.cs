@@ -18,12 +18,44 @@ namespace Bgs.Backend.Admin.Api.Controllers
         {
             _productService = productService;
         }
-        [HttpGet("getProductType")]
-        public IActionResult GetProductType()
+
+        [HttpGet("getProductCategories")]
+        public IActionResult GetProductCategories()
         {
-            var types = _productService.GetProductTypes();
+            var types = _productService.GetProductCategories();
             return Ok(types);
         }
+
+        [HttpPost("AddProduct")]
+        public IActionResult AddProduct(AddProductModel model)
+        {
+            _productService.AddProduct(model.Name, model.Price.Value, model.CategoryId.Value, model.Description);
+            return Ok();
+
+        }
+
+        [HttpPost("UpdateProduct")]
+        public IActionResult UpdateProduct(UpdateProductModel model)
+        {
+            _productService.UpdateProduct(model.Id, model.Name, model.Price.Value, model.CategoryId.Value, model.Description);
+            return Ok();
+        }
+
+        [HttpPost("DeleteProduct")]
+        public IActionResult DeleteProduct(DeleteProductModel model)
+        {
+            _productService.DeleteProduct(model.Id);
+            return Ok();
+        }
+
+        [HttpGet("GetProducts")]
+        public IActionResult GetProduct(ProductFilterModel model)
+        {
+            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo);
+            return Ok(products);
+        }
+
+
 
 
     }
