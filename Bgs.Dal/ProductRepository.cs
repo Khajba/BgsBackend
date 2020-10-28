@@ -16,7 +16,7 @@ namespace Bgs.Dal
         {
 
         }
-        public void AddProduct(string name, float price, int categoryId, string description, int statusId)
+        public int AddProduct(string name, float price, int categoryId, string description, int statusId)
         {
             using(var cmd = GetSpCommand($"{_SchemaProduct}.AddProduct"))
             {
@@ -24,9 +24,9 @@ namespace Bgs.Dal
                 cmd.AddParameter("Price", price);
                 cmd.AddParameter("CategoryId", categoryId);
                 cmd.AddParameter("Description", description);
-                cmd.AddParameter("StatudId", statusId);
+                cmd.AddParameter("StatusId", statusId);
 
-                cmd.ExecuteNonQuery();
+               return cmd.ExecuteReaderPrimitiveClosed<int>("Id");
             }
         }        
 

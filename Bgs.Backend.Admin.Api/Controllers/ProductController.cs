@@ -29,8 +29,8 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpPost("AddProduct")]
         public IActionResult AddProduct(AddProductModel model)
         {
-            _productService.AddProduct(model.Name, model.Price.Value, model.CategoryId.Value, model.Description);
-            return Ok();
+            var id = _productService.AddProduct(model.Name, model.Price.Value, model.CategoryId.Value, model.Description);
+            return Ok(id);
 
         }
 
