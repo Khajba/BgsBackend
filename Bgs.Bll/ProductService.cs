@@ -1,10 +1,9 @@
 ﻿using Bgs.Bll.Abstract;
+using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
 using Bgs.Common.Enum;
 using Bgs.Dal.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bgs.Bll
 {
@@ -12,16 +11,16 @@ namespace Bgs.Bll
     {
         private readonly IProductRepository _productRepository;
 
-        public  ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
 
-        
+
 
         public int AddProduct(string name, float price, int categoryId, string description)
         {
-            return _productRepository.AddProduct(name, price, categoryId,description,(int)ProductStatus.Active);
+            return _productRepository.AddProduct(name, price, categoryId, description, (int)ProductStatus.Active);
         }
 
         public void DeleteProduct(int id)
@@ -35,10 +34,9 @@ namespace Bgs.Bll
             return productType;
         }
 
-        public IEnumerable<Product> GetProducts(string name, float? priceFrom,float? priceTo, int? categoryId, int? stockFrom, int? stockTo)
+        public IEnumerable<ProductDto> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? stockTo)
         {
-            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active
-                );
+            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active);
         }
 
         public void UpdateProduct(int id, string name, float price, int categoryId, string description)

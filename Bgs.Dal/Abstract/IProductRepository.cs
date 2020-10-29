@@ -1,4 +1,5 @@
-﻿using Bgs.Common.Entities;
+﻿using Bgs.Common.Dtos;
+using Bgs.Common.Entities;
 using Bgs.Common.Enum;
 using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
@@ -13,7 +14,7 @@ namespace Bgs.Dal.Abstract
 
         public void UdateProductStatus(int id, int statusId);
 
-        public IEnumerable<Product> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? statusId);
+        public IEnumerable<ProductDto> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? statusId);
 
         public Product GetById(int id);
 

@@ -49,7 +49,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         }
 
         [HttpGet("GetProducts")]
-        public IActionResult GetProduct(ProductFilterModel model)
+        public IActionResult GetProduct([FromQuery] ProductFilterModel model)
         {
             var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo);
             return Ok(products);

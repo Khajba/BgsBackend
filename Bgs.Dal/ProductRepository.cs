@@ -1,4 +1,5 @@
-﻿using Bgs.Common.Entities;
+﻿using Bgs.Common.Dtos;
+using Bgs.Common.Entities;
 using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer;
 using Bgs.DataConnectionManager.SqlServer.Extensions;
@@ -69,13 +70,13 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<Product> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId)
+        public IEnumerable<ProductDto> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
 
                 cmd.AddParameter("StatusIdActive", statusId);
-                return cmd.ExecuteReaderClosed<Product>();
+                return cmd.ExecuteReaderClosed<ProductDto>();
             }
         }
     }
