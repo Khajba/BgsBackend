@@ -4,7 +4,6 @@ using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer;
 using Bgs.DataConnectionManager.SqlServer.Extensions;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 
 namespace Bgs.Dal
@@ -17,9 +16,10 @@ namespace Bgs.Dal
         {
 
         }
-        public int AddProduct(string name, float price, int categoryId, string description, int statusId)
+
+        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId)
         {
-            using(var cmd = GetSpCommand($"{_SchemaProduct}.AddProduct"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProduct"))
             {
                 cmd.AddParameter("Name", name);
                 cmd.AddParameter("Price", price);
@@ -27,11 +27,11 @@ namespace Bgs.Dal
                 cmd.AddParameter("Description", description);
                 cmd.AddParameter("StatusId", statusId);
 
-               return cmd.ExecuteReaderPrimitiveClosed<int>("Id");
+                return cmd.ExecuteReaderPrimitiveClosed<int>("Id");
             }
-        }        
+        }
 
-        public void UpdateProduct(int id, string name, float price, int categoryId, string description)
+        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateProduct"))
             {
@@ -45,11 +45,6 @@ namespace Bgs.Dal
             }
         }
 
-        public Product GetById(int id)
-        {
-            throw new NotImplementedException();
-        }        
-
         public IEnumerable<ProductType> GetProductCategories()
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductCategories"))
@@ -58,25 +53,76 @@ namespace Bgs.Dal
             }
         }
 
-        public void UdateProductStatus(int id, int statusId)
+        public void UpdateProductStatus(int id, int statusId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateProductStatus"))
             {
                 cmd.AddParameter("Id", id);
                 cmd.AddParameter("StatusId", statusId);
-                
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, float? priceFrom, float? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId)
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
-
                 cmd.AddParameter("StatusIdActive", statusId);
+
                 return cmd.ExecuteReaderClosed<ProductDto>();
+            }
+        }
+
+        public Product GetProductById(int id)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductById"))
+            {
+                cmd.AddParameter("Id", id);
+
+                return cmd.ExecuteReaderSingleClosed<Product>();
+            }
+        }
+
+        public IEnumerable<ProductAttachment> GetProductAttachments(int id)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductAttachments"))
+            {
+                cmd.AddParameter("ProductId", id);
+
+                return cmd.ExecuteReaderClosed<ProductAttachment>();
+            }
+        }
+
+        public int? GetProductStock(int productId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductStock"))
+            {
+                cmd.AddParameter("ProductId", productId);
+
+                return cmd.ExecuteReaderPrimitiveClosed<int?>("Quantity");
+            }
+        }
+
+        public void AddProductStock(int productId, int quantity)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProductStock"))
+            {
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("Quantity", quantity);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateProductStock(int productId, int quantity)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateProductStock"))
+            {
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("Quantity", quantity);
+
+                cmd.ExecuteNonQuery();
             }
         }
     }
