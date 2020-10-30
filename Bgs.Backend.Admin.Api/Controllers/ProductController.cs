@@ -82,5 +82,12 @@ namespace Bgs.Backend.Admin.Api.Controllers
             return Ok(count);
         }
 
+        [HttpPost("UploadImages")]
+        public IActionResult UploadImages([FromForm] UploadProductImageModel model)
+        {
+            _productService.AddProductImage(model.ProductId, model.Files);
+            return Ok();
+        }
+
     }
 }

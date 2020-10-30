@@ -3,6 +3,8 @@ using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
 using Bgs.Common.Enum;
 using Bgs.Dal.Abstract;
+using Bgs.DataConnectionManager.SqlServer.SqlClient;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace Bgs.Bll
@@ -10,6 +12,12 @@ namespace Bgs.Bll
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IMultimediaService _multimediaService;
+
+        public ProductService(IMultimediaService multimediaService)
+        {
+            _multimediaService = multimediaService;
+        }
 
         public ProductService(IProductRepository productRepository)
         {
@@ -72,6 +80,21 @@ namespace Bgs.Bll
         public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo)
         {
             return _productRepository.GetProductsCount(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active);
+        }
+
+        public void AddProductImage(int productId, IEnumerable<IFormFile> files)
+        {
+            using(var transaction = new BgsTransactionScope())
+            {
+                foreach (var file in files)
+                {
+                    var attachmentUrl = _multimediaService.AddImage(file);
+                    _productRepository.AddProductAttachment(productId, attachmentUrl);
+                }
+
+                transaction.Complete();
+            }
+            
         }
     }
 }

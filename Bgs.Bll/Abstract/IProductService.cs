@@ -1,5 +1,6 @@
 ﻿using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace Bgs.Bll.Abstract
@@ -22,5 +23,6 @@ namespace Bgs.Bll.Abstract
 
         public int GetProductStock(int productId);
         public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo);
+        public void AddProductImage(int productId, IEnumerable<IFormFile> files);
     }
 }

@@ -150,5 +150,16 @@ namespace Bgs.Dal
                 return cmd.ExecuteReaderPrimitiveClosed<int>("Count");
             }
         }
+
+        public void AddProductAttachment(int productId, string attachmentUrl)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProductAttachment"))
+            {
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("AttachmentUrl", attachmentUrl);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

@@ -19,5 +19,8 @@ namespace Bgs.Common.Dtos
         public string Description { get; set; }
 
         public int Stock { get; set; }
+
+        
+
     }
 }
