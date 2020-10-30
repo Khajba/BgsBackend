@@ -45,9 +45,9 @@ namespace Bgs.Backend.Admin.Api.Controllers
         }
 
         [HttpGet("getProducts")]
-        public IActionResult GetProduct([FromQuery] ProductFilterModel model)
+        public IActionResult GetProducts([FromQuery] ProductFilterModel model)
         {
-            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo);
+            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo, model.PageNumber, model.PageSize);
             return Ok(products);
         }
 
@@ -58,7 +58,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
 
             return Ok(product);
         }
-        
+
 
         [HttpPost("addProductStock")]
         public IActionResult AddProductStock(AddProductStockModel model)
@@ -74,5 +74,13 @@ namespace Bgs.Backend.Admin.Api.Controllers
             var productStock = _productService.GetProductStock(productId);
             return Ok(productStock);
         }
+
+        [HttpGet("getProductsCount")]
+        public IActionResult GetProductsCount([FromQuery] ProductFilterModel model)
+        {
+            var count = _productService.GetProductsCount(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo);
+            return Ok(count);
+        }
+
     }
 }

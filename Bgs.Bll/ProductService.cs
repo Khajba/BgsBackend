@@ -32,9 +32,9 @@ namespace Bgs.Bll
             return productType;
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo)
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? PageSize)
         {
-            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active);
+            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active);
         }
 
         public void UpdateProduct(int id, string name, decimal price, int categoryId, string description)
@@ -67,6 +67,11 @@ namespace Bgs.Bll
         {
             var productStock = _productRepository.GetProductStock(productId);
             return productStock ?? 0;
+        }
+
+        public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo)
+        {
+            return _productRepository.GetProductsCount(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active);
         }
     }
 }

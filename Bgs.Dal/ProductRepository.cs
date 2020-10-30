@@ -64,7 +64,7 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId)
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo,int? pageNumber, int? pageSize, int? statusId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
@@ -75,6 +75,8 @@ namespace Bgs.Dal
                 cmd.AddParameter("CategoryId", categoryId);
                 cmd.AddParameter("StockFrom", stockFrom);
                 cmd.AddParameter("StockTo", stockTo);
+                cmd.AddParameter("PageNumber", pageNumber);
+                cmd.AddParameter("PageSize", pageSize);
 
                 return cmd.ExecuteReaderClosed<ProductDto>();
             }
@@ -129,6 +131,23 @@ namespace Bgs.Dal
                 cmd.AddParameter("Quantity", quantity);
 
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductsCount"))
+            {
+                cmd.AddParameter("StatusIdActive", statusId);
+                cmd.AddParameter("Name", name);
+                cmd.AddParameter("PriceFrom", priceFrom);
+                cmd.AddParameter("PriceTo", priceTo);
+                cmd.AddParameter("CategoryId", categoryId);
+                cmd.AddParameter("StockFrom", stockFrom);
+                cmd.AddParameter("StockTo", stockTo);
+                
+
+                return cmd.ExecuteReaderPrimitiveClosed<int>("Count");
             }
         }
     }

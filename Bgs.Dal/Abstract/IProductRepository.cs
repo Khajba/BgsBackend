@@ -12,7 +12,7 @@ namespace Bgs.Dal.Abstract
 
         public void UpdateProductStatus(int id, int statusId);
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? statusId);
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo,int? pageNumber, int? pageSize, int? statusId);
 
         public IEnumerable<ProductType> GetProductCategories();
 
@@ -25,5 +25,6 @@ namespace Bgs.Dal.Abstract
         public void AddProductStock(int productId, int quantity);
 
         public void UpdateProductStock(int productId, int quantity);
+        public int GetProductsCount(string name, decimal?priceFrom, decimal? priceTo,int? categoryId, int? stockFrom, int? stockTo, int? statusId);
     }
 }
