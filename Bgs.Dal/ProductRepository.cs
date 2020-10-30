@@ -69,6 +69,12 @@ namespace Bgs.Dal
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
                 cmd.AddParameter("StatusIdActive", statusId);
+                cmd.AddParameter("Name", name);
+                cmd.AddParameter("PriceFrom", priceFrom);
+                cmd.AddParameter("PriceTo", priceTo);
+                cmd.AddParameter("CategoryId", categoryId);
+                cmd.AddParameter("StockFrom", stockFrom);
+                cmd.AddParameter("StockTo", stockTo);
 
                 return cmd.ExecuteReaderClosed<ProductDto>();
             }

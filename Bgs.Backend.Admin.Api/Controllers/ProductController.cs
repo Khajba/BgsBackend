@@ -58,6 +58,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
 
             return Ok(product);
         }
+        
 
         [HttpPost("addProductStock")]
         public IActionResult AddProductStock(AddProductStockModel model)
