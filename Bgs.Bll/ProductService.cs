@@ -14,14 +14,10 @@ namespace Bgs.Bll
         private readonly IProductRepository _productRepository;
         private readonly IMultimediaService _multimediaService;
 
-        public ProductService(IMultimediaService multimediaService)
-        {
-            _multimediaService = multimediaService;
-        }
-
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IMultimediaService multimediaService)
         {
             _productRepository = productRepository;
+            _multimediaService = multimediaService;
         }
 
         public int AddProduct(string name, decimal price, int categoryId, string description)
@@ -59,8 +55,8 @@ namespace Bgs.Bll
 
         public void AddProductQuantity(int productId, int quantity)
         {
-
             var currentQuantity = _productRepository.GetProductStock(productId);
+
             if (currentQuantity == null)
             {
                 _productRepository.AddProductStock(productId, quantity);
@@ -82,9 +78,9 @@ namespace Bgs.Bll
             return _productRepository.GetProductsCount(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active);
         }
 
-        public void AddProductImage(int productId, IEnumerable<IFormFile> files)
+        public void AddProductAttachment(int productId, IEnumerable<IFormFile> files)
         {
-            using(var transaction = new BgsTransactionScope())
+            using (var transaction = new BgsTransactionScope())
             {
                 foreach (var file in files)
                 {
@@ -94,7 +90,11 @@ namespace Bgs.Bll
 
                 transaction.Complete();
             }
-            
+        }
+
+        public IEnumerable<ProductAttachment> GetProductAttachments(int productId)
+        {
+            return _productRepository.GetProductAttachments(productId);
         }
     }
 }

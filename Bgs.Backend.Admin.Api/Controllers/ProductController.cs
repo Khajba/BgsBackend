@@ -1,6 +1,8 @@
 ﻿using Bgs.Backend.Admin.Api.Models;
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Net.Mime;
 
 namespace Bgs.Backend.Admin.Api.Controllers
 {
@@ -82,12 +84,26 @@ namespace Bgs.Backend.Admin.Api.Controllers
             return Ok(count);
         }
 
-        [HttpPost("UploadImages")]
-        public IActionResult UploadImages([FromForm] UploadProductImageModel model)
+        [HttpPost("addProductAttachments")]
+        public IActionResult AddProductAttachments([FromForm] AddProductAttachmentsModel model)
         {
-            _productService.AddProductImage(model.ProductId, model.Files);
+            _productService.AddProductAttachment(model.ProductId, model.Files);
             return Ok();
         }
 
+        [HttpGet("getProductAttachments")]
+        public IActionResult GetProductsAttachments(int productId)
+        {
+            var attachments = _productService.GetProductAttachments(productId);
+            return Ok(attachments);
+        }
+
+        [HttpGet("getAttachment")]
+        public IActionResult GetAttachment(string fileName)
+        {
+            var filePath = Path.Combine("c:\\UploadedFiles", fileName);
+
+            return PhysicalFile(filePath, MediaTypeNames.Image.Jpeg);
+        }
     }
 }

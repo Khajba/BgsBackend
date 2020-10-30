@@ -22,7 +22,11 @@ namespace Bgs.Bll.Abstract
         public void AddProductQuantity(int productId, int quantity);
 
         public int GetProductStock(int productId);
+
         public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo);
-        public void AddProductImage(int productId, IEnumerable<IFormFile> files);
+
+        public void AddProductAttachment(int productId, IEnumerable<IFormFile> files);
+
+        public IEnumerable<ProductAttachment> GetProductAttachments(int productId);
     }
 }

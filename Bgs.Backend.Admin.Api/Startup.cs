@@ -29,6 +29,7 @@ namespace Bgs.Backend.Admin.Api
             services.AddSingleton<IInternalUserService, InternalUserService>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<IMultimediaService, FileSystemMultimediaService>();
             // repositories
             services.AddSingleton<IInternalUserRepository, InternalUserRepository>();            
             services.AddSingleton<IProductRepository, ProductRepository>();
