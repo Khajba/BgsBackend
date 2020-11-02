@@ -1,6 +1,7 @@
 ﻿using Bgs.Backend.Admin.Api.Models;
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Net.Mime;
 
@@ -11,10 +12,13 @@ namespace Bgs.Backend.Admin.Api.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly string _fileSystemPath;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IConfiguration configuration)
         {
             _productService = productService;
+
+            _fileSystemPath = configuration["FileSystemPath"];
         }
 
         [HttpGet("getProductCategories")]
@@ -61,7 +65,6 @@ namespace Bgs.Backend.Admin.Api.Controllers
             return Ok(product);
         }
 
-
         [HttpPost("addProductStock")]
         public IActionResult AddProductStock(AddProductStockModel model)
         {
@@ -101,7 +104,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpGet("getAttachment")]
         public IActionResult GetAttachment(string fileName)
         {
-            var filePath = Path.Combine("c:\\UploadedFiles", fileName);
+            var filePath = Path.Combine($"{_fileSystemPath}/UploadedImages", fileName);
 
             return PhysicalFile(filePath, MediaTypeNames.Image.Jpeg);
         }
@@ -112,7 +115,6 @@ namespace Bgs.Backend.Admin.Api.Controllers
             _productService.SetPrimaryAttachment(model.ProductId, model.AttachmentId);
             return Ok();
         }
-
 
         [HttpPost("RemoveProductAttachment")]
         public IActionResult RemoveProductAttachment(RemoveAttachmentModel model)

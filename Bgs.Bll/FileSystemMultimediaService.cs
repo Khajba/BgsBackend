@@ -1,5 +1,6 @@
 ﻿using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Linq;
@@ -10,11 +11,18 @@ namespace Bgs.Bll
     {
         private static Random _random = new Random();
 
+        private readonly string _fileSystemPath;
+
+        public FileSystemMultimediaService(IConfiguration configuration)
+        {
+            _fileSystemPath = configuration["FileSystemPath"];
+        }
+
         public string AddImage(IFormFile file)
         {
             var fileName = RandomString(10);
             var fileExtension = Path.GetExtension(file.FileName);
-            var filePath = Path.Combine("c:\\UploadedFiles", $"{fileName}{fileExtension}");
+            var filePath = Path.Combine($"{_fileSystemPath}/UploadedImages", $"{fileName}{fileExtension}");
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
