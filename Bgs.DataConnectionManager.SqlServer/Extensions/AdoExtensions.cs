@@ -132,6 +132,21 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
             return command.ExecuteReaderClosed(callback).FirstOrDefault();
         }
 
+        public static T ExecuteReaderPrimitive<T>(this IDbCommand command, string name)
+        {
+            using var reader = command.ExecuteReader();
+            {
+                var isPresented = reader.Read();
+
+                if (!isPresented)
+                    return default;
+
+                var val = reader[name].ToString();
+
+                return ParseEntry<T>(val);
+            }
+        }
+
         public static T ExecuteReaderPrimitiveClosed<T>(this IDbCommand command, string name)
         {
             try

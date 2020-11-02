@@ -1,5 +1,11 @@
 ﻿using Bgs.Bll.Abstract;
+using Bgs.Common.Entities;
+using Bgs.Common.Enum;
+using Bgs.Common.ErrorCodes;
+using Bgs.Core.Exceptions;
 using Bgs.Dal.Abstract;
+using Bgs.DataConnectionManager.SqlServer.SqlClient;
+using System;
 
 namespace Bgs.Bll
 {
@@ -12,12 +18,38 @@ namespace Bgs.Bll
             _userRepository = userRepository;
         }
 
-        public bool AuthenticateUser(string email, string password)
+        public User AuthenticateUser(string email, string password)
         {
             var user = _userRepository.GetByCredentials(email, password);
 
-            return user != null;
+            if (user == null)
+            {
+                throw new BgsException((int)AdminApiErrorCodes.EmailOrPasswordIncorrect);
+            }
+            else
+            {
+                return user;
+            }
 
+        }
+
+        public User GetUserById(int Id)
+        {
+            return _userRepository.GetUserById(Id);
+        }
+
+        public void RegisterUser(string email, string firstname, string lastname, string password)
+        {
+            using (var transaction = new BgsTransactionScope())
+            {
+                var pin = _userRepository.GetAvailablePincode();
+                _userRepository.AddUser(email, firstname, lastname, password, (int)UserStatus.Active, pin);
+                _userRepository.ReleasePincode(pin, DateTime.Now);
+
+
+                transaction.Complete();
+            }
+            
         }
     }
 }

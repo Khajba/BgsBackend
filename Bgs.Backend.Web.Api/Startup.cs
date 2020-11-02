@@ -1,3 +1,9 @@
+using Bgs.Bll;
+using Bgs.Bll.Abstract;
+using Bgs.Dal;
+using Bgs.Dal.Abstract;
+using Bgs.Infrastructure.Api.Authorization;
+using Bgs.Infrastructure.Api.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +23,18 @@ namespace Bgs.Backend.Web.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            //Services
+
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<IMultimediaService, FileSystemMultimediaService>();
+            // repositories
+            
+            services.AddSingleton<IProductRepository, ProductRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddControllers();
+            services.AddBgsAuthorization();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -26,10 +43,19 @@ namespace Bgs.Backend.Web.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware<GlobalExceptionHandler>();
+
+            app.UseCors(options =>
+            {
+                options.AllowAnyOrigin();
+                options.AllowAnyMethod();
+                options.AllowAnyHeader();
+            });
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
             {
