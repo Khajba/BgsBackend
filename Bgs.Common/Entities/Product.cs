@@ -17,8 +17,7 @@ namespace Bgs.Common.Entities
 
         public int Stock { get; set; }
 
-        public string PrimaryAttachmentUrl =>
-            Attachments.FirstOrDefault(a => a.IsPrimary)?.AttachmentUrl;
+        public string PrimaryAttachmentUrl { get; set; }
 
         public IEnumerable<ProductAttachment> Attachments { get; set; }
     }
