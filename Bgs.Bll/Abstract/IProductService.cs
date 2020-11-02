@@ -28,7 +28,9 @@ namespace Bgs.Bll.Abstract
         public void AddProductAttachment(int productId, IEnumerable<IFormFile> files);
 
         public IEnumerable<ProductAttachment> GetProductAttachments(int productId);
+
         public void SetPrimaryAttachment(int productId, int attachmentId);
+
         public void RemoveProductAttachment(int attachmentId);
     }
 }

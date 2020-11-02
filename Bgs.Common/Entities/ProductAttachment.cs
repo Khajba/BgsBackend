@@ -3,7 +3,7 @@
     public class ProductAttachment
     {
         public int Id { get; set; }
+
         public string AttachmentUrl { get; set; }
-        
     }
 }
