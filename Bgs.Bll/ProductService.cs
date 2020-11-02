@@ -96,5 +96,15 @@ namespace Bgs.Bll
         {
             return _productRepository.GetProductAttachments(productId);
         }
+
+        public void SetPrimaryAttachment(int productId, int attachmentId)
+        {
+            _productRepository.SetPrimaryAttachment(productId, attachmentId);
+        }
+
+        public void RemoveProductAttachment(int attachmentId)
+        {
+            _productRepository.RemoveProductAttachment(attachmentId);
+        }
     }
 }

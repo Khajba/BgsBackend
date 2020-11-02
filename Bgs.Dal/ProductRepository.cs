@@ -64,7 +64,7 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo,int? pageNumber, int? pageSize, int? statusId)
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
@@ -145,7 +145,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("CategoryId", categoryId);
                 cmd.AddParameter("StockFrom", stockFrom);
                 cmd.AddParameter("StockTo", stockTo);
-                
+
 
                 return cmd.ExecuteReaderPrimitiveClosed<int>("Count");
             }
@@ -158,6 +158,28 @@ namespace Bgs.Dal
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("AttachmentUrl", attachmentUrl);
 
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SetPrimaryAttachment(int productId, int attachmentId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.SetPrimaryAttachment"))
+            {
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("AttachmentId", attachmentId);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void RemoveProductAttachment(int attachmentId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.RemoveProductAttachment"))
+            {
+                
+                cmd.AddParameter("Id", attachmentId);
+                
                 cmd.ExecuteNonQuery();
             }
         }

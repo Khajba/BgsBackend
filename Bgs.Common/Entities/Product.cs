@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bgs.Common.Entities
 {
@@ -16,7 +17,8 @@ namespace Bgs.Common.Entities
 
         public int Stock { get; set; }
 
-        public string PrimaryAttachmentUrl { get; set; }
+        public string PrimaryAttachmentUrl =>
+            Attachments.FirstOrDefault(a => a.IsPrimary)?.AttachmentUrl;
 
         public IEnumerable<ProductAttachment> Attachments { get; set; }
     }

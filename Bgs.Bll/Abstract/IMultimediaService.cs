@@ -8,5 +8,6 @@ namespace Bgs.Bll.Abstract
     public interface IMultimediaService
     {
         public string AddImage(IFormFile file);
+        
     }
 }

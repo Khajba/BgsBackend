@@ -105,5 +105,20 @@ namespace Bgs.Backend.Admin.Api.Controllers
 
             return PhysicalFile(filePath, MediaTypeNames.Image.Jpeg);
         }
+
+        [HttpPost("SetPrimaryAttachment")]
+        public IActionResult SetPrimaryAttachment(SetPrimaryAttachmentModel model)
+        {
+            _productService.SetPrimaryAttachment(model.ProductId, model.AttachmentId);
+            return Ok();
+        }
+
+
+        [HttpPost("RemoveProductAttachment")]
+        public IActionResult RemoveProductAttachment(RemoveAttachmentModel model)
+        {
+            _productService.RemoveProductAttachment(model.AttachmentId);
+            return Ok();
+        }
     }
 }
