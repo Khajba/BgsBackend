@@ -17,18 +17,19 @@ namespace Bgs.Dal
 
         }
         
-        public User GetByCredentials(string email, string password)
+        public User GetByCredentials(string email, string password, int statusId)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetUserByCredentials"))
             {
                 cmd.AddParameter("Email", email);
                 cmd.AddParameter("Password", password);
+                cmd.AddParameter("StatusIdActive", statusId);
 
                 return cmd.ExecuteReaderSingleClosed<User>();
             }
         }
 
-        public void AddUser(string email, string firstname, string lastname, string password, int statusId, int pincode)
+        public void AddUser(string email, string firstname, string lastname, string password, int statusId, string pincode)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.AddUser"))
             {
@@ -43,19 +44,19 @@ namespace Bgs.Dal
             };
         }
 
-        public int GetAvailablePincode()
+        public string GetAvailablePincode()
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetAvailablePincode"))
             {
-                return cmd.ExecuteReaderPrimitive<int>("Pincode");
+                return cmd.ExecuteReaderPrimitive<string>("Pincode");
             };
         }
 
-        public void ReleasePincode(int pin, DateTime releaseDate)
+        public void ReleasePincode(string pincode, DateTime releaseDate)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.ReleasePincode"))
             {
-                cmd.AddParameter("Pincode", pin);
+                cmd.AddParameter("Pincode", pincode);
                 cmd.AddParameter("ReleaseDate", releaseDate);
                 cmd.ExecuteNonQuery();
             }
@@ -66,6 +67,17 @@ namespace Bgs.Dal
             using (var cmd = GetSpCommand($"{_schemaUser}.GetUserById"))
             {
                 cmd.AddParameter("Id", Id);
+
+                return cmd.ExecuteReaderSingleClosed<User>();
+            }
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetUserByEmail"))
+            {
+                cmd.AddParameter("Email", email);
+
 
                 return cmd.ExecuteReaderSingleClosed<User>();
             }

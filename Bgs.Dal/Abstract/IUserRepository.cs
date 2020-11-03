@@ -5,14 +5,15 @@ namespace Bgs.Dal.Abstract
 {
     public interface IUserRepository
     {
-        public void AddUser(string email, string firstname, string lastname, string password, int statudId, int pincode);
+        public User GetUserByEmail ( string email);
+        public void AddUser(string email, string firstname, string lastname, string password, int statudId, string pincode);
 
         public User GetUserById(int Id);
 
-        public int GetAvailablePincode();
+        public string GetAvailablePincode();
 
-        public void ReleasePincode(int pin, DateTime releaseDate);
+        public void ReleasePincode(string pincode, DateTime releaseDate);
 
-        public User GetByCredentials(string email, string password);
+        public User GetByCredentials(string email, string password, int statusId);
     }
 }

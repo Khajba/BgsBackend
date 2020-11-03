@@ -3,6 +3,7 @@ using Bgs.Common.Entities;
 using Bgs.Common.ErrorCodes;
 using Bgs.Core.Exceptions;
 using Bgs.Dal.Abstract;
+using Bgs.Utility.Extensions;
 
 namespace Bgs.Bll
 {
@@ -17,7 +18,7 @@ namespace Bgs.Bll
 
         public InternalUser AuthenticateUser(string email, string password)
         {
-            var user = _internalUserRepository.GetUserByCredentials(email, password);
+            var user = _internalUserRepository.GetUserByCredentials(email, password.ToSHA256(email));
 
             if (user == null)
             {

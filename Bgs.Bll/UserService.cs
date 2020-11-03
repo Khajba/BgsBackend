@@ -5,6 +5,7 @@ using Bgs.Common.ErrorCodes;
 using Bgs.Core.Exceptions;
 using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer.SqlClient;
+using Bgs.Utility.Extensions;
 using System;
 
 namespace Bgs.Bll
@@ -20,11 +21,18 @@ namespace Bgs.Bll
 
         public User AuthenticateUser(string email, string password)
         {
-            var user = _userRepository.GetByCredentials(email, password);
+            var user = _userRepository.GetUserByEmail(email);
+
+            if (user.StatusId != (int)UserStatus.Active)
+            {
+                throw new BgsException((int)WebApiErrorCodes.EmailOrPasswordIncorrect);
+            }
+
+            user = _userRepository.GetByCredentials(email, password.ToSHA256(user.Pincode), (int)UserStatus.Active);
 
             if (user == null)
             {
-                throw new BgsException((int)AdminApiErrorCodes.EmailOrPasswordIncorrect);
+                throw new BgsException((int)WebApiErrorCodes.EmailOrPasswordIncorrect);
             }
             else
             {
@@ -42,9 +50,9 @@ namespace Bgs.Bll
         {
             using (var transaction = new BgsTransactionScope())
             {
-                var pin = _userRepository.GetAvailablePincode();
-                _userRepository.AddUser(email, firstname, lastname, password, (int)UserStatus.Active, pin);
-                _userRepository.ReleasePincode(pin, DateTime.Now);
+                var pincode =  _userRepository.GetAvailablePincode();
+                _userRepository.AddUser(email, firstname, lastname, password.ToSHA256(pincode), (int)UserStatus.Active, pincode);
+                _userRepository.ReleasePincode(pincode, DateTime.Now);
 
 
                 transaction.Complete();
