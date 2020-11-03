@@ -1,5 +1,6 @@
 ﻿using Bgs.Backend.Admin.Api.Models;
 using Bgs.Bll.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.IO;
@@ -9,6 +10,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
