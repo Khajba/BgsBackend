@@ -7,12 +7,12 @@ namespace Bgs.Backend.Web.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IJwtHandler _jwtHandler;
 
-        public UserController(IUserService userService, IJwtHandler jwtHandler)
+        public AccountController(IUserService userService, IJwtHandler jwtHandler)
         {
             _userService = userService;
             _jwtHandler = jwtHandler;

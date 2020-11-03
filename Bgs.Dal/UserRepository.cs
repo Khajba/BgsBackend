@@ -31,6 +31,7 @@ namespace Bgs.Dal
 
         public void AddUser(string email, string firstname, string lastname, string password, int statusId, string pincode)
         {
+            
             using (var cmd = GetSpCommand($"{_schemaUser}.AddUser"))
             {
                 cmd.AddParameter("Email", email);
@@ -58,6 +59,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("Pincode", pincode);
                 cmd.AddParameter("ReleaseDate", releaseDate);
+
                 cmd.ExecuteNonQuery();
             }
         }

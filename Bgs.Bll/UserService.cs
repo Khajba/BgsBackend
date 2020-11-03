@@ -48,16 +48,22 @@ namespace Bgs.Bll
 
         public void RegisterUser(string email, string firstname, string lastname, string password)
         {
+            var pincode = _userRepository.GetAvailablePincode();
+            var user = _userRepository.GetUserByEmail(email);
+
+            if (user != null){
+                throw new BgsException((int)WebApiErrorCodes.EmailAlreadyExists);
+            }
+
             using (var transaction = new BgsTransactionScope())
             {
-                var pincode =  _userRepository.GetAvailablePincode();
+
                 _userRepository.AddUser(email, firstname, lastname, password.ToSHA256(pincode), (int)UserStatus.Active, pincode);
                 _userRepository.ReleasePincode(pincode, DateTime.Now);
 
-
                 transaction.Complete();
             }
-            
+
         }
     }
 }

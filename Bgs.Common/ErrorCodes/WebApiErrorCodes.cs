@@ -6,6 +6,7 @@ namespace Bgs.Common.ErrorCodes
 {
     public enum WebApiErrorCodes
     {
-        EmailOrPasswordIncorrect = 1
+        EmailOrPasswordIncorrect = 1,
+        EmailAlreadyExists
     }
 }
