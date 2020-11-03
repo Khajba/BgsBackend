@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bgs.Backend.Web.Api.Models
+namespace Bgs.Backend.Admin.Api.Models
 {
-    public class UpdateUserModel
+    public class CategoryModel
     {
+        
     }
 }

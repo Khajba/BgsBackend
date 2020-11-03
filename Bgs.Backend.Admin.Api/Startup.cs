@@ -30,9 +30,11 @@ namespace Bgs.Backend.Admin.Api
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<IMultimediaService, FileSystemMultimediaService>();
+            services.AddSingleton<ICategoryService, CategoryService>();
             // repositories
             services.AddSingleton<IInternalUserRepository, InternalUserRepository>();            
             services.AddSingleton<IProductRepository, ProductRepository>();
+            services.AddSingleton<ICategoryRepository, CategoryRepository>();
             services.AddControllers();
             services.AddBgsAuthorization();
         }

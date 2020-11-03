@@ -20,5 +20,9 @@ namespace Bgs.Common.Entities
         public string PrimaryAttachmentUrl { get; set; }
 
         public IEnumerable<ProductAttachment> Attachments { get; set; }
+
+        public int ArtistId { get; set; }
+
+        public int DesignerId { get; set; }
     }
 }
