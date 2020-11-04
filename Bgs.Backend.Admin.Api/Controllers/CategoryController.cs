@@ -1,11 +1,13 @@
-﻿using Bgs.Bll.Abstract;
+﻿using Bgs.Backend.Admin.Api.Models.Category;
+using Bgs.Bll.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bgs.Backend.Admin.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -15,42 +17,42 @@ namespace Bgs.Backend.Admin.Api.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpPost("AddArtist")]
-        public IActionResult AddArtist([FromBody] string name)
+        [HttpPost("addArtist")]
+        public IActionResult AddArtist(AddCategoryModel model)
         {
-            _categoryService.AddArtist(name);
+            _categoryService.AddArtist(model.Name);
             return Ok();
         }
 
-        [HttpPost("DeleteArtist")]
-        public IActionResult DeleteArtist([FromBody] int Id)
+        [HttpPost("deleteArtist")]
+        public IActionResult DeleteArtist(DeleteCategoryModel model)
         {
-            _categoryService.DeleteArtist(Id);
+            _categoryService.DeleteArtist(model.Id.Value);
             return Ok();
         }
 
-        [HttpGet("GetArtists")]
+        [HttpGet("getArtists")]
         public IActionResult GetArtists()
         {
             var artists = _categoryService.GetArtists();
             return Ok(artists);
         }
 
-        [HttpPost("AddDesigner")]
-        public IActionResult AddDesigner([FromBody] string name)
+        [HttpPost("addDesigner")]
+        public IActionResult AddDesigner(AddCategoryModel model)
         {
-            _categoryService.AddDesigner(name);
+            _categoryService.AddDesigner(model.Name);
             return Ok();
         }
 
-        [HttpPost("DeleteDesigner")]
-        public IActionResult DeleteDesigner([FromBody] int Id)
+        [HttpPost("deleteDesigner")]
+        public IActionResult DeleteDesigner(DeleteCategoryModel model)
         {
-            _categoryService.DeleteDesigner(Id);
+            _categoryService.DeleteDesigner(model.Id.Value);
             return Ok();
         }
 
-        [HttpGet("GetDesigners")]
+        [HttpGet("getDesigners")]
         public IActionResult GetDesigners()
         {
             var designers = _categoryService.GetDesigners();

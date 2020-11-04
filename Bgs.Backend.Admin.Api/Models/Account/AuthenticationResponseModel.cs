@@ -1,6 +1,6 @@
 ﻿using Bgs.Infrastructure.Api.Authorization;
 
-namespace Bgs.Backend.Admin.Api.Models
+namespace Bgs.Backend.Admin.Api.Models.Account
 {
     public class AuthenticationResponseModel
     {

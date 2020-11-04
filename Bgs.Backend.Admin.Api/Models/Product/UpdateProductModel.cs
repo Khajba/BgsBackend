@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bgs.Backend.Admin.Api.Models
+namespace Bgs.Backend.Admin.Api.Models.Product
 {
     public class UpdateProductModel
     {
         [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public string Name { get; set; }

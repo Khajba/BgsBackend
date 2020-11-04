@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bgs.Backend.Admin.Api.Models
+namespace Bgs.Backend.Admin.Api.Models.Product
 {
     public class AddProductStockModel
     {

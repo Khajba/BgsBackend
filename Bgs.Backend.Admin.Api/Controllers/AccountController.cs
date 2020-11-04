@@ -1,4 +1,4 @@
-﻿using Bgs.Backend.Admin.Api.Models;
+﻿using Bgs.Backend.Admin.Api.Models.Account;
 using Bgs.Bll.Abstract;
 using Bgs.Infrastructure.Api.Authorization;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +20,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         }
 
         [HttpGet("login")]
-        public IActionResult Login([FromQuery] LoginUserModel model)
+        public IActionResult Login([FromQuery] AuthenticateUserModel model)
         {
             var internalUser = _internaluserService.AuthenticateUser(model.Email, model.Password);
 

@@ -1,4 +1,4 @@
-﻿namespace Bgs.Backend.Admin.Api.Models
+﻿namespace Bgs.Backend.Admin.Api.Models.Product
 {
     public class ProductFilterModel
     {
@@ -13,7 +13,9 @@
         public int? StockFrom { get; set; }
 
         public int? StockTo { get; set; }
+
         public int? PageNumber { get; set; }
+
         public int? PageSize { get; set; }
     }
 }

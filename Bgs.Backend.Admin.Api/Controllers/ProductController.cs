@@ -1,4 +1,4 @@
-﻿using Bgs.Backend.Admin.Api.Models;
+﻿using Bgs.Backend.Admin.Api.Models.Product;
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,14 +41,14 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpPost("updateProduct")]
         public IActionResult UpdateProduct(UpdateProductModel model)
         {
-            _productService.UpdateProduct(model.Id, model.Name, model.Price.Value, model.CategoryId.Value, model.Description);
+            _productService.UpdateProduct(model.Id.Value, model.Name, model.Price.Value, model.CategoryId.Value, model.Description);
             return Ok();
         }
 
         [HttpPost("deleteProduct")]
         public IActionResult DeleteProduct(DeleteProductModel model)
         {
-            _productService.DeleteProduct(model.Id);
+            _productService.DeleteProduct(model.Id.Value);
             return Ok();
         }
 
@@ -92,7 +92,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpPost("addProductAttachments")]
         public IActionResult AddProductAttachments([FromForm] AddProductAttachmentsModel model)
         {
-            _productService.AddProductAttachment(model.ProductId, model.Files);
+            _productService.AddProductAttachment(model.ProductId.Value, model.Files);
             return Ok();
         }
 
@@ -112,16 +112,16 @@ namespace Bgs.Backend.Admin.Api.Controllers
         }
 
         [HttpPost("SetPrimaryAttachment")]
-        public IActionResult SetPrimaryAttachment(SetPrimaryAttachmentModel model)
+        public IActionResult SetPrimaryAttachment(SetProductPrimaryAttachmentModel model)
         {
-            _productService.SetPrimaryAttachment(model.ProductId, model.AttachmentId);
+            _productService.SetPrimaryAttachment(model.ProductId.Value, model.AttachmentId.Value);
             return Ok();
         }
 
         [HttpPost("RemoveProductAttachment")]
-        public IActionResult RemoveProductAttachment(RemoveAttachmentModel model)
+        public IActionResult RemoveProductAttachment(RemoveProductAttachmentModel model)
         {
-            _productService.RemoveProductAttachment(model.AttachmentId);
+            _productService.RemoveProductAttachment(model.AttachmentId.Value);
             return Ok();
         }
     }
