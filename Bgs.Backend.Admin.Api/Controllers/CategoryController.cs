@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bgs.Bll.Abstract;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bgs.Backend.Admin.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -20,6 +14,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         {
             _categoryService = categoryService;
         }
+
         [HttpPost("AddArtist")]
         public IActionResult AddArtist([FromBody] string name)
         {
@@ -61,6 +56,5 @@ namespace Bgs.Backend.Admin.Api.Controllers
             var designers = _categoryService.GetDesigners();
             return Ok(designers);
         }
-
     }
 }

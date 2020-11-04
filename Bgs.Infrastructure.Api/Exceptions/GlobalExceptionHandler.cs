@@ -1,7 +1,6 @@
 ﻿using Bgs.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -26,7 +25,7 @@ namespace Bgs.Infrastructure.Api.Exceptions
             {
                 await HandleExceptionAsync(httpContext, (int)HttpStatusCode.BadRequest, (int)ex.Errorcode);
             }
-            catch(Exception ex)
+            catch
             {
                 await HandleExceptionAsync(httpContext, (int)HttpStatusCode.InternalServerError);
             }

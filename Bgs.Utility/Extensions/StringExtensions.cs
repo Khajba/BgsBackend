@@ -6,14 +6,17 @@ namespace Bgs.Utility.Extensions
 {
     public static class StringExtensions
     {
-        public static string ToSHA256(this string value, string salt)
+        public static string ToSHA256(this string value, string salt = null)
         {
-            var saltString = CreateSalt(salt);
-            var saltAndPwd = String.Concat(value, saltString);
+            string saltString = string.Empty;
+            if (!string.IsNullOrEmpty(salt))
+                saltString = CreateSalt(salt);
+
+            var saltAndPwd = string.Concat(value, saltString);
             var encoder = new UTF8Encoding();
             var sha256hasher = new SHA256Managed();
             var hashedDataBytes = sha256hasher.ComputeHash(encoder.GetBytes(saltAndPwd));
-            var hashedPwd = String.Concat(ByteArrayToString(hashedDataBytes), saltString);
+            var hashedPwd = string.Concat(ByteArrayToString(hashedDataBytes), saltString);
             return hashedPwd;
         }
 
@@ -31,7 +34,7 @@ namespace Bgs.Utility.Extensions
         {
             byte[] userBytes;
             string saltString;
-            userBytes = ASCIIEncoding.ASCII.GetBytes(salt);
+            userBytes = Encoding.ASCII.GetBytes(salt);
             var XORED = 0x00;
 
             foreach (int x in userBytes)
