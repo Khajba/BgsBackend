@@ -70,7 +70,7 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId)
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
@@ -82,7 +82,10 @@ namespace Bgs.Dal
                 cmd.AddParameter("StockFrom", stockFrom);
                 cmd.AddParameter("StockTo", stockTo);
                 cmd.AddParameter("PageNumber", pageNumber);
-                cmd.AddParameter("PageSize", pageSize);
+                cmd.AddParameter("Pagesize", pageSize);
+                cmd.AddParameter("ArtistId", artistId);
+                cmd.AddParameter("DesignerId", designerId);
+                cmd.AddParameter("MechanicsId", mechanicsId);
 
                 return cmd.ExecuteReaderClosed<ProductDto>();
             }

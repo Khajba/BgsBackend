@@ -18,5 +18,11 @@ namespace Bgs.Backend.Web.Api.Models
         public int? PageNumber { get; set; }
 
         public int? PageSize { get; set; }
+
+        public int? ArtistId { get; set; }
+
+        public int? DesignerId { get; set; }
+
+        public int? MechanicsId { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Bgs.Bll.Abstract
 
         public void DeleteProduct(int id);
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? pageNumber, int? pageSize);
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? pageNumber, int? pageSize, int? artistId, int? designerId, int? mechanicsId);
 
         public Product GetProductById(int id);
 

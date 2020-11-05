@@ -23,7 +23,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         [HttpGet("GetProducts")]
         public IActionResult GetProducts([FromQuery]ProductFIltermodel model)
         {
-            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, null, null, model.PageNumber, model.PageSize);
+            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, null, null, model.PageNumber, model.PageSize, model.ArtistId, model.DesignerId, model.MechanicsId);
             return Ok(products);
         }
 
