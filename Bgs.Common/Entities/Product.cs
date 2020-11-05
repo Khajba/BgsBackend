@@ -24,5 +24,7 @@ namespace Bgs.Common.Entities
         public int ArtistId { get; set; }
 
         public int DesignerId { get; set; }
+
+        public int MechanicsId { get; set; }
     }
 }

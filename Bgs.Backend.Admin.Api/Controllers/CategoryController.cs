@@ -7,7 +7,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -57,6 +57,28 @@ namespace Bgs.Backend.Admin.Api.Controllers
         {
             var designers = _categoryService.GetDesigners();
             return Ok(designers);
+        }
+
+
+        [HttpPost("addMechanics")]
+        public IActionResult AddMechanics(AddCategoryModel model)
+        {
+            _categoryService.AddMechanics(model.Name);
+            return Ok();
+        }
+
+        [HttpPost("DeleteMechanics")]
+        public IActionResult DeleteMechanics(DeleteCategoryModel model)
+        {
+            _categoryService.DeleteMechanics(model.Id.Value);
+            return Ok();
+        }
+
+        [HttpGet("getMechanics")]
+        public IActionResult GetMechanics()
+        {
+            var mechanics = _categoryService.GetMechanics();
+            return Ok(mechanics);
         }
     }
 }

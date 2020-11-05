@@ -9,10 +9,13 @@ namespace Bgs.Bll.Abstract
     {
         public void AddArtist(string name);
         public void AddDesigner(string name);
+        public void AddMechanics(string name);
         public IEnumerable<Artist> GetArtists();
-        public void DeleteArtist(int Id);
-        public void DeleteDesigner(int Id);
-        public IEnumerable<Designer> GetDesigners();
+        public void DeleteArtist(int id);
+        public void DeleteDesigner(int id);
+        public void DeleteMechanics(int id);
+        public IEnumerable<Designer> GetDesigners();               
+        public IEnumerable<Designer> GetMechanics();
 
     }
 }

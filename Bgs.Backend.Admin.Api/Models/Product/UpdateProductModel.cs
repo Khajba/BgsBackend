@@ -18,5 +18,14 @@ namespace Bgs.Backend.Admin.Api.Models.Product
 
         [Required]
         public string Description { get; set; }
+
+        [Required]
+        public string Artist { get; set; }
+
+        [Required]
+        public string Designer { get; set; }
+
+        [Required]
+        public string Mechanics { get; set; }
     }
 }

@@ -20,8 +20,13 @@ namespace Bgs.Common.Dtos
 
         public int Stock { get; set; }
         public string PrimaryAttachmentUrl { get; set; }
+        public string Artist { get; set; }
 
-        
+        public string Designer { get; set; }
+
+        public string Mechanics { get; set; }
+
+
 
     }
 }

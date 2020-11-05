@@ -6,9 +6,9 @@ namespace Bgs.Dal.Abstract
 {
     public interface IProductRepository
     {
-        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId);
+        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId, string artist, string designer, string mechanics);
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description);
+        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, string artist, string designer, string mechanics);
 
         public void UpdateProductStatus(int id, int statusId);
 
