@@ -33,7 +33,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpPost("addProduct")]
         public IActionResult AddProduct(AddProductModel model)
         {
-            var id = _productService.AddProduct(model.Name, model.Price.Value, model.CategoryId.Value, model.Description, model.Artist, model.Designer, model.Mechanics);
+            var id = _productService.AddProduct(model.Name, model.Price.Value, model.CategoryId.Value, model.Description, model.ArtistId, model.DesignerId, model.MechanicsId);
             return Ok(id);
 
         }
@@ -41,7 +41,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpPost("updateProduct")]
         public IActionResult UpdateProduct(UpdateProductModel model)
         {
-            _productService.UpdateProduct(model.Id.Value, model.Name, model.Price.Value, model.CategoryId.Value, model.Description, model.Artist, model.Designer, model.Mechanics);
+            _productService.UpdateProduct(model.Id.Value, model.Name, model.Price.Value, model.CategoryId.Value, model.Description, model.ArtistId, model.DesignerId, model.MechanicsId);
             return Ok();
         }
 

@@ -17,7 +17,7 @@ namespace Bgs.Dal
 
         }
 
-        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId, string artist, string designer, string mechanics)
+        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId, int? artist, int? designer, int? mechanics)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProduct"))
             {
@@ -34,7 +34,7 @@ namespace Bgs.Dal
             }
         }
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, string artist, string designer, string mechanics)
+        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateProduct"))
             {

@@ -17,12 +17,12 @@ namespace Bgs.Backend.Admin.Api.Models.Product
         public string Description { get; set; }
 
         [Required]
-        public string Artist { get; set; }
+        public int? ArtistId { get; set; }
 
         [Required]
-        public string Designer { get; set; }
+        public int? DesignerId { get; set; }
 
         [Required]
-        public string Mechanics { get; set; }
+        public int? MechanicsId { get; set; }
     }
 }

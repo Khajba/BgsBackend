@@ -20,7 +20,7 @@ namespace Bgs.Bll
             _multimediaService = multimediaService;
         }
 
-        public int AddProduct(string name, decimal price, int categoryId, string description, string  artist, string designer, string mechanics)
+        public int AddProduct(string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics)
         {
             return _productRepository.AddProduct(name, price, categoryId, description, (int)ProductStatus.Active, artist, designer, mechanics);
         }
@@ -41,7 +41,7 @@ namespace Bgs.Bll
             return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active);
         }
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, string artist, string designer, string mechanics)
+        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics)
         {
             _productRepository.UpdateProduct(id, name, price, categoryId, description, artist, designer, mechanics);
         }
