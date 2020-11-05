@@ -9,9 +9,9 @@ namespace Bgs.Bll.Abstract
     {
         public IEnumerable<ProductType> GetProductCategories();
 
-        public int AddProduct(string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics);
+        public int AddProduct(string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics);
+        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
 
         public void DeleteProduct(int id);
 

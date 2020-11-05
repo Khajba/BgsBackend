@@ -17,7 +17,7 @@ namespace Bgs.Dal
 
         }
 
-        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId, int? artist, int? designer, int? mechanics)
+        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId, int? artistId, int? designerId, int? mechanicsId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProduct"))
             {
@@ -26,15 +26,15 @@ namespace Bgs.Dal
                 cmd.AddParameter("CategoryId", categoryId);
                 cmd.AddParameter("Description", description);
                 cmd.AddParameter("StatusId", statusId);
-                cmd.AddParameter("Artist", artist);
-                cmd.AddParameter("Designer", designer);
-                cmd.AddParameter("Mechanics", mechanics);
+                cmd.AddParameter("ArtistId", artistId);
+                cmd.AddParameter("DesignerId", designerId);
+                cmd.AddParameter("MechanicsId", mechanicsId);
 
                 return cmd.ExecuteReaderPrimitiveClosed<int>("Id");
             }
         }
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics)
+        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateProduct"))
             {
@@ -43,9 +43,9 @@ namespace Bgs.Dal
                 cmd.AddParameter("Price", price);
                 cmd.AddParameter("CategoryId", categoryId);
                 cmd.AddParameter("Description", description);
-                cmd.AddParameter("Artist", artist);
-                cmd.AddParameter("Designer", designer);
-                cmd.AddParameter("Mechanics", mechanics);
+                cmd.AddParameter("ArtistId", artistId);
+                cmd.AddParameter("DesignerId", designerId);
+                cmd.AddParameter("MechanicsId", mechanicsId);
 
                 cmd.ExecuteNonQuery();
             }

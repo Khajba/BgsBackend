@@ -41,9 +41,9 @@ namespace Bgs.Bll
             return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active);
         }
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics)
+        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId)
         {
-            _productRepository.UpdateProduct(id, name, price, categoryId, description, artist, designer, mechanics);
+            _productRepository.UpdateProduct(id, name, price, categoryId, description, artistId, designerId, mechanicsId);
         }
 
         public Product GetProductById(int id)
