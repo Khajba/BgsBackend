@@ -27,6 +27,13 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok(products);
         }
 
+        [HttpGet("getProductCategories")]
+        public IActionResult GetProductCategories()
+        {
+            var products = _productService.GetProductCategories();
+            return Ok(products);
+        }
+
 
     }
 }
