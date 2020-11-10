@@ -1,6 +1,7 @@
 ﻿using Bgs.Backend.Web.Api.Models;
 using Bgs.Bll.Abstract;
 using Bgs.Infrastructure.Api.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bgs.Backend.Web.Api.Controllers
@@ -36,15 +37,26 @@ namespace Bgs.Backend.Web.Api.Controllers
         [HttpGet("login")]
         public IActionResult Login([FromQuery] LoginUserModel model)
         {
-            var User = _userService.AuthenticateUser(model.Email, model.Password);
+            var user = _userService.AuthenticateUser(model.Email, model.Password);
 
-            var jwt = _jwtHandler.CreateToken(User.Id);
+            var jwt = _jwtHandler.CreateToken(user.Id);
 
             return Ok(new AuthenticationResponseModel
             {
-                Email = User.Email,
+                Email = user.Email,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
                 Jwt = jwt
             });
+        }
+
+        [HttpGet("refreshToken")]
+        [Authorize]
+        public IActionResult RefreshToken()
+        {
+            var jwt = _jwtHandler.RefreshToken(User.Claims);
+
+            return Ok(jwt);
         }
     }
 }

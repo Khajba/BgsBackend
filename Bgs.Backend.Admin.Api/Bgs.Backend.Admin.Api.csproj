@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bgs.Bll\Bgs.Bll.csproj" />
-    <ProjectReference Include="..\Bgs.Dal\Bgs.Dal.csproj" />
     <ProjectReference Include="..\Bgs.Infrastructure.Api\Bgs.Infrastructure.Api.csproj" />
   </ItemGroup>
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Bgs.Backend.Web.Api.Models
 {
-    public class ProductFIltermodel
+    public class ProductFilterModel
     {
         public string Name { get; set; }
 
@@ -14,10 +14,10 @@ namespace Bgs.Backend.Web.Api.Models
         public decimal? PriceTo { get; set; }
 
         public int? CategoryId { get; set; }
-        
-        public int? PageNumber { get; set; }
 
-        public int? PageSize { get; set; }
+        public int? PageNumber { get; set; } = 0;
+
+        public int? PageSize { get; set; } = 10;
 
         public int? ArtistId { get; set; }
 
