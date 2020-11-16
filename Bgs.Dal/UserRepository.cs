@@ -1,4 +1,5 @@
-﻿using Bgs.Common.Entities;
+﻿using Bgs.Common.Dtos;
+using Bgs.Common.Entities;
 using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer;
 using Bgs.DataConnectionManager.SqlServer.Extensions;
@@ -16,7 +17,7 @@ namespace Bgs.Dal
         {
 
         }
-        
+
         public User GetByCredentials(string email, string password, int statusId)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetUserByCredentials"))
@@ -31,7 +32,7 @@ namespace Bgs.Dal
 
         public void AddUser(string email, string firstname, string lastname, string password, int statusId, string pincode)
         {
-            
+
             using (var cmd = GetSpCommand($"{_schemaUser}.AddUser"))
             {
                 cmd.AddParameter("Email", email);
@@ -80,8 +81,38 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("Email", email);
 
+                return cmd.ExecuteReaderSingle<User>();
+            }
+        }
 
-                return cmd.ExecuteReaderSingleClosed<User>();
+        public UserDetailsDto GetUserDetails(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetUserDetails"))
+            {
+                cmd.AddParameter("Id", userId);
+
+                return cmd.ExecuteReaderSingle<UserDetailsDto>();
+            }
+        }
+
+        public UserAddressDto GetUserAddress(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetUserAddress"))
+            {
+                cmd.AddParameter("UserId", userId);
+
+                return cmd.ExecuteReaderSingle<UserAddressDto>();
+
+            }
+        }
+
+        public UserPaymentDto GetUserPaymentDetails(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetPaymentDetails"))
+            {
+                cmd.AddParameter("UserId", userId);
+
+                return cmd.ExecuteReaderSingle<UserPaymentDto>();
             }
         }
     }

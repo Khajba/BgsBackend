@@ -1,4 +1,5 @@
 ﻿using Bgs.Bll.Abstract;
+using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
 using Bgs.Common.Enum;
 using Bgs.Common.ErrorCodes;
@@ -65,5 +66,21 @@ namespace Bgs.Bll
             }
 
         }
+
+        public UserDetailsDto GetUserDetails(int userId)
+        {
+            return _userRepository.GetUserDetails(userId);
+        }
+
+        public UserAddressDto GetUserAddress(int userId)
+        {
+            return _userRepository.GetUserAddress(userId);
+        }
+
+        public UserPaymentDto GetUserPaymentDetails(int userId)
+        {
+            return _userRepository.GetUserPaymentDetails(userId);
+        }
     }
+
 }

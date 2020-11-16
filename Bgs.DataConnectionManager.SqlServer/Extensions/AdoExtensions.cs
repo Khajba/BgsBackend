@@ -69,7 +69,7 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
             {
                 using var reader = command.ExecuteReader();
                 {
-                    return ExecuteReaderClosedInternal(reader, callback);
+                    return ExecuteReaderInternal(reader, callback);
                 }
             }
             finally
@@ -82,6 +82,15 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
             }
         }
 
+        public static IEnumerable<T> ExecuteReader<T>(this IDbCommand command, Action<T, IDataReader> callback = null)
+            where T : class, new()
+        {
+            using var reader = command.ExecuteReader();
+            {
+                return ExecuteReaderInternal(reader, callback);
+            }
+        }
+
         public static async Task<IEnumerable<T>> ExecuteReaderClosedAsync<T>(this IDbCommand command, Action<T, IDataReader> callback = null, CancellationToken cancellationToken = default)
            where T : class, new()
         {
@@ -89,7 +98,7 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
             {
                 using var reader = await ((BgsSqlCommand)command).ExecuteReaderAsync(cancellationToken);
                 {
-                    return ExecuteReaderClosedInternal<T>(reader, callback);
+                    return ExecuteReaderInternal<T>(reader, callback);
                 }
             }
             finally
@@ -107,7 +116,7 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
         {
             using var reader = await ((BgsSqlCommand)command).ExecuteReaderAsync(cancellationToken);
             {
-                return ExecuteReaderClosedInternal<T>(reader, callback).FirstOrDefault();
+                return ExecuteReaderInternal<T>(reader, callback).FirstOrDefault();
             }
         }
 
@@ -116,7 +125,7 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
         {
             using var reader = await ((BgsSqlCommand)command).ExecuteReaderAsync(cancellationToken);
             {
-                return ExecuteReaderClosedInternal<T>(reader, callback);
+                return ExecuteReaderInternal<T>(reader, callback);
             }
         }
 
@@ -124,6 +133,12 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
             where T : class, new()
         {
             return command.ExecuteReaderClosed<T>().FirstOrDefault();
+        }
+
+        public static T ExecuteReaderSingle<T>(this IDbCommand command)
+            where T : class, new()
+        {
+            return command.ExecuteReader<T>().FirstOrDefault();
         }
 
         public static T ExecuteReaderSingleClosed<T>(this IDbCommand command, Action<T, IDataReader> callback)
@@ -475,7 +490,7 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
             return (T)converter.ConvertFromString(entry);
         }
 
-        private static IEnumerable<T> ExecuteReaderClosedInternal<T>(IDataReader reader, Action<T, IDataReader> callback = null)
+        private static IEnumerable<T> ExecuteReaderInternal<T>(IDataReader reader, Action<T, IDataReader> callback = null)
             where T : class, new()
         {
             var entities = new List<T>();
