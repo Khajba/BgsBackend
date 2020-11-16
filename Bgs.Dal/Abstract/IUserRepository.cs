@@ -30,7 +30,17 @@ namespace Bgs.Dal.Abstract
         public void AddUserAddress(int userId,string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber);        
 
         public void UpdatePaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2);
+
         public void AddPaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2);
+
+        public void UpdateUserPassword(int userId, string password);
+
+        public void AddBalance(int userId, decimal balance);
+
+        public decimal GetBalance(int userId);
+
+        public UserForPasswordUpdateDto GetUserForPasswordUpdate(int userId);
+
 
     }
 }

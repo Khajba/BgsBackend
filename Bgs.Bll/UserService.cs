@@ -52,7 +52,8 @@ namespace Bgs.Bll
             var pincode = _userRepository.GetAvailablePincode();
             var user = _userRepository.GetUserByEmail(email);
 
-            if (user != null){
+            if (user != null)
+            {
                 throw new BgsException((int)WebApiErrorCodes.EmailAlreadyExists);
             }
 
@@ -90,7 +91,7 @@ namespace Bgs.Bll
         public void SaveUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber)
         {
             var address = _userRepository.GetUserAddress(userId);
-            if(address == null)
+            if (address == null)
             {
                 _userRepository.AddUserAddress(userId, fullName, line1, line2, city, state, zipCode, phoneNumber);
             }
@@ -104,7 +105,7 @@ namespace Bgs.Bll
         {
             var paymentDetails = _userRepository.GetUserPaymentDetails(userId);
 
-            if(paymentDetails == null)
+            if (paymentDetails == null)
             {
                 _userRepository.AddPaymentDetails(userId, cardholderName, cardNumber, expirationMonth, expirationYear, cvv2);
             }
@@ -115,6 +116,36 @@ namespace Bgs.Bll
             }
 
         }
+
+        public void ChangeUserPassword(int userId, string oldPassword, string newPassword)
+        {
+
+            var user = _userRepository.GetUserForPasswordUpdate(userId);
+
+            if(user.Password == oldPassword.ToSHA256(user.Pincode))
+            {
+                _userRepository.UpdateUserPassword(userId, newPassword.ToSHA256(user.Pincode));
+            }
+
+            else
+            {
+                throw new BgsException((int)WebApiErrorCodes.OldPasswordIsIncorrect);
+            }           
+
+
+        }
+
+        public void AddBalance(int userId, decimal balance)
+        {
+            _userRepository.AddBalance(userId, balance);
+        }
+
+        public decimal GetBalance(int userId)
+        {
+            return _userRepository.GetBalance(userId);
+        }
+
+
     }
 
 }

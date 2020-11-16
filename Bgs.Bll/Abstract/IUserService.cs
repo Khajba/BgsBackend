@@ -14,5 +14,8 @@ namespace Bgs.Bll.Abstract
         public UserDetailsDto GetUserDetails(int userId);
         public UserAddressDto GetUserAddress(int userId);
         public UserPaymentDto GetUserPaymentDetails(int userId);
+        public void ChangeUserPassword(int userId, string oldPassword, string newPassword);
+        public void AddBalance(int userId, decimal balance);
+        public decimal GetBalance(int userId);
     }
 }

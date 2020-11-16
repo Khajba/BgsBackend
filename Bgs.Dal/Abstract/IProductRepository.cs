@@ -25,9 +25,13 @@ namespace Bgs.Dal.Abstract
         public void AddProductStock(int productId, int quantity);
 
         public void UpdateProductStock(int productId, int quantity);
+
         public int GetProductsCount(string name, decimal?priceFrom, decimal? priceTo,int? categoryId, int? stockFrom, int? stockTo, int? statusId);
+
         public void AddProductAttachment(int productId, string attachmentUrl);
+
         public void SetPrimaryAttachment(int productId, int attachmentId);
+
         public void RemoveProductAttachment(int attachmentId);
     }
 }

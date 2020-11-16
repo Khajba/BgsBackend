@@ -190,5 +190,47 @@ namespace Bgs.Dal
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public void UpdateUserPassword(int userId,string password)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.UpdateUserPassword"))
+            {
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("Password", password);             
+                
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void AddBalance(int userId, decimal balance)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.AddBalance"))
+            {
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("Balance", balance);
+
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public decimal GetBalance(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetBalance"))
+            {
+                return cmd.ExecuteReaderPrimitive<decimal>("balance");
+            };
+        }
+
+        public UserForPasswordUpdateDto GetUserForPasswordUpdate(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetUserForPasswordUpdate"))
+            {
+                cmd.AddParameter("UserId", userId);
+
+                return cmd.ExecuteReaderSingle<UserForPasswordUpdateDto>();
+            }
+        }
     }
 }

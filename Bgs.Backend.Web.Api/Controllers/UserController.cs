@@ -60,6 +60,26 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok();
         }
 
+        [HttpPost("changeUserPassword")]
+        public IActionResult ChangeUserPassword(ChangeUserPasswordModel model)
+        {
+            _userService.ChangeUserPassword(CurrentUserId, model.OldPassword, model.NewPassword);
+            return Ok();
+        }
+
+        [HttpPost("addBalance")]
+        public IActionResult AddBalance(AddBalanceModel model)
+        {
+            _userService.AddBalance(CurrentUserId, model.Balance);
+            return Ok();
+        }
+
+        [HttpGet("getBalance")]
+        public IActionResult GetBalance()
+        {
+            var balance = _userService.GetBalance(CurrentUserId);
+            return Ok(balance);
+        }
 
     }
 }
