@@ -81,6 +81,40 @@ namespace Bgs.Bll
         {
             return _userRepository.GetUserPaymentDetails(userId);
         }
+
+        public void SaveDetails(string firstname, string lastname)
+        {
+            _userRepository.UpdateDetails(firstname, lastname);
+        }
+
+        public void SaveUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber)
+        {
+            var address = _userRepository.GetUserAddress(userId);
+            if(address == null)
+            {
+                _userRepository.AddUserAddress(userId, fullName, line1, line2, city, state, zipCode, phoneNumber);
+            }
+            else
+            {
+                _userRepository.UpdateUserAddress(userId, fullName, line1, line2, city, state, zipCode, phoneNumber);
+            }
+        }
+
+        public void SavePaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2)
+        {
+            var paymentDetails = _userRepository.GetUserPaymentDetails(userId);
+
+            if(paymentDetails == null)
+            {
+                _userRepository.AddPaymentDetails(userId, cardholderName, cardNumber, expirationMonth, expirationYear, cvv2);
+            }
+
+            else
+            {
+                _userRepository.UpdatePaymentDetails(userId, cardholderName, cardNumber, expirationMonth, expirationYear, cvv2);
+            }
+
+        }
     }
 
 }

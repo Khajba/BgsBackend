@@ -22,5 +22,15 @@ namespace Bgs.Dal.Abstract
         public UserAddressDto GetUserAddress(int userId);
 
         public UserPaymentDto GetUserPaymentDetails(int userId);
+
+        public void UpdateDetails(string firstname, string lastname);
+
+        public void UpdateUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber);
+
+        public void AddUserAddress(int userId,string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber);        
+
+        public void UpdatePaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2);
+        public void AddPaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2);
+
     }
 }

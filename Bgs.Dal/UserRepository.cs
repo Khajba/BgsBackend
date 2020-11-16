@@ -115,5 +115,80 @@ namespace Bgs.Dal
                 return cmd.ExecuteReaderSingle<UserPaymentDto>();
             }
         }
+
+        public void UpdateDetails(string firstname, string lastname)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.UpdateUserDetails"))
+            {
+                cmd.AddParameter("Firstname", firstname);
+                cmd.AddParameter("Lastname", lastname);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.UpdateUserAddress"))
+            {
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("FullName", fullName);
+                cmd.AddParameter("Line1", line1);
+                cmd.AddParameter("Line2", line2);
+                cmd.AddParameter("City", city);
+                cmd.AddParameter("State", state);
+                cmd.AddParameter("ZipCode", zipCode);
+                cmd.AddParameter("PhoneNumber", phoneNumber);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void AddUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.AddUserAddress"))
+            {
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("FullName", fullName);
+                cmd.AddParameter("Line1", line1);
+                cmd.AddParameter("Line2", line2);
+                cmd.AddParameter("City", city);
+                cmd.AddParameter("State", state);
+                cmd.AddParameter("ZipCode", zipCode);
+                cmd.AddParameter("PhoneNumber", phoneNumber);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdatePaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.UpdatePaymentDetails"))
+            {
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("CardholderName", cardholderName);
+                cmd.AddParameter("cardNumber", cardNumber);
+                cmd.AddParameter("ExpirationMonth", expirationMonth);
+                cmd.AddParameter("expirationYear", expirationYear);
+                cmd.AddParameter("Cvv2", cvv2);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void AddPaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.AddPaymentDetails"))
+            {
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("CardholderName", cardholderName);
+                cmd.AddParameter("cardNumber", cardNumber);
+                cmd.AddParameter("ExpirationMonth", expirationMonth);
+                cmd.AddParameter("expirationYear", expirationYear);
+                cmd.AddParameter("Cvv2", cvv2);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

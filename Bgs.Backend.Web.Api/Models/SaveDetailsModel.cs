@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Bgs.Backend.Web.Api.Models
 {
-    public class LoginUserModel
+    public class SaveDetailsModel
     {
         [Required]
-        public string Email { get; set; }
+        public string Firstname { get; set; }
+
         [Required]
-        public string Password { get; set; }
+        public string Lastname { get; set; }
+
     }
 }
