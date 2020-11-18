@@ -4,6 +4,7 @@ using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer;
 using Bgs.DataConnectionManager.SqlServer.Extensions;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 
 namespace Bgs.Dal
@@ -186,10 +187,53 @@ namespace Bgs.Dal
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.RemoveProductAttachment"))
             {
-                
+
                 cmd.AddParameter("Id", attachmentId);
-                
+
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        public ProductDetailsDto GetProductDetails(int productId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducDetails"))
+            {
+                cmd.AddParameter("Id", productId);
+
+                return cmd.ExecuteReaderSingleClosed<ProductDetailsDto>();
+            }
+        }
+
+        public IEnumerable<string> GetProductAttachmentsList(int productId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductAttachmentsList"))
+            {
+                cmd.AddParameter("ProductId", productId);
+
+                return cmd.ExecuteReaderPrimitives<string>("attachment");
+            }
+        }
+
+        public void AddComment(int productId, int userId, DateTime datetime, string description)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddComment"))
+            {
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("DateTime", datetime);
+                cmd.AddParameter("Comment", description);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public IEnumerable<Comment> GetComments(int productId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetComments"))
+            {
+                cmd.AddParameter("ProductId", productId);
+
+                return cmd.ExecuteReaderClosed<Comment>();
             }
         }
     }

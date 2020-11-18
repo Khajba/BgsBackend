@@ -229,6 +229,22 @@ namespace Bgs.DataConnectionManager.SqlServer.Extensions
             }
         }
 
+        public static IEnumerable<T> ExecuteReaderPrimitives<T>(this IDbCommand command, string name)
+        {
+            using var reader = (SqlDataReader)((BgsSqlCommand)command).ExecuteReader();
+            {
+                var result = new List<T>();
+                while (reader.Read())
+                {
+                    var val = reader[name].ToString();
+
+                    result.Add(ParseEntry<T>(val));
+                }
+
+                return result;
+            }
+        }
+
         public static async Task<IEnumerable<T>> ExecuteReaderPrimitivesAsync<T>(this IDbCommand command, string name, CancellationToken cancellationToken = default)
         {
             using var reader = (SqlDataReader)await ((BgsSqlCommand)command).ExecuteReaderAsync(cancellationToken);

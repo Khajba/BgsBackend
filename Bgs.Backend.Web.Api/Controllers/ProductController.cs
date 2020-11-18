@@ -8,7 +8,7 @@ namespace Bgs.Backend.Web.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ProductController : ControllerBase
+    public class ProductController : BgsController
     {
         private readonly IProductService _productService;
 
@@ -31,6 +31,22 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok(products);
         }
 
+        [HttpGet("getProductDetails")]
+        public IActionResult getProductDetails(int productId)
+        {
+            var details = _productService.GetProductDetails(productId);
+            return Ok();
+        }
+
+
+        [HttpPost("addComment")]
+        public IActionResult AddComment(AddCommentModel model)
+        {
+            _productService.AddComment(model.Id, CurrentUserId, model.Description);
+            return Ok();
+        }
+
+        
 
     }
 }

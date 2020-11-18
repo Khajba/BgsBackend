@@ -1,5 +1,6 @@
 ﻿using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Bgs.Dal.Abstract
@@ -33,5 +34,13 @@ namespace Bgs.Dal.Abstract
         public void SetPrimaryAttachment(int productId, int attachmentId);
 
         public void RemoveProductAttachment(int attachmentId);
+
+        public ProductDetailsDto GetProductDetails(int productId);
+
+        public IEnumerable<string> GetProductAttachmentsList(int productId);
+
+        public void AddComment(int productId, int userId, DateTime datetime, string description );
+
+        public IEnumerable<Comment> GetComments(int productid);
     }
 }

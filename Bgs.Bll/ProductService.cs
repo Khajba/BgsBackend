@@ -5,6 +5,7 @@ using Bgs.Common.Enum;
 using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer.SqlClient;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 
 namespace Bgs.Bll
@@ -106,5 +107,22 @@ namespace Bgs.Bll
         {
             _productRepository.RemoveProductAttachment(attachmentId);
         }
+
+        public ProductDetailsDto GetProductDetails(int productId)
+        {
+            var dto = _productRepository.GetProductDetails(productId);
+            dto.ProductAttachments = _productRepository.GetProductAttachmentsList(productId);
+            dto.Comments = _productRepository.GetComments(productId);
+
+            return dto;
+
+        }
+
+        public void AddComment(int productId, int userId, string description)
+        {
+            _productRepository.AddComment(productId, userId, DateTime.Now, description);
+        }
+
+
     }
 }
