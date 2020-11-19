@@ -1,14 +1,12 @@
 ﻿using System;
 
-namespace Bgs.Common.Entities
+namespace Bgs.Common.Dtos
 {
-    public class Comment
+    public class CommentDto
     {
         public int Id { get; set; }
 
-        public int ProductId { get; set; }
-
-        public int UserId { get; set; }
+        public string Author { get; set; }
 
         public DateTime CreateDate { get; set; }
 

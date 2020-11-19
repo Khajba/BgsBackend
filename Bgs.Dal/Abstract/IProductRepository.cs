@@ -39,8 +39,8 @@ namespace Bgs.Dal.Abstract
 
         public IEnumerable<string> GetProductAttachmentsList(int productId);
 
-        public void AddComment(int productId, int userId, DateTime datetime, string description );
+        public void AddProductComment(int productId, int userId, DateTime datetime, string description );
 
-        public IEnumerable<Comment> GetComments(int productid);
+        public IEnumerable<Comment> GetProductComments(int productid);
     }
 }

@@ -12,6 +12,7 @@ namespace Bgs.Dal
     public class ProductRepository : SqlServerRepository, IProductRepository
     {
         private const string _SchemaProduct = "Product";
+
         public ProductRepository(IConfiguration configuration)
              : base(configuration, configuration.GetConnectionString("MainDatabase"))
         {
@@ -214,22 +215,22 @@ namespace Bgs.Dal
             }
         }
 
-        public void AddComment(int productId, int userId, DateTime datetime, string description)
+        public void AddProductComment(int productId, int userId, DateTime datetime, string description)
         {
-            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddComment"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProductComment"))
             {
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("UserId", userId);
-                cmd.AddParameter("DateTime", datetime);
-                cmd.AddParameter("Comment", description);
+                cmd.AddParameter("CreateTime", datetime);
+                cmd.AddParameter("Description", description);
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public IEnumerable<Comment> GetComments(int productId)
+        public IEnumerable<Comment> GetProductComments(int productId)
         {
-            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetComments"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductComments"))
             {
                 cmd.AddParameter("ProductId", productId);
 

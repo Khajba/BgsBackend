@@ -39,7 +39,7 @@ namespace Bgs.Bll
 
         public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? PageSize, int? artistId, int? designerId, int? mechanicsId)
         {
-            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active,artistId, designerId, mechanicsId);
+            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active, artistId, designerId, mechanicsId);
         }
 
         public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId)
@@ -111,8 +111,8 @@ namespace Bgs.Bll
         public ProductDetailsDto GetProductDetails(int productId)
         {
             var dto = _productRepository.GetProductDetails(productId);
-            dto.ProductAttachments = _productRepository.GetProductAttachmentsList(productId);
-            dto.Comments = _productRepository.GetComments(productId);
+            dto.Attachments = _productRepository.GetProductAttachmentsList(productId);
+            dto.Comments = _productRepository.GetProductComments(productId);
 
             return dto;
 
@@ -120,9 +120,7 @@ namespace Bgs.Bll
 
         public void AddComment(int productId, int userId, string description)
         {
-            _productRepository.AddComment(productId, userId, DateTime.Now, description);
+            _productRepository.AddProductComment(productId, userId, DateTime.Now, description);
         }
-
-
     }
 }
