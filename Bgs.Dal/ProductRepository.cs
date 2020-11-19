@@ -113,15 +113,7 @@ namespace Bgs.Dal
             }
         }
 
-        public int? GetProductStock(int productId)
-        {
-            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductStock"))
-            {
-                cmd.AddParameter("ProductId", productId);
-
-                return cmd.ExecuteReaderPrimitiveClosed<int?>("Quantity");
-            }
-        }
+        
 
         public void AddProductStock(int productId, int quantity)
         {
@@ -235,6 +227,27 @@ namespace Bgs.Dal
                 cmd.AddParameter("ProductId", productId);
 
                 return cmd.ExecuteReaderClosed<Comment>();
+            }
+        }
+
+        public int GetProductAvailableStock(int productId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductAvailableStock"))
+            {
+                cmd.AddParameter("ProductId", productId);
+
+                return cmd.ExecuteReaderPrimitiveClosed<int>("Quantity");
+            }
+        }
+
+
+        public int? GetProductStock(int productId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductStock"))
+            {
+                cmd.AddParameter("ProductId", productId);
+
+                return cmd.ExecuteReaderPrimitiveClosed<int?>("Quantity");
             }
         }
     }
