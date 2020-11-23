@@ -7,40 +7,40 @@ namespace Bgs.Dal.Abstract
 {
     public interface IProductRepository
     {
-        public int AddProduct(string name, decimal price, int categoryId, string description, int statusId, int? artistId, int? designerId, int? mechanicsId);
+        int AddProduct(string name, decimal price, int categoryId, string description, int statusId, int? artistId, int? designerId, int? mechanicsId);
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
+        void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
 
-        public void UpdateProductStatus(int id, int statusId);
+        void UpdateProductStatus(int id, int statusId);
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo,int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId);
+        IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId);
 
-        public IEnumerable<ProductType> GetProductCategories();
+        IEnumerable<ProductType> GetProductCategories();
 
-        public Product GetProductById(int id);
+        Product GetProductById(int id);
 
-        public IEnumerable<ProductAttachment> GetProductAttachments(int id);
+        IEnumerable<ProductAttachment> GetProductAttachments(int id);
 
-        public int? GetProductStock(int productId);
+        int? GetProductStock(int productId);
 
-        public void AddProductStock(int productId, int quantity);
+        void AddProductStock(int productId, int quantity);
 
-        public void UpdateProductStock(int productId, int quantity);
+        void UpdateProductStock(int productId, int quantity);
 
-        public int GetProductsCount(string name, decimal?priceFrom, decimal? priceTo,int? categoryId, int? stockFrom, int? stockTo, int? statusId);
+        int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId);
 
-        public void AddProductAttachment(int productId, string attachmentUrl);
+        void AddProductAttachment(int productId, string attachmentUrl);
 
-        public void SetPrimaryAttachment(int productId, int attachmentId);
+        void SetPrimaryAttachment(int productId, int attachmentId);
 
-        public void RemoveProductAttachment(int attachmentId);
+        void RemoveProductAttachment(int attachmentId);
 
-        public ProductDetailsDto GetProductDetails(int productId);
+        ProductDetailsDto GetProductDetails(int productId);
 
-        public IEnumerable<string> GetProductAttachmentsList(int productId);
+        IEnumerable<string> GetProductAttachmentsList(int productId);
 
-        public void AddProductComment(int productId, int userId, DateTime datetime, string description );
+        void AddProductComment(int productId, int userId, DateTime createDate, string description);
 
-        public IEnumerable<Comment> GetProductComments(int productid);
+        IEnumerable<CommentDto> GetProductComments(int productid);
     }
 }

@@ -2,6 +2,7 @@
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bgs.Backend.Web.Api.Controllers
 {
@@ -32,21 +33,25 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpGet("getProductDetails")]
-        public IActionResult getProductDetails(int productId)
+        public IActionResult GetProductDetails(int productId)
         {
             var details = _productService.GetProductDetails(productId);
-            return Ok();
+            return Ok(details);
         }
-
 
         [HttpPost("addComment")]
         public IActionResult AddComment(AddCommentModel model)
         {
-            _productService.AddComment(model.Id, CurrentUserId, model.Description);
+            _productService.AddComment(model.ProductId.Value, CurrentUserId, model.Description);
             return Ok();
         }
 
-        
+        [HttpGet("getComments")]
+        public IActionResult GetComments([Required] int productId)
+        {
+            var comments = _productService.GetComments(productId);
 
+            return Ok(comments);
+        }
     }
 }
