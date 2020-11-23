@@ -21,6 +21,8 @@ namespace Bgs.Dal.Abstract
 
         IEnumerable<ProductAttachment> GetProductAttachments(int id);
 
+        int GetProductAvailableStock(int productId);
+
         int? GetProductStock(int productId);
 
         void AddProductStock(int productId, int quantity);

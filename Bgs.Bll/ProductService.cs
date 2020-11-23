@@ -7,6 +7,7 @@ using Bgs.DataConnectionManager.SqlServer.SqlClient;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bgs.Bll
 {
@@ -70,8 +71,8 @@ namespace Bgs.Bll
 
         public int GetProductStock(int productId)
         {
-            var productStock = _productRepository.GetProductStock(productId);
-            return productStock ?? 0;
+            var productStock = _productRepository.GetProductAvailableStock(productId);
+            return productStock;
         }
 
         public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo)
@@ -111,7 +112,7 @@ namespace Bgs.Bll
         public ProductDetailsDto GetProductDetails(int productId)
         {
             var dto = _productRepository.GetProductDetails(productId);
-            dto.Attachments = _productRepository.GetProductAttachmentsList(productId);
+            dto.Attachments = _productRepository.GetProductAttachments(productId).Select(x=> x.AttachmentUrl);
             dto.Comments = _productRepository.GetProductComments(productId);
 
             return dto;
