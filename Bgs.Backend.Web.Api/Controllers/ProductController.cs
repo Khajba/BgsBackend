@@ -35,7 +35,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         public IActionResult getProductDetails(int productId)
         {
             var details = _productService.GetProductDetails(productId);
-            return Ok();
+            return Ok(details);
         }
 
 
