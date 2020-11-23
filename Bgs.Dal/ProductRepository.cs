@@ -207,26 +207,26 @@ namespace Bgs.Dal
             }
         }
 
-        public void AddProductComment(int productId, int userId, DateTime datetime, string description)
+        public void AddProductComment(int productId, int userId, DateTime createDate, string description)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProductComment"))
             {
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("UserId", userId);
-                cmd.AddParameter("CreateTime", datetime);
+                cmd.AddParameter("CreateDate", createDate);
                 cmd.AddParameter("Description", description);
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public IEnumerable<Comment> GetProductComments(int productId)
+        public IEnumerable<CommentDto> GetProductComments(int productId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductComments"))
             {
                 cmd.AddParameter("ProductId", productId);
 
-                return cmd.ExecuteReaderClosed<Comment>();
+                return cmd.ExecuteReaderClosed<CommentDto>();
             }
         }
 

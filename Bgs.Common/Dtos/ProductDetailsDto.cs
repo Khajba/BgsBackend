@@ -1,5 +1,4 @@
-﻿using Bgs.Common.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Bgs.Common.Dtos
 {
@@ -19,6 +18,6 @@ namespace Bgs.Common.Dtos
 
         public IEnumerable<string> Attachments { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<CommentDto> Comments { get; set; }
     }
 }

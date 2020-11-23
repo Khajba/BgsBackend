@@ -123,5 +123,10 @@ namespace Bgs.Bll
         {
             _productRepository.AddProductComment(productId, userId, DateTime.Now, description);
         }
+
+        public IEnumerable<CommentDto> GetComments(int productId)
+        {
+            return _productRepository.GetProductComments(productId);
+        }
     }
 }

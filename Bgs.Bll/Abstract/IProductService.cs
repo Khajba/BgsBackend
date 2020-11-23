@@ -7,36 +7,36 @@ namespace Bgs.Bll.Abstract
 {
     public interface IProductService
     {
-        public IEnumerable<ProductType> GetProductCategories();
+        IEnumerable<ProductType> GetProductCategories();
 
-        public int AddProduct(string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
+        int AddProduct(string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
 
-        public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
+        void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId);
 
-        public void DeleteProduct(int id);
+        void DeleteProduct(int id);
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? pageNumber, int? pageSize, int? artistId, int? designerId, int? mechanicsId);
+        IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? pageNumber, int? pageSize, int? artistId, int? designerId, int? mechanicsId);
 
-        public Product GetProductById(int id);
+        Product GetProductById(int id);
 
-        public void AddProductQuantity(int productId, int quantity);
+        void AddProductQuantity(int productId, int quantity);
 
-        public int GetProductStock(int productId);
+        int GetProductStock(int productId);
 
-        public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo);
+        int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo);
 
-        public void AddProductAttachment(int productId, IEnumerable<IFormFile> files);
+        void AddProductAttachment(int productId, IEnumerable<IFormFile> files);
 
-        public IEnumerable<ProductAttachment> GetProductAttachments(int productId);
+        IEnumerable<ProductAttachment> GetProductAttachments(int productId);
 
-        public void SetPrimaryAttachment(int productId, int attachmentId);
+        void SetPrimaryAttachment(int productId, int attachmentId);
 
-        public void RemoveProductAttachment(int attachmentId);
+        void RemoveProductAttachment(int attachmentId);
 
-        public ProductDetailsDto GetProductDetails(int productId);        
+        ProductDetailsDto GetProductDetails(int productId);
 
-        public void AddComment(int productId, int userId, string description);
+        void AddComment(int productId, int userId, string description);
 
-        
+        IEnumerable<CommentDto> GetComments(int productId);
     }
 }
