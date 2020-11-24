@@ -5,21 +5,26 @@ using Bgs.Common.Enum;
 using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer.SqlClient;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 
 namespace Bgs.Bll
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        private readonly IMultimediaService _multimediaService;
+        private readonly HttpClient _httpClient;
+        private readonly string _multimediaApiBaseUri;
 
-        public ProductService(IProductRepository productRepository, IMultimediaService multimediaService)
+        public ProductService(IProductRepository productRepository, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _productRepository = productRepository;
-            _multimediaService = multimediaService;
+            _httpClient = httpClientFactory.CreateClient();
+            _multimediaApiBaseUri = configuration["MultimediaApiBaseUri"];
         }
 
         public int AddProduct(string name, decimal price, int categoryId, string description, int? artist, int? designer, int? mechanics)
@@ -40,7 +45,6 @@ namespace Bgs.Bll
 
         public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? PageSize, int? artistId, int? designerId, int? mechanicsId, int sortOrder)
         {
-            
             return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active, artistId, designerId, mechanicsId, sortOrder);
         }
 
@@ -53,6 +57,7 @@ namespace Bgs.Bll
         {
             var product = _productRepository.GetProductById(id);
             product.Attachments = _productRepository.GetProductAttachments(id);
+
             return product;
         }
 
@@ -87,8 +92,15 @@ namespace Bgs.Bll
             {
                 foreach (var file in files)
                 {
-                    var attachmentUrl = _multimediaService.AddImage(file);
-                    _productRepository.AddProductAttachment(productId, attachmentUrl);
+                    var multiContent = FileToHttpContent(file);
+
+                    var response = _httpClient.PostAsync($"{_multimediaApiBaseUri}/image/add", multiContent).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        _productRepository.AddProductAttachment(productId, response.Content.ReadAsStringAsync().Result);
+                    }
+
                 }
 
                 transaction.Complete();
@@ -113,7 +125,7 @@ namespace Bgs.Bll
         public ProductDetailsDto GetProductDetails(int productId)
         {
             var dto = _productRepository.GetProductDetails(productId);
-            dto.Attachments = _productRepository.GetProductAttachments(productId).Select(x=> x.AttachmentUrl);
+            dto.Attachments = _productRepository.GetProductAttachments(productId).Select(x => x.AttachmentUrl);
             dto.Comments = _productRepository.GetProductComments(productId);
 
             return dto;
@@ -130,6 +142,24 @@ namespace Bgs.Bll
             return _productRepository.GetProductComments(productId);
         }
 
-        
+        #region Private Methods
+
+        private MultipartFormDataContent FileToHttpContent(IFormFile file)
+        {
+            byte[] data;
+            using (var br = new BinaryReader(file.OpenReadStream()))
+            {
+                data = br.ReadBytes((int)file.OpenReadStream().Length);
+            }
+
+            var bytes = new ByteArrayContent(data);
+
+            return new MultipartFormDataContent
+            {
+                { bytes, "file", file.FileName }
+            };
+        }
+
+        #endregion
     }
 }

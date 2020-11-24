@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bgs.Common", "Bgs.Common\Bg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bgs.DataConnectionManager.SqlServer", "Bgs.DataConnectionManager.SqlServer\Bgs.DataConnectionManager.SqlServer.csproj", "{3C38B68E-B58A-46A9-881E-83E907E846B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bgs.Utility", "Bgs.Utility\Bgs.Utility.csproj", "{430C64C0-FB83-4AD1-8A37-1BF340198E17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bgs.Utility", "Bgs.Utility\Bgs.Utility.csproj", "{430C64C0-FB83-4AD1-8A37-1BF340198E17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bgs.Backend.Multimedia.Api", "Bgs.Backend.Multimedia.Api\Bgs.Backend.Multimedia.Api.csproj", "{1F35370E-3947-4DE0-840E-35E41B865D1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{430C64C0-FB83-4AD1-8A37-1BF340198E17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{430C64C0-FB83-4AD1-8A37-1BF340198E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{430C64C0-FB83-4AD1-8A37-1BF340198E17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F35370E-3947-4DE0-840E-35E41B865D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F35370E-3947-4DE0-840E-35E41B865D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F35370E-3947-4DE0-840E-35E41B865D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F35370E-3947-4DE0-840E-35E41B865D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

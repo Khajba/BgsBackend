@@ -2,9 +2,6 @@
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.IO;
-using System.Net.Mime;
 
 namespace Bgs.Backend.Admin.Api.Controllers
 {
@@ -14,13 +11,10 @@ namespace Bgs.Backend.Admin.Api.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        private readonly string _fileSystemPath;
 
-        public ProductController(IProductService productService, IConfiguration configuration)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
-
-            _fileSystemPath = configuration["FileSystemPath"];
         }
 
         [HttpGet("getProductCategories")]
@@ -101,14 +95,6 @@ namespace Bgs.Backend.Admin.Api.Controllers
         {
             var attachments = _productService.GetProductAttachments(productId);
             return Ok(attachments);
-        }
-
-        [HttpGet("getAttachment")]
-        public IActionResult GetAttachment(string fileName)
-        {
-            var filePath = Path.Combine($"{_fileSystemPath}/UploadedImages", fileName);
-
-            return PhysicalFile(filePath, MediaTypeNames.Image.Jpeg);
         }
 
         [HttpPost("SetPrimaryAttachment")]

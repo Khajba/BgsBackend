@@ -1,8 +1,5 @@
 using Bgs.Bll;
 using Bgs.Bll.Abstract;
-using Bgs.Dal;
-using Bgs.Dal.Abstract;
-using Bgs.Infrastructure.Api.Authorization;
 using Bgs.Infrastructure.Api.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,40 +7,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Bgs.Backend.Web.Api
+namespace Bgs.Backend.Multimedia.Api
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
 
-            //Services
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<IProductService, ProductService>();
+            // services
             services.AddSingleton<IMultimediaService, FileSystemMultimediaService>();
-            services.AddSingleton<ICategoryService, CategoryService>();
-            services.AddSingleton<IWishListService, WishListService>();
-            services.AddSingleton<ICartService, CartService>();
-
-            // repositories
-            services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<ICategoryRepository, CategoryRepository>();
-            services.AddSingleton<IWishListRepository, WishListRepository>();
-            services.AddSingleton<ICartRepository, CartRepository>();
-
-            services.AddHttpClient();
 
             services.AddControllers();
-            services.AddBgsAuthorization();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,6 +34,7 @@ namespace Bgs.Backend.Web.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseMiddleware<GlobalExceptionHandler>();
 
             app.UseCors(options =>
@@ -62,9 +45,6 @@ namespace Bgs.Backend.Web.Api
             });
 
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

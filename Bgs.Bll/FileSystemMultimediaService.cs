@@ -29,7 +29,7 @@ namespace Bgs.Bll
                 file.CopyTo(fileStream);
             }
 
-            return $"http://localhost:64764/api/product/getAttachment?fileName={fileName}{fileExtension}";
+            return $"http://localhost:62258/api/image/get?fileName={fileName}{fileExtension}";
         }
 
         private static string RandomString(int length)
