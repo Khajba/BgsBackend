@@ -68,9 +68,9 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpPost("addBalance")]
-        public IActionResult AddBalance(AddBalanceModel model)
+        public IActionResult AddBalance(decimal balance)
         {
-            _userService.AddBalance(CurrentUserId, model.Balance);
+            _userService.AddBalance(CurrentUserId, balance);
             return Ok();
         }
 
