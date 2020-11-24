@@ -15,7 +15,7 @@ namespace Bgs.Bll.Abstract
 
         void DeleteProduct(int id);
 
-        IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? pageNumber, int? pageSize, int? artistId, int? designerId, int? mechanicsId);
+        IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? StockTo, int? pageNumber, int? pageSize, int? artistId, int? designerId, int? mechanicsId, int sortOrder);
 
         Product GetProductById(int id);
 
@@ -38,5 +38,9 @@ namespace Bgs.Bll.Abstract
         void AddComment(int productId, int userId, string description);
 
         IEnumerable<CommentDto> GetComments(int productId);
+
+        
+
+
     }
 }

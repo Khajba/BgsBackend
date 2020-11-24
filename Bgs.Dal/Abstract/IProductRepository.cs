@@ -13,8 +13,8 @@ namespace Bgs.Dal.Abstract
 
         void UpdateProductStatus(int id, int statusId);
 
-        IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId);
-
+        IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId, int sortOrder);
+       
         IEnumerable<ProductType> GetProductCategories();
 
         Product GetProductById(int id);
@@ -44,5 +44,13 @@ namespace Bgs.Dal.Abstract
         void AddProductComment(int productId, int userId, DateTime createDate, string description);
 
         IEnumerable<CommentDto> GetProductComments(int productid);
+
+        public void AddBlockedStock(int productId, int? quantity);
+
+        public void UpdateBlockedStock(int productId, int? quantity);
+
+        public int? GetBlockedStock(int productId);
+
+
     }
 }

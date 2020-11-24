@@ -22,16 +22,7 @@ namespace Bgs.Dal
 
         
 
-        public void AddBlockedStock(int productId, int? quantity)
-        {
-            using (var cmd = GetSpCommand($"{_schemaCart}.AddBlockedStock"))
-            {
-                cmd.AddParameter("ProductId", productId);
-                cmd.AddParameter("Quantity", quantity);
-
-                cmd.ExecuteNonQuery();
-            }
-        }
+        
 
         public void AddCartItem(int productId, int userId, int quantity, DateTime date)
         {
@@ -51,23 +42,14 @@ namespace Bgs.Dal
         {
             using (var cmd = GetSpCommand($"{_schemaCart}.DeleteCartItem"))
             {
-                cmd.AddParameter("ProductId", cartItemId);
+                cmd.AddParameter("CartItemId", cartItemId);
 
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public int? GetBlockedStock(int productId)
-        {
-            using (var cmd = GetSpCommand($"{_schemaCart}.GetBlockedStock"))
-            {
-                cmd.AddParameter("ProductId", productId);              
-
-
-                return cmd.ExecuteReaderPrimitive<int?>("stock");
-            }
-        }
+        
 
         public CartItem GetCartItem(int productId, int userId)
         {
@@ -81,30 +63,23 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<CartItemDto> GetCartItems()
+        public IEnumerable<CartItemDto> GetCartItems(int userId)
         {
             using (var cmd = GetSpCommand($"{_schemaCart}.GetCartItems"))
             {
+
+                cmd.AddParameter("UserId", userId);
+
 
                 return cmd.ExecuteReaderClosed<CartItemDto>();
             }
         }
 
-        public void UpdateBlockedStock(int productId, int? quantity)
-        {
-            using (var cmd = GetSpCommand($"{_schemaCart}.UpdateBlockedStock"))
-            {
-
-                cmd.AddParameter("ProductId", productId);
-                cmd.AddParameter("Quantity", quantity);
-
-                cmd.ExecuteNonQuery();
-            }
-        }
+        
 
         public void UpdateCartItemQuantity(int cartItemId, int quantity)
         {
-            using (var cmd = GetSpCommand($"{_schemaCart}.UpdateProductQuantity"))
+            using (var cmd = GetSpCommand($"{_schemaCart}.UpdateCartItemQuantity"))
             {
 
                 cmd.AddParameter("CartItemId", cartItemId);

@@ -11,7 +11,7 @@ namespace Bgs.Bll.Abstract
 
         public void DeleteFromCart(int cartItemId);
 
-        public IEnumerable<CartItemDto> GetCartItems();
+        public IEnumerable<CartItemDto> GetCartItems(int userId);
 
         
     }

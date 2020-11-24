@@ -57,21 +57,21 @@ namespace Bgs.Bll
             _cartRepository.DeleteCartItem(cartItemId);
         }
 
-        public IEnumerable<CartItemDto> GetCartItems()
+        public IEnumerable<CartItemDto> GetCartItems(int userId)
         {
-            return _cartRepository.GetCartItems();
+            return _cartRepository.GetCartItems(userId);
         }
 
         private void Blockstock(int productId, int quantity)
         {
-            var stock = _cartRepository.GetBlockedStock(productId);
+            var stock = _productRepository.GetBlockedStock(productId);
              if(stock == null)
             {
-                _cartRepository.AddBlockedStock(productId, quantity);
+                _productRepository.AddBlockedStock(productId, quantity);
             }
             else
             {
-                _cartRepository.UpdateBlockedStock(productId, stock + quantity);
+                _productRepository.UpdateBlockedStock(productId, stock + quantity);
             }
         }
        

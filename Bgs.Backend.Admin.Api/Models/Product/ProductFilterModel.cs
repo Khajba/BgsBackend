@@ -23,5 +23,7 @@
         public int? DesignerId { get; set; }
 
         public int? MechanicsId { get; set; }
+
+        public int SortOrder { get; set; }
     }
 }

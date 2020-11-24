@@ -72,7 +72,7 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId)
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId, int sortOrder)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
@@ -88,6 +88,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("ArtistId", artistId);
                 cmd.AddParameter("DesignerId", designerId);
                 cmd.AddParameter("MechanicsId", mechanicsId);
+                cmd.AddParameter("SortOrder", sortOrder);
 
                 return cmd.ExecuteReaderClosed<ProductDto>();
             }
@@ -113,7 +114,7 @@ namespace Bgs.Dal
             }
         }
 
-        
+
 
         public void AddProductStock(int productId, int quantity)
         {
@@ -250,5 +251,46 @@ namespace Bgs.Dal
                 return cmd.ExecuteReaderPrimitiveClosed<int?>("Quantity");
             }
         }
+
+        public void AddBlockedStock(int productId, int? quantity)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddBlockedStock"))
+            {
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("Quantity", quantity);
+
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+
+        public int? GetBlockedStock(int productId)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetBlockedStock"))
+            {
+                cmd.AddParameter("ProductId", productId);
+
+
+                return cmd.ExecuteReaderPrimitive<int?>("stock");
+            }
+        }
+
+        public void UpdateBlockedStock(int productId, int? quantity)
+        {
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateBlockedStock"))
+            {
+
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("Quantity", quantity);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
+
+
+
+
+
+
 }

@@ -55,7 +55,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpGet("getProducts")]
         public IActionResult GetProducts([FromQuery] ProductFilterModel model)
         {
-            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo, model.PageNumber, model.PageSize, model.ArtistId, model.DesignerId, model.MechanicsId);
+            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo, model.PageNumber, model.PageSize, model.ArtistId, model.DesignerId, model.MechanicsId, model.SortOrder);
             return Ok(products);
         }
 

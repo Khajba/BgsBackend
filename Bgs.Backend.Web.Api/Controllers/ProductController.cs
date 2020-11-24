@@ -21,7 +21,13 @@ namespace Bgs.Backend.Web.Api.Controllers
         [HttpGet("GetProducts")]
         public IActionResult GetProducts([FromQuery] ProductFilterModel model)
         {
-            var products = _productService.GetProducts(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, null, null, model.PageNumber, model.PageSize, model.ArtistId, model.DesignerId, model.MechanicsId);
+            var products = _productService.GetProducts(
+                model.Name, model.PriceFrom, 
+                model.PriceTo, model.CategoryId, 
+                null, null, model.PageNumber,
+                model.PageSize, model.ArtistId, model.DesignerId,
+                model.MechanicsId, model.SortOrder);
+
             return Ok(products);
         }
 
@@ -46,12 +52,9 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("getComments")]
-        public IActionResult GetComments([Required] int productId)
-        {
-            var comments = _productService.GetComments(productId);
 
-            return Ok(comments);
-        }
+
+        
+
     }
 }

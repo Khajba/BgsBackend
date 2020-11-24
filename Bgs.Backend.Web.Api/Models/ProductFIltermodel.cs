@@ -24,5 +24,7 @@ namespace Bgs.Backend.Web.Api.Models
         public int? DesignerId { get; set; }
 
         public int? MechanicsId { get; set; }
+
+        public int SortOrder { get; set; }
     }
 }

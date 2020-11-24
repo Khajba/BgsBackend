@@ -38,9 +38,10 @@ namespace Bgs.Bll
             return productType;
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? PageSize, int? artistId, int? designerId, int? mechanicsId)
+        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? PageSize, int? artistId, int? designerId, int? mechanicsId, int sortOrder)
         {
-            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active, artistId, designerId, mechanicsId);
+            
+            return _productRepository.GetProducts(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, pageNumber, PageSize, (int)ProductStatus.Active, artistId, designerId, mechanicsId, sortOrder);
         }
 
         public void UpdateProduct(int id, string name, decimal price, int categoryId, string description, int? artistId, int? designerId, int? mechanicsId)
@@ -128,5 +129,7 @@ namespace Bgs.Bll
         {
             return _productRepository.GetProductComments(productId);
         }
+
+        
     }
 }

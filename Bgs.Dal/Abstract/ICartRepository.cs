@@ -11,7 +11,7 @@ namespace Bgs.Dal.Abstract
         
         public void DeleteCartItem(int cartItemId);
 
-        public IEnumerable<CartItemDto> GetCartItems();
+        public IEnumerable<CartItemDto> GetCartItems(int userId);
 
         public CartItem GetCartItem(int productId, int userId);
 
@@ -19,8 +19,6 @@ namespace Bgs.Dal.Abstract
 
         public void UpdateCartItemQuantity(int cartItemId, int quantity);
 
-        public void AddBlockedStock(int productId, int? quantity);
-        public void UpdateBlockedStock(int productId, int? quantity);
-        public int? GetBlockedStock(int productId);
+       
     }
 }

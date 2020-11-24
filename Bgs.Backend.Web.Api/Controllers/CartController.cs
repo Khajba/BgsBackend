@@ -37,7 +37,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         [HttpGet("getCartItems")]
         public IActionResult GetCartItems()
         {
-            var items = _cartService.GetCartItems();
+            var items = _cartService.GetCartItems(CurrentUserId);
             return Ok(items);
         }
     }
