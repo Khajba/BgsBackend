@@ -2,7 +2,6 @@
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace Bgs.Backend.Web.Api.Controllers
 {
@@ -22,8 +21,8 @@ namespace Bgs.Backend.Web.Api.Controllers
         public IActionResult GetProducts([FromQuery] ProductFilterModel model)
         {
             var products = _productService.GetProducts(
-                model.Name, model.PriceFrom, 
-                model.PriceTo, model.CategoryId, 
+                model.Name, model.PriceFrom,
+                model.PriceTo, model.CategoryId,
                 null, null, model.PageNumber,
                 model.PageSize, model.ArtistId, model.DesignerId,
                 model.MechanicsId, model.SortOrder);
@@ -51,10 +50,5 @@ namespace Bgs.Backend.Web.Api.Controllers
             _productService.AddComment(model.ProductId.Value, CurrentUserId, model.Description);
             return Ok();
         }
-
-
-
-        
-
     }
 }

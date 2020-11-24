@@ -23,7 +23,7 @@ namespace Bgs.Bll
 
          public void RemoveFromWishList(int productId)
         {
-            _wishListRepository.DeleteWishListItem(productId);
+            _wishListRepository.DeleteWishListItemByProductId(productId);
         }
 
          public IEnumerable<WishListItemDto> GetWishListItems(int userId)

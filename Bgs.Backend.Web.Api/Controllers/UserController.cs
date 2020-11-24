@@ -80,6 +80,5 @@ namespace Bgs.Backend.Web.Api.Controllers
             var balance = _userService.GetBalance(CurrentUserId);
             return Ok(balance);
         }
-
     }
 }

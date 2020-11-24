@@ -2,23 +2,19 @@
 using Bgs.Common.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bgs.Dal.Abstract
 {
     public interface ICartRepository
     {
-        
-        public void DeleteCartItem(int cartItemId);
+        void AddCartItem(int productId, int userId, int quantity, DateTime createDate);
 
-        public IEnumerable<CartItemDto> GetCartItems(int userId);
+        void DeleteCartItem(int id);
 
-        public CartItem GetCartItem(int productId, int userId);
+        CartItem GetCartItem(int productId, int userId);
 
-        public void AddCartItem(int productId, int userId, int quantity, DateTime date);
+        IEnumerable<CartItemDto> GetCartItems(int userId);
 
-        public void UpdateCartItemQuantity(int cartItemId, int quantity);
-
-       
+        void UpdateCartItemQuantity(int id, int quantity);
     }
 }

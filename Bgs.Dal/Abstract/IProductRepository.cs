@@ -45,11 +45,11 @@ namespace Bgs.Dal.Abstract
 
         IEnumerable<CommentDto> GetProductComments(int productid);
 
-        public void AddBlockedStock(int productId, int? quantity);
+        public void AddBlockedProduct(int productId, int? quantity);
 
-        public void UpdateBlockedStock(int productId, int? quantity);
+        public void UpdateBlockedProductQuantity(int productId, int? quantity);
 
-        public int? GetBlockedStock(int productId);
+        public int? GetBlockedProductQuantity(int productId);
 
 
     }

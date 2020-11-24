@@ -3,9 +3,9 @@ using Bgs.Common.Dtos;
 using Bgs.Common.ErrorCodes;
 using Bgs.Core.Exceptions;
 using Bgs.Dal.Abstract;
+using Bgs.DataConnectionManager.SqlServer.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bgs.Bll
 {
@@ -14,45 +14,43 @@ namespace Bgs.Bll
         private readonly ICartRepository _cartRepository;
         private readonly IProductRepository _productRepository;
 
-        public CartService(ICartRepository cartRepository, IProductRepository productRepository )
+        public CartService(ICartRepository cartRepository, IProductRepository productRepository)
         {
             _cartRepository = cartRepository;
             _productRepository = productRepository;
         }
 
-        
-
-        public void AddToCart(int productId, int userId)
+        public void AddCartItem(int productId, int userId)
         {
             var stock = _productRepository.GetProductAvailableStock(productId);
-            
 
-            if(stock == 0)
+            if (stock == 0)
             {
                 throw new BgsException((int)WebApiErrorCodes.OutOfStock);
             }
-
-            else 
+            else
             {
-
                 var cartItem = _cartRepository.GetCartItem(productId, userId);
 
-                if(cartItem == null)
+                using (var transaction = new BgsTransactionScope())
                 {
-                    _cartRepository.AddCartItem(productId, userId, 1, DateTime.Now);
-                    
-                }
-                else
-                {
-                    _cartRepository.UpdateCartItemQuantity(cartItem.Id, cartItem.Quantity +1);
-                    
+                    if (cartItem == null)
+                    {
+                        _cartRepository.AddCartItem(productId, userId, 1, DateTime.Now);
+                    }
+                    else
+                    {
+                        _cartRepository.UpdateCartItemQuantity(cartItem.Id, cartItem.Quantity + 1);
+                    }
 
+                    BlockStock(productId, 1);
+
+                    transaction.Complete();
                 }
-                Blockstock(productId, 1);
             }
         }
 
-        public void DeleteFromCart(int cartItemId)
+        public void DeleteCartItem(int cartItemId)
         {
             _cartRepository.DeleteCartItem(cartItemId);
         }
@@ -62,18 +60,18 @@ namespace Bgs.Bll
             return _cartRepository.GetCartItems(userId);
         }
 
-        private void Blockstock(int productId, int quantity)
+        private void BlockStock(int productId, int quantity)
         {
-            var stock = _productRepository.GetBlockedStock(productId);
-             if(stock == null)
+            var stock = _productRepository.GetBlockedProductQuantity(productId);
+
+            if (stock == null)
             {
-                _productRepository.AddBlockedStock(productId, quantity);
+                _productRepository.AddBlockedProduct(productId, quantity);
             }
             else
             {
-                _productRepository.UpdateBlockedStock(productId, stock + quantity);
+                _productRepository.UpdateBlockedProductQuantity(productId, stock + quantity);
             }
         }
-       
     }
 }

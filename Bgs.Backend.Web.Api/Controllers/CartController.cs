@@ -1,10 +1,6 @@
-﻿using Bgs.Backend.Web.Api.Models;
-using Bgs.Bll.Abstract;
+﻿using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bgs.Backend.Web.Api.Controllers
 {
@@ -12,7 +8,6 @@ namespace Bgs.Backend.Web.Api.Controllers
     [ApiController]
     public class CartController : BgsController
     {
-
         private readonly ICartService _cartService;
 
         public CartController(ICartService cartService)
@@ -21,16 +16,16 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpPost("addToCart")]
-        public IActionResult AddToCart(int productId)
+        public IActionResult AddToCart([Required][FromBody] int productId)
         {
-            _cartService.AddToCart(productId,CurrentUserId);
+            _cartService.AddCartItem(productId, CurrentUserId);
             return Ok();
         }
 
         [HttpPost("deleteFromCart")]
-        public IActionResult DeleteFromCart(int cartItemId)
+        public IActionResult DeleteFromCart([Required][FromBody] int cartItemId)
         {
-            _cartService.DeleteFromCart(cartItemId);
+            _cartService.DeleteCartItem(cartItemId);
             return Ok();
         }
 

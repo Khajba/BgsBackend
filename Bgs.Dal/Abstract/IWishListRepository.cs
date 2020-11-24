@@ -9,7 +9,7 @@ namespace Bgs.Dal.Abstract
     {
         void AddWishListItem(int productId, int userId, DateTime date);
 
-        void DeleteWishListItem(int productId);
+        void DeleteWishListItemByProductId(int productId);
 
         IEnumerable<WishListItemDto> GetWishListItems(int userId);
     }

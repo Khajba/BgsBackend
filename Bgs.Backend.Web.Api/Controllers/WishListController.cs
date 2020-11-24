@@ -1,10 +1,6 @@
 ﻿using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bgs.Backend.Web.Api.Controllers
 {
@@ -20,16 +16,14 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpPost("addToWishList")]
-
-        public IActionResult AddToWishList([Required] int prodictId)
+        public IActionResult AddToWishList([Required][FromBody] int productId)
         {
-            _wishListService.AddToWishList(prodictId, CurrentUserId);
+            _wishListService.AddToWishList(productId, CurrentUserId);
             return Ok();
         }
 
         [HttpPost("removeFromWishList")]
-
-        public IActionResult RemoveFromWishList([Required] int productId)
+        public IActionResult RemoveFromWishList([Required][FromBody] int productId)
         {
             _wishListService.RemoveFromWishList(productId);
             return Ok();

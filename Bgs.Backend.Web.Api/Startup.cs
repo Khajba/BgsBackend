@@ -30,11 +30,15 @@ namespace Bgs.Backend.Web.Api
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<IMultimediaService, FileSystemMultimediaService>();
             services.AddSingleton<ICategoryService, CategoryService>();
+            services.AddSingleton<IWishListService, WishListService>();
+            services.AddSingleton<ICartService, CartService>();
             // repositories
             
             services.AddSingleton<IProductRepository, ProductRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<ICategoryRepository, CategoryRepository>();
+            services.AddSingleton<IWishListRepository, WishListRepository>();
+            services.AddSingleton<ICartRepository, CartRepository>();
             services.AddControllers();
             services.AddBgsAuthorization();
         }

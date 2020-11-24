@@ -114,8 +114,6 @@ namespace Bgs.Dal
             }
         }
 
-
-
         public void AddProductStock(int productId, int quantity)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.AddProductStock"))
@@ -181,7 +179,6 @@ namespace Bgs.Dal
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.RemoveProductAttachment"))
             {
-
                 cmd.AddParameter("Id", attachmentId);
 
                 cmd.ExecuteNonQuery();
@@ -241,7 +238,6 @@ namespace Bgs.Dal
             }
         }
 
-
         public int? GetProductStock(int productId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductStock"))
@@ -252,34 +248,31 @@ namespace Bgs.Dal
             }
         }
 
-        public void AddBlockedStock(int productId, int? quantity)
+        public void AddBlockedProduct(int productId, int? quantity)
         {
-            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddBlockedStock"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.AddBlockedProduct"))
             {
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("Quantity", quantity);
 
                 cmd.ExecuteNonQuery();
             }
-
         }
 
-        public int? GetBlockedStock(int productId)
+        public int? GetBlockedProductQuantity(int productId)
         {
-            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetBlockedStock"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.GetBlockedProductQuantity"))
             {
                 cmd.AddParameter("ProductId", productId);
 
-
-                return cmd.ExecuteReaderPrimitive<int?>("stock");
+                return cmd.ExecuteReaderPrimitive<int?>("Quantity");
             }
         }
 
-        public void UpdateBlockedStock(int productId, int? quantity)
+        public void UpdateBlockedProductQuantity(int productId, int? quantity)
         {
-            using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateBlockedStock"))
+            using (var cmd = GetSpCommand($"{_SchemaProduct}.UpdateBlockedProductQuantity"))
             {
-
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("Quantity", quantity);
 
@@ -287,10 +280,4 @@ namespace Bgs.Dal
             }
         }
     }
-
-
-
-
-
-
 }

@@ -5,22 +5,22 @@ using Bgs.DataConnectionManager.SqlServer.Extensions;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bgs.Dal
 {
-    public class WishListRepository: SqlServerRepository, IWishListRepository
+    public class WishListRepository : SqlServerRepository, IWishListRepository
     {
-        private const string _schemaWishList = "WishList";
+        private const string _schemaUser = "User";
 
         public WishListRepository(IConfiguration configuration)
              : base(configuration, configuration.GetConnectionString("MainDatabase"))
         {
 
         }
+
         public void AddWishListItem(int productId, int userId, DateTime date)
         {
-            using (var cmd = GetSpCommand($"{_schemaWishList}.AddWishListItem"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.AddWishListItem"))
             {
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("UserId", userId);
@@ -30,9 +30,9 @@ namespace Bgs.Dal
             }
         }
 
-        public void DeleteWishListItem(int productId)
+        public void DeleteWishListItemByProductId(int productId)
         {
-            using (var cmd = GetSpCommand($"{_schemaWishList}.DeleteWishListItem"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.DeleteWishListItemByProductId"))
             {
                 cmd.AddParameter("ProductId", productId);
 
@@ -42,13 +42,12 @@ namespace Bgs.Dal
 
         public IEnumerable<WishListItemDto> GetWishListItems(int userId)
         {
-            using (var cmd = GetSpCommand($"{_schemaWishList}.GetWishListItems"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetWishListItems"))
             {
                 cmd.AddParameter("UserId", userId);
+
                 return cmd.ExecuteReaderClosed<WishListItemDto>();
             }
         }
-
-        
     }
 }
