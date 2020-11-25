@@ -10,7 +10,7 @@ namespace Bgs.Dal.Abstract
     {
         WishListItem GetWishListItem(int productId, int userId);
 
-        void AddWishListItem(int productId, int userId, DateTime date, bool isFavorite);
+        void AddWishListItem(int productId, int userId, DateTime date);
 
         void DeleteWishListItemByProductId(int productId);
 

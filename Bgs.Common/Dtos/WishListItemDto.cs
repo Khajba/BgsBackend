@@ -20,6 +20,6 @@ namespace Bgs.Common.Dtos
 
         public DateTime CreateDate { get; set; }
 
-        public bool IsFavorite { get; set; }
+        public bool IsInWishList { get; set; }
     }
 }

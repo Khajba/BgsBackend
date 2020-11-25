@@ -23,7 +23,7 @@ namespace Bgs.Bll
 
             if (item == null)
 
-                _wishListRepository.AddWishListItem(productId, userId, DateTime.Now, true);
+                _wishListRepository.AddWishListItem(productId, userId, DateTime.Now);
 
             else
 

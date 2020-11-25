@@ -13,7 +13,7 @@ namespace Bgs.Dal.Abstract
 
         void UpdateProductStatus(int id, int statusId);
 
-        IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId, int sortOrder);
+        IEnumerable<ProductDto> GetProducts(int? userId, string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId, int sortOrder);
        
         IEnumerable<ProductType> GetProductCategories();
 

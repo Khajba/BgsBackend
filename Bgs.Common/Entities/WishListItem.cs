@@ -14,6 +14,6 @@ namespace Bgs.Common.Entities
 
         public DateTime CreateDate { get; set; }
 
-        public bool IsFavorite { get; set; }
+        
     }
 }

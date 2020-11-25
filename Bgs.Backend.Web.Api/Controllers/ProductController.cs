@@ -22,6 +22,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         public IActionResult GetProducts([FromQuery] ProductFilterModel model)
         {
             var products = _productService.GetProducts(
+                CurrentUserId,
                 model.Name, model.PriceFrom,
                 model.PriceTo, model.CategoryId,
                 null, null, model.PageNumber,

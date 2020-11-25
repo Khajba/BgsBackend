@@ -30,14 +30,14 @@ namespace Bgs.Dal
             }
         }
 
-        public void AddWishListItem(int productId, int userId, DateTime date, bool isFavorite)
+        public void AddWishListItem(int productId, int userId, DateTime date)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.AddWishListItem"))
             {
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("UserId", userId);
                 cmd.AddParameter("CreateDate", date);
-                cmd.AddParameter("IsFavorite", isFavorite);
+                
 
                 cmd.ExecuteNonQuery();
             }

@@ -72,10 +72,11 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<ProductDto> GetProducts(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId, int sortOrder)
+        public IEnumerable<ProductDto> GetProducts(int? userId, string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? pageNumber, int? pageSize, int? statusId, int? artistId, int? designerId, int? mechanicsId, int sortOrder)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProducts"))
             {
+                cmd.AddParameter("UserId", userId);
                 cmd.AddParameter("StatusIdActive", statusId);
                 cmd.AddParameter("Name", name);
                 cmd.AddParameter("PriceFrom", priceFrom);
