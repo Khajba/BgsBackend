@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bgs.Common.Dtos
+﻿namespace Bgs.Common.Dtos
 {
     public class ProductDto
     {
@@ -19,14 +15,15 @@ namespace Bgs.Common.Dtos
         public string Description { get; set; }
 
         public int Stock { get; set; }
+
         public string PrimaryAttachmentUrl { get; set; }
+
         public string Artist { get; set; }
 
         public string Designer { get; set; }
 
         public string Mechanics { get; set; }
 
-
-
+        public bool IsInWishList { get; set; }
     }
 }
