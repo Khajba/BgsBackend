@@ -203,12 +203,12 @@ namespace Bgs.Dal
             }
         }
 
-        public void AddBalance(int userId, decimal balance)
+        public void UpdateBalance(int userId, decimal amount)
         {
-            using (var cmd = GetSpCommand($"{_schemaUser}.AddBalance"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.UpdateBalance"))
             {
                 cmd.AddParameter("UserId", userId);
-                cmd.AddParameter("Balance", balance);
+                cmd.AddParameter("Amount", amount);
 
 
                 cmd.ExecuteNonQuery();

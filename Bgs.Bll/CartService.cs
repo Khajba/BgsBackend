@@ -1,5 +1,6 @@
 ﻿using Bgs.Bll.Abstract;
 using Bgs.Common.Dtos;
+using Bgs.Common.Enum;
 using Bgs.Common.ErrorCodes;
 using Bgs.Core.Exceptions;
 using Bgs.Dal.Abstract;
@@ -13,11 +14,20 @@ namespace Bgs.Bll
     {
         private readonly ICartRepository _cartRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ITransactionRepository _transactionRepository;
 
-        public CartService(ICartRepository cartRepository, IProductRepository productRepository)
+
+        public CartService(
+            ICartRepository cartRepository,
+            IProductRepository productRepository,
+            IUserRepository userRepository,
+            ITransactionRepository transactionRepository)
         {
             _cartRepository = cartRepository;
             _productRepository = productRepository;
+            _userRepository = userRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public void AddCartItem(int productId, int userId)
@@ -58,6 +68,47 @@ namespace Bgs.Bll
         public IEnumerable<CartItemDto> GetCartItems(int userId)
         {
             return _cartRepository.GetCartItems(userId);
+        }
+
+        public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalPrice)
+        {
+            var balance = _userRepository.GetBalance(userId);
+
+            balance = balance - totalPrice;
+
+            if (balance < 0)
+            {
+                throw new BgsException((int)WebApiErrorCodes.NotEnoughBalance);
+            }
+
+            else
+            {
+                using (var transaction = new BgsTransactionScope())
+                {
+                    _userRepository.UpdateBalance(userId, balance);
+
+                    _transactionRepository.AddTransaction(
+                        (int)TransactionType.Payment,
+                        userId,
+                        DateTime.Now,
+                        totalPrice);
+
+                    _productRepository.UpdateBlockedProductQuantity(productId, quantity);
+
+                    var stock = _productRepository.GetProductStock(productId) ?? 0;
+
+                    stock = stock - quantity;
+
+                    _productRepository.UpdateProductStock(productId, stock);
+                }
+
+
+            }
+
+
+
+
+
         }
 
         private void BlockStock(int productId, int quantity)

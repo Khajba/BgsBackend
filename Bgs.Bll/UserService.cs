@@ -14,10 +14,12 @@ namespace Bgs.Bll
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ITransactionRepository _transactionRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, ITransactionRepository transactionRepository)
         {
             _userRepository = userRepository;
+            _transactionRepository = transactionRepository;
         }
 
         public User AuthenticateUser(string email, string password)
@@ -135,9 +137,17 @@ namespace Bgs.Bll
 
         }
 
-        public void AddBalance(int userId, decimal balance)
+        public void AddBalance(int userId, decimal amount)
         {
-            _userRepository.AddBalance(userId, balance);
+            var balance = _userRepository.GetBalance(userId);
+            balance = balance + amount;
+
+            using (var transaction = new BgsTransactionScope())
+            {
+                _userRepository.UpdateBalance(userId, balance);
+                _transactionRepository.AddTransaction((int)TransactionType.Deposit, userId, DateTime.Now, amount);
+                    
+            };
         }
 
         public decimal GetBalance(int userId)
