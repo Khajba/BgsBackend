@@ -122,7 +122,7 @@ namespace Bgs.Bll
 
             var user = _userRepository.GetUserForPasswordUpdate(userId);
 
-            if(user.Password == oldPassword.ToSHA256(user.Pincode))
+            if (user.Password == oldPassword.ToSHA256(user.Pincode))
             {
                 _userRepository.UpdateUserPassword(userId, newPassword.ToSHA256(user.Pincode));
             }
@@ -130,9 +130,7 @@ namespace Bgs.Bll
             else
             {
                 throw new BgsException((int)WebApiErrorCodes.OldPasswordIsIncorrect);
-            }           
-
-
+            }
         }
 
         public void AddBalance(int userId, decimal balance)
@@ -142,10 +140,7 @@ namespace Bgs.Bll
 
         public decimal GetBalance(int userId)
         {
-            return _userRepository.GetBalance(userId);
+            return _userRepository.GetBalance(userId) ?? 0;
         }
-
-
     }
-
 }

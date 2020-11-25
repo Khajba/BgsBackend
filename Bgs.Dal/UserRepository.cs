@@ -191,13 +191,13 @@ namespace Bgs.Dal
             }
         }
 
-        public void UpdateUserPassword(int userId,string password)
+        public void UpdateUserPassword(int userId, string password)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.UpdateUserPassword"))
             {
                 cmd.AddParameter("UserId", userId);
-                cmd.AddParameter("Password", password);             
-                
+                cmd.AddParameter("Password", password);
+
 
                 cmd.ExecuteNonQuery();
             }
@@ -210,18 +210,17 @@ namespace Bgs.Dal
                 cmd.AddParameter("UserId", userId);
                 cmd.AddParameter("Balance", balance);
 
-
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public decimal GetBalance(int userId)
+        public decimal? GetBalance(int userId)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetBalance"))
             {
                 cmd.AddParameter("UserId", userId);
 
-                return cmd.ExecuteReaderPrimitive<decimal>("balance");
+                return cmd.ExecuteReaderPrimitive<decimal?>("Balance");
             };
         }
 
