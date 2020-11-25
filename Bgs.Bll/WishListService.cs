@@ -1,9 +1,10 @@
 ﻿using Bgs.Bll.Abstract;
 using Bgs.Common.Dtos;
+using Bgs.Common.ErrorCodes;
+using Bgs.Core.Exceptions;
 using Bgs.Dal.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bgs.Bll
 {
@@ -16,17 +17,26 @@ namespace Bgs.Bll
             _wishListRepository = wishListRepository;
         }
 
-         public void AddToWishList(int productId, int userId)
+        public void AddToWishList(int productId, int userId)
         {
-            _wishListRepository.AddWishListItem(productId, userId, DateTime.Now);
+            var item = _wishListRepository.GetWishListItem(productId, userId);
+
+            if (item == null)
+
+                _wishListRepository.AddWishListItem(productId, userId, DateTime.Now, true);
+
+            else
+
+                throw new BgsException((int)WebApiErrorCodes.ThisItemAlreadyInWishList);
+
         }
 
-         public void RemoveFromWishList(int productId)
+        public void RemoveFromWishList(int productId)
         {
             _wishListRepository.DeleteWishListItemByProductId(productId);
         }
 
-         public IEnumerable<WishListItemDto> GetWishListItems(int userId)
+        public IEnumerable<WishListItemDto> GetWishListItems(int userId)
         {
             return _wishListRepository.GetWishListItems(userId);
         }

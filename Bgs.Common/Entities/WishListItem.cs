@@ -13,5 +13,7 @@ namespace Bgs.Common.Entities
         public int ProductId { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public bool IsFavorite { get; set; }
     }
 }

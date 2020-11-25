@@ -19,5 +19,7 @@ namespace Bgs.Common.Dtos
         public decimal Price { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public bool IsFavorite { get; set; }
     }
 }

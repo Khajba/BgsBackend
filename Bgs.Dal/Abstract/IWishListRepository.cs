@@ -1,4 +1,5 @@
 ﻿using Bgs.Common.Dtos;
+using Bgs.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,9 @@ namespace Bgs.Dal.Abstract
 {
     public interface IWishListRepository
     {
-        void AddWishListItem(int productId, int userId, DateTime date);
+        WishListItem GetWishListItem(int productId, int userId);
+
+        void AddWishListItem(int productId, int userId, DateTime date, bool isFavorite);
 
         void DeleteWishListItemByProductId(int productId);
 

@@ -9,6 +9,7 @@ namespace Bgs.Common.ErrorCodes
         EmailOrPasswordIncorrect = 1,
         EmailAlreadyExists,
         OldPasswordIsIncorrect,
-        OutOfStock
+        OutOfStock,
+        ThisItemAlreadyInWishList
     }
 }

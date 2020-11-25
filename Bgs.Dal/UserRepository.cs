@@ -219,6 +219,8 @@ namespace Bgs.Dal
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetBalance"))
             {
+                cmd.AddParameter("UserId", userId);
+
                 return cmd.ExecuteReaderPrimitive<decimal>("balance");
             };
         }

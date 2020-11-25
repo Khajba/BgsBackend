@@ -1,4 +1,5 @@
 ﻿using Bgs.Common.Dtos;
+using Bgs.Common.Entities;
 using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer;
 using Bgs.DataConnectionManager.SqlServer.Extensions;
@@ -18,13 +19,25 @@ namespace Bgs.Dal
 
         }
 
-        public void AddWishListItem(int productId, int userId, DateTime date)
+        public WishListItem GetWishListItem(int productId, int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetWishListItem"))
+            {
+                cmd.AddParameter("ProductId", productId);
+                cmd.AddParameter("UserId", userId);
+
+                return cmd.ExecuteReaderSingleClosed<WishListItem>();
+            }
+        }
+
+        public void AddWishListItem(int productId, int userId, DateTime date, bool isFavorite)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.AddWishListItem"))
             {
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("UserId", userId);
                 cmd.AddParameter("CreateDate", date);
+                cmd.AddParameter("IsFavorite", isFavorite);
 
                 cmd.ExecuteNonQuery();
             }
