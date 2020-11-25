@@ -37,7 +37,7 @@ namespace Bgs.Dal.Abstract
 
         public void UpdateBalance(int userId, decimal amount);
 
-        public decimal GetBalance(int userId);
+        public decimal? GetBalance(int userId);
 
         public UserForPasswordUpdateDto GetUserForPasswordUpdate(int userId);
 
