@@ -144,6 +144,8 @@ namespace Bgs.Bll
             {
                 _userRepository.UpdateBalance(userId, balance);
                 _transactionRepository.AddTransaction((int)TransactionType.Deposit, userId, DateTime.Now, amount);
+                transaction.Complete();
+                    
                     
             };
         }
