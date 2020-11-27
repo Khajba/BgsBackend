@@ -233,5 +233,16 @@ namespace Bgs.Dal
                 return cmd.ExecuteReaderSingle<UserForPasswordUpdateDto>();
             }
         }
+
+        public void AddAvatarAttachment(int userId, string attachmentUrl)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.AddAvatarAttachment"))
+            {
+                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("AttachmentUrl", attachmentUrl);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

@@ -41,6 +41,8 @@ namespace Bgs.Dal.Abstract
 
         public UserForPasswordUpdateDto GetUserForPasswordUpdate(int userId);
 
+        public void AddAvatarAttachment(int userId, string attachmentUrl);
+
 
     }
 }

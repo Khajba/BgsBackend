@@ -7,7 +7,10 @@ using Bgs.Core.Exceptions;
 using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer.SqlClient;
 using Bgs.Utility.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.Net.Http;
 
 namespace Bgs.Bll
 {
@@ -15,11 +18,20 @@ namespace Bgs.Bll
     {
         private readonly IUserRepository _userRepository;
         private readonly ITransactionRepository _transactionRepository;
+        private readonly HttpClient _httpClient;
+        private readonly string _multimediaApiBaseUri;
 
-        public UserService(IUserRepository userRepository, ITransactionRepository transactionRepository)
+        public UserService(
+            IUserRepository userRepository,
+            IHttpClientFactory httpClientFactory,
+            ITransactionRepository transactionRepository,
+            IConfiguration configuration
+            )
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
+            _httpClient = httpClientFactory.CreateClient();
+            _multimediaApiBaseUri = configuration["MultimediaApiBaseUri"];
         }
 
         public User AuthenticateUser(string email, string password)
@@ -153,6 +165,22 @@ namespace Bgs.Bll
         public decimal GetBalance(int userId)
         {
             return _userRepository.GetBalance(userId) ?? 0;
+        }
+
+        public void UploadUserAvatar(int userId, IFormFile file)
+        {
+            using (var transaction = new BgsTransactionScope())
+            {
+                var multiContent = file.ToHttpContent();
+
+                var response = _httpClient.PostAsync($"{_multimediaApiBaseUri}/image/add", multiContent).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    _userRepository.AddAvatarAttachment(userId, response.Content.ReadAsStringAsync().Result);
+                }
+
+            }
         }
     }
 }

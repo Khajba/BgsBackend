@@ -1,4 +1,5 @@
 ﻿using Bgs.Bll.Abstract;
+using Bgs.Utility.Extensions;
 using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
 using Bgs.Common.Enum;
@@ -92,7 +93,7 @@ namespace Bgs.Bll
             {
                 foreach (var file in files)
                 {
-                    var multiContent = FileToHttpContent(file);
+                    var multiContent = file.ToHttpContent();
 
                     var response = _httpClient.PostAsync($"{_multimediaApiBaseUri}/image/add", multiContent).Result;
 
@@ -142,24 +143,6 @@ namespace Bgs.Bll
             return _productRepository.GetProductComments(productId);
         }
 
-        #region Private Methods
-
-        private MultipartFormDataContent FileToHttpContent(IFormFile file)
-        {
-            byte[] data;
-            using (var br = new BinaryReader(file.OpenReadStream()))
-            {
-                data = br.ReadBytes((int)file.OpenReadStream().Length);
-            }
-
-            var bytes = new ByteArrayContent(data);
-
-            return new MultipartFormDataContent
-            {
-                { bytes, "file", file.FileName }
-            };
-        }
-
-        #endregion
+        
     }
 }

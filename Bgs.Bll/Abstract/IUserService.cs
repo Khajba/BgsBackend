@@ -1,5 +1,6 @@
 ﻿using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Bgs.Bll.Abstract
 {
@@ -17,5 +18,6 @@ namespace Bgs.Bll.Abstract
         public void ChangeUserPassword(int userId, string oldPassword, string newPassword);
         public void AddBalance(int userId, decimal amount);
         public decimal GetBalance(int userId);
+        public void UploadUserAvatar(int userId, IFormFile file);
     }
 }

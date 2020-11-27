@@ -1,6 +1,7 @@
 ﻿using Bgs.Backend.Web.Api.Models;
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -80,6 +81,14 @@ namespace Bgs.Backend.Web.Api.Controllers
         {
             var balance = _userService.GetBalance(CurrentUserId);
             return Ok(balance);
+        }
+
+        [HttpPost("uploadUserAvatar")]
+
+        public IActionResult UploadUserAvatar(IFormFile file)
+        {
+            _userService.UploadUserAvatar(CurrentUserId, file);
+            return Ok();
         }
     }
 }
