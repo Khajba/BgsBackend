@@ -137,7 +137,7 @@ namespace Bgs.Bll
 
         public void AddBalance(int userId, decimal amount)
         {
-            var balance = _userRepository.GetBalance(userId);
+            var balance = _userRepository.GetBalance(userId) ?? 0; 
             balance = balance + amount;
 
             using (var transaction = new BgsTransactionScope())

@@ -23,7 +23,7 @@ namespace Bgs.Bll.Abstract
 
         int GetProductStock(int productId);
 
-        int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo);
+        int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo,  int? artistId, int? designerId, int? mechanicsId);
 
         void AddProductAttachment(int productId, IEnumerable<IFormFile> files);
 

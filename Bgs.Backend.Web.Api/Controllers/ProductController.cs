@@ -59,5 +59,12 @@ namespace Bgs.Backend.Web.Api.Controllers
             var comments = _productService.GetComments(productId);
             return Ok(comments);
         }
+
+        [HttpGet("getProductsCount")]
+        public IActionResult GetProductsCount([FromQuery] ProductFilterModel model)
+        {
+            var count = _productService.GetProductsCount(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, null, null, model.ArtistId, model.DesignerId, model.MechanicsId);
+            return Ok(count);
+        }
     }
 }

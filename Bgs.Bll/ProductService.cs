@@ -81,9 +81,9 @@ namespace Bgs.Bll
             return productStock;
         }
 
-        public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo)
+        public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? artistId, int? designerId, int? mechanicsId)
         {
-            return _productRepository.GetProductsCount(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active);
+            return _productRepository.GetProductsCount(name, priceFrom, priceTo, categoryId, stockFrom, stockTo, (int)ProductStatus.Active, artistId, designerId, mechanicsId);
         }
 
         public void AddProductAttachment(int productId, IEnumerable<IFormFile> files)

@@ -79,7 +79,7 @@ namespace Bgs.Backend.Admin.Api.Controllers
         [HttpGet("getProductsCount")]
         public IActionResult GetProductsCount([FromQuery] ProductFilterModel model)
         {
-            var count = _productService.GetProductsCount(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo);
+            var count = _productService.GetProductsCount(model.Name, model.PriceFrom, model.PriceTo, model.CategoryId, model.StockFrom, model.StockTo, model.ArtistId, model.DesignerId, model.MechanicsId);
             return Ok(count);
         }
 

@@ -40,7 +40,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         [HttpPost("placeOrder")]
         public IActionResult PlaceOrder(PlaceOrderModel model)
         {
-            _cartService.PlaceOrder(CurrentUserId, model.CartItemId, model.Quantity, model.TotalPrice);
+           // _cartService.PlaceOrder(CurrentUserId, model.CartItemId,  model.Quantity, model.TotalPrice);
             return Ok();
         }
     }

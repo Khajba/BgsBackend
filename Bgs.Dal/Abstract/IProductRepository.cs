@@ -29,7 +29,7 @@ namespace Bgs.Dal.Abstract
 
         void UpdateProductStock(int productId, int quantity);
 
-        int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId);
+        int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId, int? artistId, int? designerId, int? mechanicsId);
 
         void AddProductAttachment(int productId, string attachmentUrl);
 

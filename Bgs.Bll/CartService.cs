@@ -72,7 +72,7 @@ namespace Bgs.Bll
 
         public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalPrice)
         {
-            var balance = _userRepository.GetBalance(userId);
+            var balance = _userRepository.GetBalance(userId) ?? 0;
 
             balance = balance - totalPrice;
 
