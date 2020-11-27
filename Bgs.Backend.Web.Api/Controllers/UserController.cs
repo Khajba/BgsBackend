@@ -2,6 +2,7 @@
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bgs.Backend.Web.Api.Controllers
 {
@@ -68,7 +69,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpPost("addBalance")]
-        public IActionResult AddBalance(decimal amount)
+        public IActionResult AddBalance([FromBody][Required]decimal amount)
         {
             _userService.AddBalance(CurrentUserId, amount);
             return Ok();
