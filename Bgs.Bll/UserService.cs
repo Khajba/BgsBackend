@@ -185,5 +185,10 @@ namespace Bgs.Bll
 
 
         }
+
+        public void DeleteAvatar(int userId)
+        {
+            _userRepository.UpdateUserAvatarUrl(userId, null);
+        }
     }
 }

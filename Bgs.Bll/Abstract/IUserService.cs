@@ -19,5 +19,6 @@ namespace Bgs.Bll.Abstract
         public void AddBalance(int userId, decimal amount);
         public decimal GetBalance(int userId);
         public string UploadUserAvatar(int userId, IFormFile file);
+        public void DeleteAvatar(int userId);
     }
 }

@@ -90,5 +90,13 @@ namespace Bgs.Backend.Web.Api.Controllers
            var avatarUrl = _userService.UploadUserAvatar(CurrentUserId, file);
             return Ok(new UploadUserAvatarResponseModel { AvatarUrl =avatarUrl} );
         }
+
+        [HttpPost("removeAvatar")]
+        public IActionResult RemoveAvatar()
+        {
+            _userService.DeleteAvatar(CurrentUserId);
+
+            return Ok();
+        }
     }
 }
