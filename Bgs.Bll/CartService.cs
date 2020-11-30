@@ -16,18 +16,21 @@ namespace Bgs.Bll
         private readonly IProductRepository _productRepository;
         private readonly IUserRepository _userRepository;
         private readonly ITransactionRepository _transactionRepository;
+        private readonly IOrderRepository _orderRepository;
 
 
         public CartService(
             ICartRepository cartRepository,
             IProductRepository productRepository,
             IUserRepository userRepository,
-            ITransactionRepository transactionRepository)
+            ITransactionRepository transactionRepository,
+            IOrderRepository orderRepository)
         {
             _cartRepository = cartRepository;
             _productRepository = productRepository;
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
+            _orderRepository = orderRepository;
         }
 
         public void AddCartItem(int productId, int userId)
@@ -70,11 +73,16 @@ namespace Bgs.Bll
             return _cartRepository.GetCartItems(userId);
         }
 
-        public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalPrice)
+        public int GetCartItemsCount(int userId)
+        {
+            return _cartRepository.GetCartItemsCount(userId);
+        }
+
+        public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalAmount)
         {
             var balance = _userRepository.GetBalance(userId) ?? 0;
 
-            balance = balance - totalPrice;
+            balance = balance - totalAmount;
 
             if (balance < 0)
             {
@@ -91,7 +99,7 @@ namespace Bgs.Bll
                         (int)TransactionType.Payment,
                         userId,
                         DateTime.Now,
-                        totalPrice);
+                        totalAmount);
 
                     _productRepository.UpdateBlockedProductQuantity(productId, quantity);
 
@@ -100,6 +108,9 @@ namespace Bgs.Bll
                     stock = stock - quantity;
 
                     _productRepository.UpdateProductStock(productId, stock);
+
+                    _orderRepository.AddOrderItem(userId, (int)OrderStatus.Pending, totalAmount, DateTime.Now);
+
                 }
 
 

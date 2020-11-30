@@ -64,6 +64,16 @@ namespace Bgs.Dal
             }
         }
 
+        public int GetCartItemsCount(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetCartItems"))
+            {
+                cmd.AddParameter("UserId", userId);
+
+                return cmd.ExecuteReaderPrimitive<int>("count");
+            }
+        }
+
         public void UpdateCartItemQuantity(int cartItemId, int quantity)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.UpdateCartItemQuantity"))

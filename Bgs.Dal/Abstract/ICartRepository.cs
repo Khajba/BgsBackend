@@ -16,5 +16,7 @@ namespace Bgs.Dal.Abstract
         IEnumerable<CartItemDto> GetCartItems(int userId);
 
         void UpdateCartItemQuantity(int id, int quantity);
+
+        int GetCartItemsCount(int userId);
     }
 }

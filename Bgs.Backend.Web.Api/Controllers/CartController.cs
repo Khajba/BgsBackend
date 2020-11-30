@@ -37,11 +37,20 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok(items);
         }
 
+        [HttpGet("geCartItemsCount")]
+        public IActionResult GetCartItemsCount()
+        {
+            var count = _cartService.GetCartItemsCount(CurrentUserId);
+            return Ok(count);
+        }
+
         [HttpPost("placeOrder")]
         public IActionResult PlaceOrder(PlaceOrderModel model)
         {
-           // _cartService.PlaceOrder(CurrentUserId, model.CartItemId,  model.Quantity, model.TotalPrice);
+            // _cartService.PlaceOrder(CurrentUserId, model.CartItemId,  model.Quantity, model.TotalPrice);
             return Ok();
         }
+
+
     }
 }
