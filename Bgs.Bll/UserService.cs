@@ -38,6 +38,11 @@ namespace Bgs.Bll
         {
             var user = _userRepository.GetUserByEmail(email);
 
+            if (user == null)
+            {
+                throw new BgsException((int)WebApiErrorCodes.EmailOrPasswordIncorrect);
+            }
+
             if (user.StatusId != (int)UserStatus.Active)
             {
                 throw new BgsException((int)WebApiErrorCodes.EmailOrPasswordIncorrect);
@@ -45,14 +50,8 @@ namespace Bgs.Bll
 
             user = _userRepository.GetByCredentials(email, password.ToSHA256(user.Pincode), (int)UserStatus.Active);
 
-            if (user == null)
-            {
-                throw new BgsException((int)WebApiErrorCodes.EmailOrPasswordIncorrect);
-            }
-            else
-            {
-                return user;
-            }
+            return user;
+
 
         }
 
