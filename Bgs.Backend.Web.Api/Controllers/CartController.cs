@@ -37,7 +37,7 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok(items);
         }
 
-        [HttpGet("geCartItemsCount")]
+        [HttpGet("getCartItemsCount")]
         public IActionResult GetCartItemsCount()
         {
             var count = _cartService.GetCartItemsCount(CurrentUserId);

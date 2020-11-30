@@ -66,11 +66,11 @@ namespace Bgs.Dal
 
         public int GetCartItemsCount(int userId)
         {
-            using (var cmd = GetSpCommand($"{_schemaUser}.GetCartItems"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetCartItemsCount"))
             {
                 cmd.AddParameter("UserId", userId);
 
-                return cmd.ExecuteReaderPrimitive<int>("count");
+                return cmd.ExecuteReaderPrimitive<int>("Count");
             }
         }
 

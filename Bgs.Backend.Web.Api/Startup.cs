@@ -40,6 +40,7 @@ namespace Bgs.Backend.Web.Api
             services.AddSingleton<IWishListRepository, WishListRepository>();
             services.AddSingleton<ICartRepository, CartRepository>();
             services.AddSingleton<ITransactionRepository, TransactionRepository>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
 
             services.AddHttpClient();
 
