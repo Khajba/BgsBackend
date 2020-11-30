@@ -177,7 +177,7 @@ namespace Bgs.Bll
 
                 if (response.IsSuccessStatusCode)
                 {
-                    _userRepository.AddAvatarAttachment(userId, response.Content.ReadAsStringAsync().Result);
+                    _userRepository.UpdateUserAvatarUrl(userId, response.Content.ReadAsStringAsync().Result);
                 }
 
             }

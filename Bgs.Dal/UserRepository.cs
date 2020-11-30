@@ -234,9 +234,9 @@ namespace Bgs.Dal
             }
         }
 
-        public void AddAvatarAttachment(int userId, string attachmentUrl)
+        public void UpdateUserAvatarUrl(int userId, string attachmentUrl)
         {
-            using (var cmd = GetSpCommand($"{_schemaUser}.AddAvatarAttachment"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.UpdateUserAvatarUrl"))
             {
                 cmd.AddParameter("UserId", userId);
                 cmd.AddParameter("AttachmentUrl", attachmentUrl);

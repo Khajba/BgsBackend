@@ -8,6 +8,7 @@
         public string Firstname { get; set; }
         public string Lastname { get; set; }       
         public int StatusId { get; set; }
+        public string AvatarUrl { get; set; }
 
     }
 }
