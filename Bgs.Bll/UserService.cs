@@ -149,7 +149,7 @@ namespace Bgs.Bll
 
         public void AddBalance(int userId, decimal amount)
         {
-            var balance = _userRepository.GetBalance(userId) ?? 0; 
+            var balance = _userRepository.GetBalance(userId) ?? 0;
             balance = balance + amount;
 
             using (var transaction = new BgsTransactionScope())
@@ -157,8 +157,8 @@ namespace Bgs.Bll
                 _userRepository.UpdateBalance(userId, balance);
                 _transactionRepository.AddTransaction((int)TransactionType.Deposit, userId, DateTime.Now, amount);
                 transaction.Complete();
-                    
-                    
+
+
             };
         }
 
@@ -167,20 +167,23 @@ namespace Bgs.Bll
             return _userRepository.GetBalance(userId) ?? 0;
         }
 
-        public void UploadUserAvatar(int userId, IFormFile file)
+        public string UploadUserAvatar(int userId, IFormFile file)
         {
-            using (var transaction = new BgsTransactionScope())
+
+            var multiContent = file.ToHttpContent();
+
+            var response = _httpClient.PostAsync($"{_multimediaApiBaseUri}/image/add", multiContent).Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                var multiContent = file.ToHttpContent();
-
-                var response = _httpClient.PostAsync($"{_multimediaApiBaseUri}/image/add", multiContent).Result;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    _userRepository.UpdateUserAvatarUrl(userId, response.Content.ReadAsStringAsync().Result);
-                }
-
+                var avatarUrl = response.Content.ReadAsStringAsync().Result;
+                _userRepository.UpdateUserAvatarUrl(userId, avatarUrl);
+                return avatarUrl;
             }
+
+            throw new BgsException((int)WebApiErrorCodes.CouldNotUploadAvatar);
+
+
         }
     }
 }

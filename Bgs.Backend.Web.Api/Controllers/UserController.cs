@@ -87,8 +87,8 @@ namespace Bgs.Backend.Web.Api.Controllers
 
         public IActionResult UploadUserAvatar(IFormFile file)
         {
-            _userService.UploadUserAvatar(CurrentUserId, file);
-            return Ok();
+           var avatarUrl = _userService.UploadUserAvatar(CurrentUserId, file);
+            return Ok(new UploadUserAvatarResponseModel { AvatarUrl =avatarUrl} );
         }
     }
 }

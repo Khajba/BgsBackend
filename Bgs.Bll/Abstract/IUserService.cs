@@ -18,6 +18,6 @@ namespace Bgs.Bll.Abstract
         public void ChangeUserPassword(int userId, string oldPassword, string newPassword);
         public void AddBalance(int userId, decimal amount);
         public decimal GetBalance(int userId);
-        public void UploadUserAvatar(int userId, IFormFile file);
+        public string UploadUserAvatar(int userId, IFormFile file);
     }
 }

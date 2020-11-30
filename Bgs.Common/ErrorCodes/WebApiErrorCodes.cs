@@ -11,6 +11,7 @@ namespace Bgs.Common.ErrorCodes
         OldPasswordIsIncorrect,
         OutOfStock,
         ThisItemAlreadyInWishList,
-        NotEnoughBalance
+        NotEnoughBalance,
+        CouldNotUploadAvatar
     }
 }
