@@ -16,17 +16,17 @@ namespace Bgs.Backend.Web.Api.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet("getOrderItems")]
-        public IActionResult GetOrderItems()
+        [HttpGet("getOrders")]
+        public IActionResult GetOrders()
         {
-            var items = _orderService.GetOrderItems(CurrentUserId);
+            var items = _orderService.GetOrders(CurrentUserId);
             return Ok(items);
         }
 
         [HttpPost("placeOrder")]
-        public IActionResult PlaceOrder(PlaceOrderModel model)
+        public IActionResult PlaceOrder()
         {
-            // _cartService.PlaceOrder(CurrentUserId, model.CartItemId,  model.Quantity, model.TotalPrice);
+            _orderService.PlaceOrder(CurrentUserId);
             return Ok();
         }
 

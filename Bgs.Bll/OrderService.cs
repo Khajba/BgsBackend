@@ -7,7 +7,7 @@ using Bgs.Dal.Abstract;
 using Bgs.DataConnectionManager.SqlServer.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Bgs.Bll
 {
@@ -19,13 +19,17 @@ namespace Bgs.Bll
         private readonly ITransactionRepository _transactionRepository;
         private readonly IProductRepository _productRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ICartRepository _cartRepository;
+
 
         public OrderService(
             IOrderRepository orderRepository,
             IUserService userService,
             ITransactionRepository transactionRepository,
             IProductRepository productRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ICartRepository cartRepository
+            )
 
         {
             _userService = userService;
@@ -33,17 +37,22 @@ namespace Bgs.Bll
             _transactionRepository = transactionRepository;
             _productRepository = productRepository;
             _userRepository = userRepository;
+            _cartRepository = cartRepository;
 
         }
 
-        public IEnumerable<OrderItemDto> GetOrderItems(int userId)
+        public IEnumerable<OrderDto> GetOrders(int userId)
         {
-            throw new NotImplementedException();
+            return _orderRepository.GetOrders(userId);
         }
 
-        public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalAmount)
+        public void PlaceOrder(int userId)
         {
-            var balance = _userRepository.GetBalance(userId) ?? 0;
+            var balance = _userRepository.GetBalance(userId);
+
+            var cartItems = _cartRepository.GetCartItems(userId);
+
+            var totalAmount = cartItems.Sum(x => x.Price * x.Quantity);
 
             balance = balance - totalAmount;
 
@@ -52,38 +61,45 @@ namespace Bgs.Bll
                 throw new BgsException((int)WebApiErrorCodes.NotEnoughBalance);
             }
 
-            else
+            using (var transaction = new BgsTransactionScope())
             {
-                using (var transaction = new BgsTransactionScope())
+                _userRepository.UpdateBalance(userId, balance);
+
+                foreach (var item in cartItems)
                 {
-                    _userRepository.UpdateBalance(userId, balance);
 
-                    _transactionRepository.AddTransaction(
-                        (int)TransactionType.Payment,
-                        userId,
-                        DateTime.Now,
-                        totalAmount);
+                    var blocked = (int)_productRepository.GetBlockedProductQuantity(item.ProductId);
+                    _productRepository.UpdateBlockedProductQuantity(item.ProductId, blocked - item.Quantity);
 
-                    _productRepository.UpdateBlockedProductQuantity(productId, quantity);
+                    var stock = _productRepository.GetProductStock(item.ProductId) ?? 0;   
+                    
+                    if((stock - item.Quantity) < 0)
+                    {
+                        throw new BgsException((int)WebApiErrorCodes.OutOfStock);
+                    }
 
-                    var stock = _productRepository.GetProductStock(productId) ?? 0;
 
-                    stock = stock - quantity;
-
-                    _productRepository.UpdateProductStock(productId, stock);
-
-                    _orderRepository.AddOrderItem(userId, (int)OrderStatus.Pending, totalAmount, DateTime.Now);
-
-                    transaction.Complete();
-
+                    _productRepository.UpdateProductStock(item.ProductId, stock - item.Quantity);
                 }
 
+                _transactionRepository.AddTransaction((int)TransactionType.Payment, userId, DateTime.Now, totalAmount);
 
+                _cartRepository.DeleteCartItems(userId);
+
+                var orderId = _orderRepository.AddOrder(userId, (int)OrderStatus.Pending, totalAmount, DateTime.Now, DateTime.Now);
+
+                foreach (var item in cartItems)
+                {
+                    var amount = item.Price * item.Quantity;
+                    _orderRepository.AddOrderItem(orderId, item.ProductId, item.Quantity, item.Price, amount);
+                }
+
+                transaction.Complete();
             }
+        }
 
-
-
-
+        public void UpdateOrderStatus(int orderId)
+        {
 
         }
     }

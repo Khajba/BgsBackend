@@ -11,6 +11,8 @@ namespace Bgs.Dal.Abstract
 
         void DeleteCartItem(int id);
 
+        void DeleteCartItems(int userId);
+
         CartItem GetCartItem(int productId, int userId);
 
         IEnumerable<CartItemDto> GetCartItems(int userId);

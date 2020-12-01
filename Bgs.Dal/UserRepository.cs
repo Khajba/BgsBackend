@@ -204,7 +204,7 @@ namespace Bgs.Dal
             }
         }
 
-        public void UpdateBalance(int userId, decimal amount)
+        public void UpdateBalance(int userId, decimal? amount)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.UpdateBalance"))
             {

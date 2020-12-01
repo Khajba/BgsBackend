@@ -7,8 +7,12 @@ namespace Bgs.Dal.Abstract
 {
     public interface IOrderRepository
     {
-        public IEnumerable<OrderItemDto> GetOrderItems(int userId);
+        public IEnumerable<OrderDto> GetOrders(int userId);
 
-        public void AddOrderItem(int userId, int orderStatusId, decimal totalAmount, DateTime createDate);
+        public void UpdateOrderStatus(int orderId, int status);
+
+        public void AddOrderItem(int orderId, int productId, int quantity, decimal price, decimal amount);
+
+        public int AddOrder(int userId, int orderStatusId, decimal totalAmount, DateTime createDate, DateTime statusUpdateDate);
     }
 }

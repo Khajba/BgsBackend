@@ -7,8 +7,10 @@ namespace Bgs.Bll.Abstract
 {
     public interface IOrderService
     {
-        public IEnumerable<OrderItemDto> GetOrderItems(int userId);
+        public IEnumerable<OrderDto> GetOrders(int userId);
 
-        public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalPrice);
+        public void UpdateOrderStatus(int orderId);
+
+        public void PlaceOrder(int userId);
     }
 }

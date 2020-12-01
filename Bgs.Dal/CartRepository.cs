@@ -43,6 +43,16 @@ namespace Bgs.Dal
             }
         }
 
+        public void DeleteCartItems(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.DeleteCartItems"))
+            {
+                cmd.AddParameter("UserId", userId);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public CartItem GetCartItem(int productId, int userId)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetCartItem"))
