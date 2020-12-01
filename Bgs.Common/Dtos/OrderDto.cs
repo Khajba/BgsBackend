@@ -10,7 +10,9 @@ namespace Bgs.Common.Dtos
 
         public decimal TotalAmount { get; set; }
 
-        public int OrderStatusId { get; set; }
+        public int StatusId { get; set; }
+
+        public string Status { get; set; }
 
         public DateTime CreateDate { get; set; }
 
