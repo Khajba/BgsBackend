@@ -51,7 +51,7 @@ namespace Bgs.Dal
 
         public IEnumerable<OrderDto> GetOrders(int userId)
         {
-            using (var cmd = GetSpCommand($"{_schemaUser}.GetOrderItems"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetOrders"))
             {
 
                 cmd.AddParameter("UserId", userId);
