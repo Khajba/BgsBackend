@@ -51,12 +51,7 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok();
         }
 
-        [HttpPost("placeOrder")]
-        public IActionResult PlaceOrder(PlaceOrderModel model)
-        {
-            // _cartService.PlaceOrder(CurrentUserId, model.CartItemId,  model.Quantity, model.TotalPrice);
-            return Ok();
-        }
+        
 
        
 

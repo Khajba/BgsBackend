@@ -32,6 +32,7 @@ namespace Bgs.Backend.Web.Api
             services.AddSingleton<ICategoryService, CategoryService>();
             services.AddSingleton<IWishListService, WishListService>();
             services.AddSingleton<ICartService, CartService>();
+            
 
             // repositories
             services.AddSingleton<IProductRepository, ProductRepository>();

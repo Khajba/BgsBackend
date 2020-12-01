@@ -83,50 +83,7 @@ namespace Bgs.Bll
             _cartRepository.UpdateCartItemQuantity(cartItemId, quantity);
         }
 
-        public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalAmount)
-        {
-            var balance = _userRepository.GetBalance(userId) ?? 0;
-
-            balance = balance - totalAmount;
-
-            if (balance < 0)
-            {
-                throw new BgsException((int)WebApiErrorCodes.NotEnoughBalance);
-            }
-
-            else
-            {
-                using (var transaction = new BgsTransactionScope())
-                {
-                    _userRepository.UpdateBalance(userId, balance);
-
-                    _transactionRepository.AddTransaction(
-                        (int)TransactionType.Payment,
-                        userId,
-                        DateTime.Now,
-                        totalAmount);
-
-                    _productRepository.UpdateBlockedProductQuantity(productId, quantity);
-
-                    var stock = _productRepository.GetProductStock(productId) ?? 0;
-
-                    stock = stock - quantity;
-
-                    _productRepository.UpdateProductStock(productId, stock);
-
-                    _orderRepository.AddOrderItem(userId, (int)OrderStatus.Pending, totalAmount, DateTime.Now);
-
-                }
-
-
-            }
-
-
-
-
-
-        }
-
+        
         private void BlockStock(int productId, int quantity)
         {
             var stock = _productRepository.GetBlockedProductQuantity(productId);

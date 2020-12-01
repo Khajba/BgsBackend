@@ -96,9 +96,9 @@ namespace Bgs.Bll
             return _userRepository.GetUserPaymentDetails(userId);
         }
 
-        public void SaveDetails(string firstname, string lastname)
+        public void SaveDetails(int userId, string firstname, string lastname)
         {
-            _userRepository.UpdateDetails(firstname, lastname);
+            _userRepository.UpdateDetails(userId, firstname, lastname);
         }
 
         public void SaveUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber)

@@ -116,10 +116,11 @@ namespace Bgs.Dal
             }
         }
 
-        public void UpdateDetails(string firstname, string lastname)
+        public void UpdateDetails(int userId, string firstname, string lastname)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.UpdateUserDetails"))
             {
+                cmd.AddParameter("Id", userId);
                 cmd.AddParameter("Firstname", firstname);
                 cmd.AddParameter("Lastname", lastname);
 
@@ -228,7 +229,7 @@ namespace Bgs.Dal
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetUserForPasswordUpdate"))
             {
-                cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("Id", userId);
 
                 return cmd.ExecuteReaderSingle<UserForPasswordUpdateDto>();
             }

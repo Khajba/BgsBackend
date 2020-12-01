@@ -29,7 +29,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         [HttpPost("saveDetails")]
         public IActionResult SaveDetails(SaveDetailsModel model)
         {
-            _userService.SaveDetails(model.Firstname, model.Lastname);
+            _userService.SaveDetails(CurrentUserId,model.Firstname, model.Lastname);
             return Ok();
         }
 

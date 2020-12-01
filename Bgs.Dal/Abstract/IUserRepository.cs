@@ -23,7 +23,7 @@ namespace Bgs.Dal.Abstract
 
         public UserPaymentDto GetUserPaymentDetails(int userId);
 
-        public void UpdateDetails(string firstname, string lastname);
+        public void UpdateDetails(int userId, string firstname, string lastname);
 
         public void UpdateUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber);
 

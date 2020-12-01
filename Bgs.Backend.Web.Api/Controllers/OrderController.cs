@@ -1,4 +1,5 @@
-﻿using Bgs.Bll.Abstract;
+﻿using Bgs.Backend.Web.Api.Models;
+using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bgs.Backend.Web.Api.Controllers
@@ -20,6 +21,13 @@ namespace Bgs.Backend.Web.Api.Controllers
         {
             var items = _orderService.GetOrderItems(CurrentUserId);
             return Ok(items);
+        }
+
+        [HttpPost("placeOrder")]
+        public IActionResult PlaceOrder(PlaceOrderModel model)
+        {
+            // _cartService.PlaceOrder(CurrentUserId, model.CartItemId,  model.Quantity, model.TotalPrice);
+            return Ok();
         }
 
     }
