@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bgs.Common.Enum
+﻿namespace Bgs.Common.Enum
 {
     public enum OrderStatus
     {
-        Pending,
-        Shipped,
-        Delivered
-
+        Pending = 1,
+        Shipped = 2,
+        Delivered = 3
     }
 }

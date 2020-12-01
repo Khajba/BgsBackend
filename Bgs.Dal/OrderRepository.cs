@@ -19,13 +19,12 @@ namespace Bgs.Dal
 
         }
 
-        public int AddOrder(int userId, int orderStatusId, decimal totalAmount, DateTime createDate, DateTime statusUpdateDate)
+        public int AddOrder(int userId, int statusId, decimal totalAmount, DateTime createDate, DateTime statusUpdateDate)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.AddOrder"))
             {
-
                 cmd.AddParameter("UserId", userId);
-                cmd.AddParameter("OrderStatusId", orderStatusId);
+                cmd.AddParameter("StatusId", statusId);
                 cmd.AddParameter("TotalAmount", totalAmount);
                 cmd.AddParameter("CreateDate", createDate);
                 cmd.AddParameter("StatusUpdateDate", statusUpdateDate);
@@ -33,11 +32,11 @@ namespace Bgs.Dal
                 return cmd.ExecuteReaderPrimitive<int>("OrderId");
             }
         }
-       
+
 
         public void AddOrderItem(int orderId, int productId, int quantity, decimal price, decimal amount)
         {
-            using (var cmd = GetSpCommand($"{_schemaUser}.AddCartItem"))
+            using (var cmd = GetSpCommand($"{_schemaUser}.AddOrderItem"))
             {
 
                 cmd.AddParameter("OrderId", orderId);

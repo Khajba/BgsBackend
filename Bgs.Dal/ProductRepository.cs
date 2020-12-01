@@ -137,7 +137,7 @@ namespace Bgs.Dal
             }
         }
 
-       public  int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId, int? artistId, int? designerId, int? mechanicsId)
+        public int GetProductsCount(string name, decimal? priceFrom, decimal? priceTo, int? categoryId, int? stockFrom, int? stockTo, int? statusId, int? artistId, int? designerId, int? mechanicsId)
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductsCount"))
             {
@@ -248,7 +248,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("ProductId", productId);
 
-                return cmd.ExecuteReaderPrimitiveClosed<int?>("Quantity");
+                return cmd.ExecuteReaderPrimitive<int?>("Quantity");
             }
         }
 
