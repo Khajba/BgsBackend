@@ -78,6 +78,11 @@ namespace Bgs.Bll
             return _cartRepository.GetCartItemsCount(userId);
         }
 
+        public void UpdateCartItemQuantity(int cartItemId, int quantity)
+        {
+            _cartRepository.UpdateCartItemQuantity(cartItemId, quantity);
+        }
+
         public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalAmount)
         {
             var balance = _userRepository.GetBalance(userId) ?? 0;

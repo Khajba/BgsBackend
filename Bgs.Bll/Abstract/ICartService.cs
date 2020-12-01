@@ -14,8 +14,10 @@ namespace Bgs.Bll.Abstract
         public IEnumerable<CartItemDto> GetCartItems(int userId);
 
         public int GetCartItemsCount(int userId);
+        public void UpdateCartItemQuantity(int cartItemId, int quantity);
 
         public void PlaceOrder(int userId, int cartItemId, int productId, int quantity, decimal totalPrice);
+
 
         
     }

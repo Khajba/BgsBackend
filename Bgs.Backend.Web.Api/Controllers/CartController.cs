@@ -44,6 +44,13 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok(count);
         }
 
+        [HttpPost("updateCartItemQuantity")]
+        public IActionResult UpdateCartItemQuantity(int cartItemId, int quantity)
+        {
+            _cartService.UpdateCartItemQuantity(cartItemId, quantity);
+            return Ok();
+        }
+
         [HttpPost("placeOrder")]
         public IActionResult PlaceOrder(PlaceOrderModel model)
         {
