@@ -78,7 +78,7 @@ namespace Bgs.Bll
 
         public int GetProductStock(int productId)
         {
-            var productStock = _productRepository.GetProductAvailableStock(productId);
+            var productStock = _productRepository.GetProductStock(productId)??0;
             return productStock;
         }
 

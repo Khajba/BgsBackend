@@ -28,15 +28,18 @@ namespace Bgs.Backend.Admin.Api
             // services
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IInternalUserService, InternalUserService>();
-            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<ICategoryService, CategoryService>();
+            services.AddSingleton<ITransactionService, TransactionService>();
 
             // repositories
             services.AddSingleton<IInternalUserRepository, InternalUserRepository>();
             services.AddSingleton<IProductRepository, ProductRepository>();
             services.AddSingleton<ICategoryRepository, CategoryRepository>();
             services.AddSingleton<ITransactionRepository, TransactionRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
+
 
             services.AddHttpClient();
 

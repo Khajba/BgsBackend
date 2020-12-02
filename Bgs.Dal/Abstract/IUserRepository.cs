@@ -1,6 +1,7 @@
 ﻿using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Bgs.Dal.Abstract
 {
@@ -17,7 +18,7 @@ namespace Bgs.Dal.Abstract
 
         public User GetByCredentials(string email, string password, int statusId);
 
-        public UserDetailsDto GetUserDetails(int userId);
+        public UserDto GetUserDetails(int userId);
 
         public UserAddressDto GetUserAddress(int userId);
 
@@ -42,6 +43,8 @@ namespace Bgs.Dal.Abstract
         public UserForPasswordUpdateDto GetUserForPasswordUpdate(int userId);
 
         public void UpdateUserAvatarUrl(int userId, string avatarUrl);
+
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname);
 
 
     }

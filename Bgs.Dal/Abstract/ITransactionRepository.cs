@@ -9,7 +9,7 @@ namespace Bgs.Dal.Abstract
     {
         public void AddTransaction(int typeId, int userId, DateTime createDate, decimal amount);
 
-        public IEnumerable<TransactionDto> GetTransactions(int? typeId, string pincode, DateTime startDate, DateTime endDate, decimal? amountFrom, decimal? amountTo);
+        public IEnumerable<TransactionDto> GetTransactions(int? userId, int? typeId, string pincode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo);
 
 
     }

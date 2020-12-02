@@ -1,6 +1,8 @@
 ﻿using Bgs.Common.Dtos;
 using Bgs.Common.Entities;
 using Microsoft.AspNetCore.Http;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Bgs.Bll.Abstract
 {
@@ -12,7 +14,7 @@ namespace Bgs.Bll.Abstract
         public void SaveDetails(int userId, string fisrtname, string lastname);
         public void SaveUserAddress(int userId, string fullName, string line1, string line2, string city, string state, string zipCode, string phoneNumber);
         public void SavePaymentDetails(int userId, string cardholderName, string cardNumber, int expirationMonth, int expirationYear, string cvv2);
-        public UserDetailsDto GetUserDetails(int userId);
+        public UserAccountDto GetUserAccountDetails(int userId);
         public UserAddressDto GetUserAddress(int userId);
         public UserPaymentDto GetUserPaymentDetails(int userId);
         public void ChangeUserPassword(int userId, string oldPassword, string newPassword);
@@ -20,5 +22,7 @@ namespace Bgs.Bll.Abstract
         public decimal GetBalance(int userId);
         public string UploadUserAvatar(int userId, IFormFile file);
         public void DeleteAvatar(int userId);
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname);
+        public AdminUserDetailsDto GetDetails(int userId);
     }
 }

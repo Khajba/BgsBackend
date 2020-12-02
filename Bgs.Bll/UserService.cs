@@ -10,12 +10,14 @@ using Bgs.Utility.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace Bgs.Bll
 {
     public class UserService : IUserService
     {
+        private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
         private readonly ITransactionRepository _transactionRepository;
         private readonly HttpClient _httpClient;
@@ -25,13 +27,15 @@ namespace Bgs.Bll
             IUserRepository userRepository,
             IHttpClientFactory httpClientFactory,
             ITransactionRepository transactionRepository,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IOrderRepository orderRepository
             )
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
             _httpClient = httpClientFactory.CreateClient();
             _multimediaApiBaseUri = configuration["MultimediaApiBaseUri"];
+            _orderRepository = orderRepository;
         }
 
         public User AuthenticateUser(string email, string password)
@@ -81,9 +85,18 @@ namespace Bgs.Bll
 
         }
 
-        public UserDetailsDto GetUserDetails(int userId)
+        public UserAccountDto GetUserAccountDetails(int userId)
         {
-            return _userRepository.GetUserDetails(userId);
+            var userDetails = _userRepository.GetUserDetails(userId);
+            var userAddress = _userRepository.GetUserAddress(userId);
+            var paymentDetails = _userRepository.GetUserPaymentDetails(userId);
+
+            return new UserAccountDto
+            {
+                UserDetails = userDetails,
+                UserAddress = userAddress,
+                PaymentDetails = paymentDetails
+            };
         }
 
         public UserAddressDto GetUserAddress(int userId)
@@ -188,6 +201,26 @@ namespace Bgs.Bll
         public void DeleteAvatar(int userId)
         {
             _userRepository.UpdateUserAvatarUrl(userId, null);
+        }
+
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname)
+        {
+            return _userRepository.GetUsers(pinCode, email, firstname, lastname);
+        }
+
+        public AdminUserDetailsDto GetDetails(int userId)
+        {
+            var details = _userRepository.GetUserDetails(userId);
+            var orders = _orderRepository.GetOrders(userId);
+            var transactions = _transactionRepository.GetTransactions(userId, null, null, null, null, null, null);
+
+            return new AdminUserDetailsDto
+            {
+                UserDetails = details,
+                UserOrders = orders,
+                Transactions = transactions
+            };
+
         }
     }
 }

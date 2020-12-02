@@ -17,19 +17,18 @@ namespace Bgs.Backend.Web.Api.Controllers
             _userService = userService;
         }
 
-        [HttpGet("getDetails")]
+        [HttpGet("getAccount")]
         public IActionResult GetDetails()
         {
+            var userAccount = _userService.GetUserAccountDetails(CurrentUserId);
 
-            var userDetails = _userService.GetUserDetails(CurrentUserId);
-
-            return Ok(userDetails);
+            return Ok(userAccount);
         }
 
         [HttpPost("saveDetails")]
         public IActionResult SaveDetails(SaveDetailsModel model)
         {
-            _userService.SaveDetails(CurrentUserId,model.Firstname, model.Lastname);
+            _userService.SaveDetails(CurrentUserId, model.Firstname, model.Lastname);
             return Ok();
         }
 
@@ -70,7 +69,7 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpPost("addBalance")]
-        public IActionResult AddBalance([FromBody][Required]decimal amount)
+        public IActionResult AddBalance([FromBody][Required] decimal amount)
         {
             _userService.AddBalance(CurrentUserId, amount);
             return Ok();
@@ -84,11 +83,10 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpPost("uploadUserAvatar")]
-
         public IActionResult UploadUserAvatar(IFormFile file)
         {
-           var avatarUrl = _userService.UploadUserAvatar(CurrentUserId, file);
-            return Ok(new UploadUserAvatarResponseModel { AvatarUrl =avatarUrl} );
+            var avatarUrl = _userService.UploadUserAvatar(CurrentUserId, file);
+            return Ok(new UploadUserAvatarResponseModel { AvatarUrl = avatarUrl });
         }
 
         [HttpPost("removeAvatar")]

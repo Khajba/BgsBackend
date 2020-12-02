@@ -5,6 +5,7 @@ using Bgs.DataConnectionManager.SqlServer;
 using Bgs.DataConnectionManager.SqlServer.Extensions;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 
 namespace Bgs.Dal
 {
@@ -85,13 +86,13 @@ namespace Bgs.Dal
             }
         }
 
-        public UserDetailsDto GetUserDetails(int userId)
+        public UserDto GetUserDetails(int userId)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetUserDetails"))
             {
                 cmd.AddParameter("Id", userId);
 
-                return cmd.ExecuteReaderSingle<UserDetailsDto>();
+                return cmd.ExecuteReaderSingle<UserDto>();
             }
         }
 
@@ -243,6 +244,19 @@ namespace Bgs.Dal
                 cmd.AddParameter("AvatarUrl", avatarUrl);
 
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname)
+        {
+            using (var cmd = GetSpCommand($"{ _schemaUser}.GetUsers"))
+            {
+                cmd.AddParameter("PinCode", pinCode);
+                cmd.AddParameter("Email", email);
+                cmd.AddParameter("Firstname", firstname);
+                cmd.AddParameter("Lastname", lastname);
+
+                return cmd.ExecuteReaderClosed<UserListItemDto>();
             }
         }
     }

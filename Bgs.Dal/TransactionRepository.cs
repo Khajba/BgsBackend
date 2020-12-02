@@ -32,14 +32,15 @@ namespace Bgs.Dal
             };
         }
 
-        public IEnumerable<TransactionDto> GetTransactions(int? typeId, string pincode, DateTime startDate, DateTime endDate, decimal? amountFrom, decimal? amountTo)
+        public IEnumerable<TransactionDto> GetTransactions(int? userId, int? typeId, string pincode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo)
         {
             using (var cmd = GetSpCommand($"{_schemaTransaction}.GetTransactions"))
             {
+                cmd.AddParameter("UserId", userId);
                 cmd.AddParameter("TypeId", typeId);
                 cmd.AddParameter("Pincode", pincode);
-                cmd.AddParameter("StartDate", startDate);
-                cmd.AddParameter("EndDate", endDate);
+                cmd.AddParameter("StartDate", dateFrom);
+                cmd.AddParameter("EndDate", dateTo);
                 cmd.AddParameter("AmountFrom", amountFrom);
                 cmd.AddParameter("AmountTo", amountTo);
              

@@ -14,7 +14,7 @@ namespace Bgs.Common.Dtos
 
         public DateTime CreateDate { get; set; }
 
-        public string Pincode { get; set; }
+        public string PinCode { get; set; }
 
         public decimal Amount { get; set; }
     }
