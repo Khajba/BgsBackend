@@ -48,5 +48,13 @@ namespace Bgs.Backend.Admin.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("getOrders")]
+        public IActionResult GetOrders(int userId, int? pageNumber, int? pageSize)
+        {
+            var orders = _orderService.GetOrders(userId, pageNumber, pageSize);
+            return Ok(orders);
+        }
+
+
     }
 }
