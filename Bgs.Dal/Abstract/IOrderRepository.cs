@@ -7,7 +7,7 @@ namespace Bgs.Dal.Abstract
 {
     public interface IOrderRepository
     {
-        public IEnumerable<OrderDto> GetOrders(int userId);
+        public IEnumerable<OrderDto> GetOrders(int userId, int? pageNumber, int? PageSize);
 
         public void UpdateOrderStatus(int orderId, int status);
 

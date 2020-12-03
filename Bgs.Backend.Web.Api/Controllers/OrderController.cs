@@ -1,6 +1,7 @@
 ﻿using Bgs.Backend.Web.Api.Models;
 using Bgs.Bll.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bgs.Backend.Web.Api.Controllers
 {
@@ -17,9 +18,9 @@ namespace Bgs.Backend.Web.Api.Controllers
         }
 
         [HttpGet("getOrders")]
-        public IActionResult GetOrders()
+        public IActionResult GetOrders([Required] int pageNumber, [Required] int pageSize)
         {
-            var items = _orderService.GetOrders(CurrentUserId);
+            var items = _orderService.GetOrders(CurrentUserId, pageNumber, pageSize);
             return Ok(items);
         }
 

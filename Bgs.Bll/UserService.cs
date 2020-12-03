@@ -211,7 +211,7 @@ namespace Bgs.Bll
         public AdminUserDetailsDto GetDetails(int userId)
         {
             var details = _userRepository.GetUserDetails(userId);
-            var orders = _orderRepository.GetOrders(userId);
+            var orders = _orderRepository.GetOrders(userId,null,null);
             var transactions = _transactionRepository.GetTransactions(userId, null, null, null, null, null, null, null, null);
 
             return new AdminUserDetailsDto

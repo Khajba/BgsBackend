@@ -49,12 +49,14 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<OrderDto> GetOrders(int userId)
+        public IEnumerable<OrderDto> GetOrders(int userId, int? pageNumber, int? pageSize)
         {
             using (var cmd = GetSpCommand($"{_schemaUser}.GetOrders"))
             {
 
                 cmd.AddParameter("UserId", userId);
+                cmd.AddParameter("pageNumber", pageNumber);
+                cmd.AddParameter("PageSize", pageSize);
 
                 return cmd.ExecuteReader<OrderDto>();
             }
