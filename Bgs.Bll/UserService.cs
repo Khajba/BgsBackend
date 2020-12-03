@@ -205,13 +205,13 @@ namespace Bgs.Bll
 
         public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname, int? pageNumber, int? PageSize)
         {
-            return _userRepository.GetUsers(pinCode, email, firstname, lastname, pageNumber,PageSize);
+            return _userRepository.GetUsers(pinCode, email, firstname, lastname, pageNumber, PageSize);
         }
 
         public AdminUserDetailsDto GetDetails(int userId)
         {
             var details = _userRepository.GetUserDetails(userId);
-            var orders = _orderRepository.GetOrders(userId,null,null);
+            var orders = _orderRepository.GetOrders(userId, null, null);
             var transactions = _transactionRepository.GetTransactions(userId, null, null, null, null, null, null, null, null);
 
             return new AdminUserDetailsDto

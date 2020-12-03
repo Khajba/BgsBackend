@@ -31,6 +31,7 @@ namespace Bgs.Backend.Admin.Api
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<ICategoryService, CategoryService>();
             services.AddSingleton<ITransactionService, TransactionService>();
+            services.AddSingleton<IOrderService, OrderService>();
 
             // repositories
             services.AddSingleton<IInternalUserRepository, InternalUserRepository>();
@@ -39,6 +40,7 @@ namespace Bgs.Backend.Admin.Api
             services.AddSingleton<ITransactionRepository, TransactionRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IOrderRepository, OrderRepository>();
+            services.AddSingleton<ICartRepository, CartRepository>();
 
 
             services.AddHttpClient();

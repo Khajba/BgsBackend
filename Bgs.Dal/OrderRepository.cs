@@ -55,7 +55,7 @@ namespace Bgs.Dal
             {
 
                 cmd.AddParameter("UserId", userId);
-                cmd.AddParameter("pageNumber", pageNumber);
+                cmd.AddParameter("PageNumber", pageNumber);
                 cmd.AddParameter("PageSize", pageSize);
 
                 return cmd.ExecuteReader<OrderDto>();
