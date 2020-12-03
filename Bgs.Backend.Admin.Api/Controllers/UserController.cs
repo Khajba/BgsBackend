@@ -28,9 +28,9 @@ namespace Bgs.Backend.Admin.Api.Controllers
         }
 
         [HttpGet("getDetails")]
-        public IActionResult GetDetails([Required] int userId)
+        public IActionResult GetDetails([Required] int userId, [Required] int pageSize)
         {
-            var userDetails = _userService.GetDetails(userId);
+            var userDetails = _userService.GetDetails(userId,0,pageSize);
             return Ok(userDetails);
         }
 

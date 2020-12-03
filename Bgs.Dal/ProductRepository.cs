@@ -32,7 +32,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("DesignerId", designerId);
                 cmd.AddParameter("MechanicsId", mechanicsId);
 
-                return cmd.ExecuteReaderPrimitiveClosed<int>("Id");
+                return cmd.ExecuteReaderPrimitive<int>("Id");
             }
         }
 
@@ -57,7 +57,7 @@ namespace Bgs.Dal
         {
             using (var cmd = GetSpCommand($"{_SchemaProduct}.GetProductCategories"))
             {
-                return cmd.ExecuteReaderClosed<ProductType>();
+                return cmd.ExecuteReader<ProductType>();
             }
         }
 
@@ -91,7 +91,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("MechanicsId", mechanicsId);
                 cmd.AddParameter("SortOrder", sortOrder);
 
-                return cmd.ExecuteReaderClosed<ProductDto>();
+                return cmd.ExecuteReader<ProductDto>();
             }
         }
 
@@ -101,7 +101,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("Id", id);
 
-                return cmd.ExecuteReaderSingleClosed<Product>();
+                return cmd.ExecuteReaderSingle<Product>();
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("ProductId", id);
 
-                return cmd.ExecuteReaderClosed<ProductAttachment>();
+                return cmd.ExecuteReader<ProductAttachment>();
             }
         }
 
@@ -153,7 +153,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("mechanicsId", mechanicsId);
 
 
-                return cmd.ExecuteReaderPrimitiveClosed<int>("Count");
+                return cmd.ExecuteReaderPrimitive<int>("Count");
             }
         }
 
@@ -195,7 +195,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("Id", productId);
 
-                return cmd.ExecuteReaderSingleClosed<ProductDetailsDto>();
+                return cmd.ExecuteReaderSingle<ProductDetailsDto>();
             }
         }
 
@@ -228,7 +228,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("ProductId", productId);
 
-                return cmd.ExecuteReaderClosed<CommentDto>();
+                return cmd.ExecuteReader<CommentDto>();
             }
         }
 
@@ -238,7 +238,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("ProductId", productId);
 
-                return cmd.ExecuteReaderPrimitiveClosed<int>("Quantity");
+                return cmd.ExecuteReaderPrimitive<int>("Quantity");
             }
         }
 

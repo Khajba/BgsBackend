@@ -23,7 +23,7 @@ namespace Bgs.Bll.Abstract
         public string UploadUserAvatar(int userId, IFormFile file);
         public void DeleteAvatar(int userId);
         public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname, int? pageNumber, int? PageSize);
-        public AdminUserDetailsDto GetDetails(int userId);
+        public AdminUserDetailsDto GetDetails(int userId, int pageNumber, int pageSize);
         public int GetUsersCount(string pinCode, string email, string firstname, string lastname);
     }
 }

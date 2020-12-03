@@ -208,11 +208,11 @@ namespace Bgs.Bll
             return _userRepository.GetUsers(pinCode, email, firstname, lastname, pageNumber, PageSize);
         }
 
-        public AdminUserDetailsDto GetDetails(int userId)
+        public AdminUserDetailsDto GetDetails(int userId, int pageNumber, int pageSize)
         {
             var details = _userRepository.GetUserDetails(userId);
-            var orders = _orderRepository.GetOrders(userId, null, null);
-            var transactions = _transactionRepository.GetTransactions(userId, null, null, null, null, null, null, null, null);
+            var orders = _orderRepository.GetOrders(userId, pageNumber, pageSize);
+            var transactions = _transactionRepository.GetTransactions(userId, null, null, null, null, null, null, pageNumber, pageSize);
 
             return new AdminUserDetailsDto
             {

@@ -93,7 +93,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("StatusIdActive", statusId);
 
-                return cmd.ExecuteReaderClosed<Artist>();
+                return cmd.ExecuteReader<Artist>();
             }
         }
 
@@ -103,7 +103,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("StatusIdActive", statusId);
 
-                return cmd.ExecuteReaderClosed<Designer>();
+                return cmd.ExecuteReader<Designer>();
             }
         }
 
@@ -113,7 +113,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("StatusIdActive", statusId);
 
-                return cmd.ExecuteReaderClosed<Designer>();
+                return cmd.ExecuteReader<Designer>();
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("Email", email);
                 cmd.AddParameter("Password", password);
 
-                return cmd.ExecuteReaderSingleClosed<InternalUser>();
+                return cmd.ExecuteReaderSingle<InternalUser>();
             }
         }
     }

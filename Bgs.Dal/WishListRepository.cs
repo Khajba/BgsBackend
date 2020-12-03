@@ -26,7 +26,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("UserId", userId);
 
-                return cmd.ExecuteReaderSingleClosed<WishListItem>();
+                return cmd.ExecuteReaderSingle<WishListItem>();
             }
         }
 
@@ -59,7 +59,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("UserId", userId);
 
-                return cmd.ExecuteReaderClosed<WishListItemDto>();
+                return cmd.ExecuteReader<WishListItemDto>();
             }
         }
     }

@@ -60,7 +60,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("ProductId", productId);
                 cmd.AddParameter("UserId", userId);
 
-                return cmd.ExecuteReaderSingleClosed<CartItem>();
+                return cmd.ExecuteReaderSingle<CartItem>();
             }
         }
 
@@ -70,7 +70,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("UserId", userId);
 
-                return cmd.ExecuteReaderClosed<CartItemDto>();
+                return cmd.ExecuteReader<CartItemDto>();
             }
         }
 
