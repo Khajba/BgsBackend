@@ -41,7 +41,7 @@ namespace Bgs.Bll
 
         }
 
-        public IEnumerable<OrderDto> GetOrders(int userId, int pageNumber, int PageSize)
+        public IEnumerable<OrderDto> GetOrders(int userId, int? pageNumber, int? PageSize)
         {
             return _orderRepository.GetOrders(userId,pageNumber,PageSize);
         }
