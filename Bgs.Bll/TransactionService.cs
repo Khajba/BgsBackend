@@ -15,11 +15,16 @@ namespace Bgs.Bll
         public TransactionService(ITransactionRepository transactionRepository)
         {
             _transactionRepository = transactionRepository;
+        }        
+
+        public IEnumerable<TransactionDto> GetTransactions(int? typeId, string pinCode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo, int? pageNumber, int? pageSize)
+        {
+            return _transactionRepository.GetTransactions(null,typeId, pinCode, dateFrom, dateTo, amountFrom, amountTo, pageNumber, pageSize);
         }
 
-        public IEnumerable<TransactionDto> GetTransactions(int? typeId, string pinCode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo)
+        public int GetTransactionsCount(int? typeId, string pinCode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo)
         {
-            return _transactionRepository.GetTransactions(null, typeId, pinCode, dateFrom, dateTo, amountFrom, amountTo);
+           return _transactionRepository.GetTransactionsCount(typeId, pinCode, dateFrom, dateTo, amountFrom, amountTo);
         }
     }
 }

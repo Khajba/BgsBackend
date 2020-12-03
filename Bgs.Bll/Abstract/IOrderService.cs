@@ -12,5 +12,7 @@ namespace Bgs.Bll.Abstract
         public void UpdateOrderStatus(int orderId);
 
         public void PlaceOrder(int userId);
+
+        public int GetOrdersCount(int userId);
     }
 }

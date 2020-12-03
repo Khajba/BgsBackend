@@ -15,5 +15,9 @@ namespace Bgs.Backend.Admin.Api.Models.Transaction
         public decimal? AmountFrom { get; set; }
 
         public decimal? AmountTo { get; set; }
+
+        public int? PageNumber { get; set; } = 0;
+
+        public int? PageSize { get; set; } = 10;
     }
 }

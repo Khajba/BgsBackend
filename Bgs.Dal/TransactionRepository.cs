@@ -32,7 +32,7 @@ namespace Bgs.Dal
             };
         }
 
-        public IEnumerable<TransactionDto> GetTransactions(int? userId, int? typeId, string pincode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo)
+        public IEnumerable<TransactionDto> GetTransactions(int? userId, int? typeId, string pincode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo, int? pageNumber, int? PageSize)
         {
             using (var cmd = GetSpCommand($"{_schemaTransaction}.GetTransactions"))
             {
@@ -43,10 +43,27 @@ namespace Bgs.Dal
                 cmd.AddParameter("EndDate", dateTo);
                 cmd.AddParameter("AmountFrom", amountFrom);
                 cmd.AddParameter("AmountTo", amountTo);
+                cmd.AddParameter("PageNumber", pageNumber);
+                cmd.AddParameter("PageSize", PageSize);
              
 
-                return cmd.ExecuteReaderClosed<TransactionDto>();
+                return cmd.ExecuteReader<TransactionDto>();
             }
+        }
+
+        public int GetTransactionsCount(int? typeId, string pincode, DateTime? dateFrom, DateTime? dateTo, decimal? amountFrom, decimal? amountTo)
+        {
+            using (var cmd = GetSpCommand($"{_schemaTransaction}.GetTransactionsCount"))
+            {
+                cmd.AddParameter("TypeId", typeId);                
+                cmd.AddParameter("Pincode", pincode);
+                cmd.AddParameter("StartDate", dateFrom);
+                cmd.AddParameter("EndDate", dateTo);
+                cmd.AddParameter("AmountFrom", amountFrom);
+                cmd.AddParameter("AmountTo", amountTo);
+
+                return cmd.ExecuteReaderPrimitive<int>("Count");
+            };
         }
     }
 }

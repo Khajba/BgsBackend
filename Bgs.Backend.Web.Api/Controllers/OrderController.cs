@@ -30,5 +30,12 @@ namespace Bgs.Backend.Web.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("getOrdersCount")]
+        public IActionResult GetOrdersCount()
+        {
+            var count = _orderService.GetOrdersCount(CurrentUserId);
+            return Ok(count);
+        }
+
     }
 }

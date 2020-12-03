@@ -14,5 +14,9 @@ namespace Bgs.Backend.Admin.Api.Models.User
         public string Firstname { get; set; }
 
         public string Lastname { get; set; }
+
+        public int? PageNumber { get; set; }
+
+        public int? PageSize { get; set; }
     }
 }

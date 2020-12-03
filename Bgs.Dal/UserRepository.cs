@@ -27,7 +27,7 @@ namespace Bgs.Dal
                 cmd.AddParameter("Password", password);
                 cmd.AddParameter("StatusIdActive", statusId);
 
-                return cmd.ExecuteReaderSingleClosed<User>();
+                return cmd.ExecuteReaderSingle<User>();
             }
         }
 
@@ -72,7 +72,7 @@ namespace Bgs.Dal
             {
                 cmd.AddParameter("Id", Id);
 
-                return cmd.ExecuteReaderSingleClosed<User>();
+                return cmd.ExecuteReaderSingle<User>();
             }
         }
 
@@ -247,7 +247,7 @@ namespace Bgs.Dal
             }
         }
 
-        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname)
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname, int? pageNumber, int? PageSize)
         {
             using (var cmd = GetSpCommand($"{ _schemaUser}.GetUsers"))
             {
@@ -255,8 +255,23 @@ namespace Bgs.Dal
                 cmd.AddParameter("Email", email);
                 cmd.AddParameter("Firstname", firstname);
                 cmd.AddParameter("Lastname", lastname);
+                cmd.AddParameter("PageNumber", pageNumber);
+                cmd.AddParameter("PageSize", PageSize);
 
-                return cmd.ExecuteReaderClosed<UserListItemDto>();
+                return cmd.ExecuteReader<UserListItemDto>();
+            }
+        }
+
+        public int GetUsersCount(string pinCode, string email, string firstname, string lastname)
+        {
+            using (var cmd = GetSpCommand($"{ _schemaUser}.GetUsersCount"))
+            {
+                cmd.AddParameter("PinCode", pinCode);
+                cmd.AddParameter("Email", email);
+                cmd.AddParameter("Firstname", firstname);
+                cmd.AddParameter("Lastname", lastname);
+
+                return cmd.ExecuteReaderPrimitive<int>("Count");
             }
         }
     }

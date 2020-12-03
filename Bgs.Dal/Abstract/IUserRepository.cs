@@ -44,7 +44,9 @@ namespace Bgs.Dal.Abstract
 
         public void UpdateUserAvatarUrl(int userId, string avatarUrl);
 
-        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname);
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname, int? pageNumber, int? PageSize);
+
+        public int GetUsersCount(string pinCode, string email, string firstname, string lastname);
 
 
     }

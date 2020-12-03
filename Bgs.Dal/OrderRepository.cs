@@ -56,7 +56,18 @@ namespace Bgs.Dal
 
                 cmd.AddParameter("UserId", userId);
 
-                return cmd.ExecuteReaderClosed<OrderDto>();
+                return cmd.ExecuteReader<OrderDto>();
+            }
+        }
+
+        public int GetOrdersCount(int userId)
+        {
+            using (var cmd = GetSpCommand($"{_schemaUser}.GetOrdersCount"))
+            {
+
+                cmd.AddParameter("UserId", userId);
+
+                return cmd.ExecuteReaderPrimitive<int>("Count");
             }
         }
 

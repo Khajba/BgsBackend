@@ -22,7 +22,8 @@ namespace Bgs.Bll.Abstract
         public decimal GetBalance(int userId);
         public string UploadUserAvatar(int userId, IFormFile file);
         public void DeleteAvatar(int userId);
-        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname);
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname, int? pageNumber, int? PageSize);
         public AdminUserDetailsDto GetDetails(int userId);
+        public int GetUsersCount(string pinCode, string email, string firstname, string lastname);
     }
 }

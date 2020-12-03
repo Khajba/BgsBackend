@@ -203,16 +203,16 @@ namespace Bgs.Bll
             _userRepository.UpdateUserAvatarUrl(userId, null);
         }
 
-        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname)
+        public IEnumerable<UserListItemDto> GetUsers(string pinCode, string email, string firstname, string lastname, int? pageNumber, int? PageSize)
         {
-            return _userRepository.GetUsers(pinCode, email, firstname, lastname);
+            return _userRepository.GetUsers(pinCode, email, firstname, lastname, pageNumber,PageSize);
         }
 
         public AdminUserDetailsDto GetDetails(int userId)
         {
             var details = _userRepository.GetUserDetails(userId);
             var orders = _orderRepository.GetOrders(userId);
-            var transactions = _transactionRepository.GetTransactions(userId, null, null, null, null, null, null);
+            var transactions = _transactionRepository.GetTransactions(userId, null, null, null, null, null, null, null, null);
 
             return new AdminUserDetailsDto
             {
@@ -221,6 +221,11 @@ namespace Bgs.Bll
                 Transactions = transactions
             };
 
+        }
+
+        public int GetUsersCount(string pinCode, string email, string firstname, string lastname)
+        {
+            return _userRepository.GetUsersCount(pinCode, email, firstname, lastname);
         }
     }
 }

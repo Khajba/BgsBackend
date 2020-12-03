@@ -46,6 +46,11 @@ namespace Bgs.Bll
             return _orderRepository.GetOrders(userId);
         }
 
+        public int GetOrdersCount(int userId)
+        {
+            return _orderRepository.GetOrdersCount(userId);
+        }
+
         public void PlaceOrder(int userId)
         {
             var balance = _userRepository.GetBalance(userId);
